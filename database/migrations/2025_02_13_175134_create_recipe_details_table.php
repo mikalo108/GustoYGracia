@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('recipe_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('recipe_id')->unique();
+            $table->foreignId('recipe_id')->constrained()->cascadeOnDelete();
             $table->integer('prep_time');
             $table->string('difficulty_level', 50);
             $table->timestamps();

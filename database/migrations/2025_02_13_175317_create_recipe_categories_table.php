@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('recipe_categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('recipe_id');
-            $table->foreignId('category_id');
+            $table->foreignId('recipe_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
