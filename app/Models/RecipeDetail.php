@@ -5,19 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Recipe_categories extends Model
+class RecipeDetail extends Model
 {
     use HasFactory;
 
-    protected $table = 'recipe_categories';
+    protected $table = 'recipe_details';
 
     public function recipe()
     {
         return $this->belongsTo(Recipe::class);
-    }
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
     }
 }
