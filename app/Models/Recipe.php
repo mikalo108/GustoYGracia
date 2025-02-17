@@ -13,7 +13,7 @@ class Recipe extends Model
 
     public function ingredients()
     {
-        return $this->belongsToMany(RecipeIngredient::class)
+        return $this->belongsToMany(Ingredient::class)
             ->withPivot('quantity')
             ->withTimestamps();
     }

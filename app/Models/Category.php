@@ -13,7 +13,7 @@ class Category extends Model
 
     public function recipes()
     {
-        return $this->belongsToMany(RecipeCategory::class)
+        return $this->belongsToMany(Recipe::class)
             ->withTimestamps();
     }
     
