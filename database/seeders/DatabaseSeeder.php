@@ -15,19 +15,20 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        /*User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
-        ]);
+        ]);*/
         
+        
+        $this->call(ContactTableSeeder::class);
+        $this->call(UserTableSeeder::class);
+        $this->call(RecipeTableSeeder::class);
         $this->call(CategoryTableSeeder::class);
         $this->call(CommentTableSeeder::class);
-        $this->call(ContactTableSeeder::class);
         $this->call(IngredientTableSeeder::class);
         $this->call(RecipeCategoryTableSeeder::class);
         $this->call(RecipeIngredientTableSeeder::class);
         $this->call(RecipeDetailTableSeeder::class);
-        $this->call(RecipeTableSeeder::class);
-        $this->call(UserTableSeeder::class);
     }
 }

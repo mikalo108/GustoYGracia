@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Contact;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -19,10 +20,10 @@ class UserTableSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'John Doe',
             'email' => 'john.doe@example.com',
-            'password' => Hash::make('password'), // ¡Encripta la contraseña!
-            'email_verified_at' => now(), // O null si no se ha verificado
-            'remember_token' => Str::random(10), // O null
-            'contact_id' => '1', // Asigna un contact_id aleatorio
+            'password' => Hash::make('password'),
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'contact_id' => Contact::all()->random()->id
         ]);
 
     }
