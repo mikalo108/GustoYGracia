@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->string('description');
+            $table->string('instructions');
             $table->foreignId('user_id')->unique();
             $table->timestamps();
         });
