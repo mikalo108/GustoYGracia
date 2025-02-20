@@ -4,6 +4,10 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Comment;
+use App\Models\User;
+use App\Models\Recipe;
+use Illuminate\Support\Facades\DB;
 
 class CommentTableSeeder extends Seeder
 {
@@ -12,6 +16,24 @@ class CommentTableSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $users = User::all();
+        $recipes = Recipe::all();
+
+        if ($users->isEmpty() || $recipes->isEmpty()) {
+            $this->command->warn('No users or recipes found. Please create them first.');
+            return;
+        }
+        
+        DB::table('comments')->insert([
+            'user_id' => $users->random()->id,
+            'recipe_id' => $recipes->random()->id,
+            'content' => 'This recipe is amazing!',
+        ]);
+
+        DB::table('comments')->insert([
+            'user_id' => $users->random()->id,
+            'recipe_id' => $recipes->random()->id,
+            'content' => 'I love this recipe!',
+        ]);
     }
 }
