@@ -20,12 +20,12 @@ class User extends Authenticatable
 
     public function contact()
     {
-        return $this->hasOne(Contact::class, 'user_id');
+        return $this->hasOne(Contact::class);
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'user_id');
+        return $this->hasMany(Comment::class);
     }
     
     /**
