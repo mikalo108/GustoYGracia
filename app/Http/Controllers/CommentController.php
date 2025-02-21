@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Models\Recipe;
 
 class CommentController extends Controller
 {
@@ -13,8 +15,9 @@ class CommentController extends Controller
     }
 
     public function create() { 
-        $comments = Comment::all();
-        return view('comment/form', ['comments' => $comments]);  
+        $users = User::all();
+        $recipes = Recipe::all();
+        return view('comment/form', ['users' => $users, 'recipes' => $recipes]);  
     }
 
     public function store(Request $r) { 
