@@ -7,4 +7,7 @@ Route::get('/', function () {
 });
 
 Route::resource('category', 'CategoryController');
-Route::get('/categories/delete/{category_id}', 'CategoryController@destroy')->name('category.myDestroy');
+Route::get('/category/delete/{category}', 'CategoryController@destroy')->name('category.myDestroy');
+
+Route::resource('comment', 'CommentController');
+Route::get('/comment/delete/{comment}', 'CommentController@destroy')->name('comment.myDestroy');
