@@ -24,6 +24,7 @@ class RecipeTableSeeder extends Seeder
         
         DB::table('recipes')->insert([
             'name' => 'Spaghetti Carbonara',
+            'image' => '',
             'description' => 'A classic Italian pasta dish.',
             'instructions' => 'Cook pasta, fry pancetta, mix with eggs and cheese.',
             'user_id' => $users->random()->id
