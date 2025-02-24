@@ -14,30 +14,19 @@ class CommentController extends Controller
         return view('comment/all', ['commentsList'=>$commentsList]);
     }
 
-    public function create() { 
-        $users = User::all();
-        $recipes = Recipe::all();
-        return view('comment/form', ['users' => $users, 'recipes' => $recipes]);  
-    }
-
-    public function store(Request $r) { 
+    public function store(Request $r, $user, $recipe) { 
         $c = new Comment();
-        $c->user_id = $r->user_id;
-        $c->recipe_id = $r->recipe_id;
+        $c->user_id = $user->id;
+        $c->recipe_id = $recipe->id;
         $c->content = $r->content;
         $c->save();
         return redirect()->route('comment.index');
     }
 
-    public function edit($id) { 
+    public function update($id, Request $r, $user, $recipe) { 
         $c = Comment::find($id);
-        return view('comment/form', ['comment' => $c]);
-    }
-
-    public function update($id, Request $r) { 
-        $c = Comment::find($id);
-        $c->user_id = $r->user_id;
-        $c->recipe_id = $r->recipe_id;
+        $c->user_id = $user->id;
+        $c->recipe_id = $recipe->id;
         $c->content = $r->content;
         $c->save();
         return redirect()->route('comment.index');

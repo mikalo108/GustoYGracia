@@ -9,7 +9,8 @@ Route::get('/', function () {
 Route::resource('category', 'CategoryController');
 Route::get('/category/delete/{category}', 'CategoryController@destroy')->name('category.myDestroy');
 
-Route::resource('comment', 'CommentController');
+Route::get('/comment/index', 'CommentController@index')->name('comment.index');
+Route::get('/comment/show/{comment}', 'CommentController@show')->name('comment.show');
 Route::get('/comment/delete/{comment}', 'CommentController@destroy')->name('comment.myDestroy');
 
 Route::resource('contact', 'ContactController');

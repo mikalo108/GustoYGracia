@@ -13,8 +13,7 @@ class CategoryController extends Controller
     }
 
     public function create() { 
-        $categories = Category::all();
-        return view('category/form', ['categories' => $categories]);  
+        return view('category/form');  
     }
 
     public function store(Request $r) { 
