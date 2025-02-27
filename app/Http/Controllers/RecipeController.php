@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\RecipeDetail;
+use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
@@ -19,8 +20,10 @@ class RecipeController extends Controller
     
     public function store(Request $request)
     {  
+        $imagePath= $request->file('image')->store('recipe', 'public');
         $recipe = new Recipe();
         $recipe->name = $request->name;
+        $recipe->image = $imagePath;
         $recipe->description = $request->description;
         $recipe->user_id = $request->user_id;
         $recipe->instructions = $request->instructions;
@@ -48,8 +51,21 @@ class RecipeController extends Controller
     
     public function update(Request $request, $id)
     {
+
         $recipe = Recipe::find($id);
+
+
         $recipe->name = $request->name;
+        
+        if($request->hasFile('image')){
+            if($recipe->image){
+                Storage::delete($recipe->image);
+            }
+
+            $imagePath= $request->file('image')->store('recipe', 'public');
+            $recipe->image=$imagePath;
+        }
+
         $recipe->description = $request->description;
         $recipe->user_id = $request->user_id;
         $recipe->instructions = $request->instructions;
