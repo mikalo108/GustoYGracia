@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('image', 255)->nullable();
             $table->string('description');
             $table->string('instructions');
-            $table->foreignId('user_id')->unique();
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }
