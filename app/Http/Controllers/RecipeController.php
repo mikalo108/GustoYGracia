@@ -17,10 +17,16 @@ class RecipeController extends Controller
         $categories = Category::all();
         return view('recipe.create', ['ingredients' => $ingredients, 'categories' => $categories]);
     }
+    public function show($id)
+    {
+        $recipe = Recipe::find($id);
+        $ingredients = Ingredient::all();
+        $categories = Category::all();
+        return view('recipe.show', ['recipe' => $recipe, 'ingredients' => $ingredients, 'categories' => $categories]);
+    }
     
     public function store(Request $request)
     {  
-
         $request->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
