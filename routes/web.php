@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/admin', function () {
+    return view('adminHome');
+});
 
 Route::resource('category', 'CategoryController');
 Route::get('/category/delete/{category}', 'CategoryController@destroy')->name('category.myDestroy');
