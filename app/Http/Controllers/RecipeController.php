@@ -20,6 +20,20 @@ class RecipeController extends Controller
     
     public function store(Request $request)
     {  
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|string|max:1000',
+            'user_id' => 'required|exists:users,id',
+            'instructions' => 'required|string|max:1000',
+            'prep_time' => 'required|string',
+            'difficulty_level' => 'required|string',
+            'ingredients' => 'required|array',
+            'categories' => 'required|array',
+        ]);
+
+
         $imagePath= $request->file('image')->store('recipe', 'public');
         $recipe = new Recipe();
         $recipe->name = $request->name;
@@ -29,7 +43,7 @@ class RecipeController extends Controller
         $recipe->instructions = $request->instructions;
         $recipe->save();
         
-        $recipeDetail = new RecipeDetail();
+        $recipeDetail = new RecipeDetail();        
         $recipeDetail->recipe_id = $recipe->id;
         $recipeDetail->prep_time = $request->prep_time;
         $recipeDetail->difficulty_level = $request->difficulty_level;
