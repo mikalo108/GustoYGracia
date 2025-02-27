@@ -1,0 +1,144 @@
+/* Reset de estilos básicos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fuente base */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F2F6D0; /* Fondo suave amarillo claro */
+    color: #443627; /* Texto oscuro marrón */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Asegura que el cuerpo ocupe al menos toda la altura de la pantalla */
+}
+
+/* Header */
+header {
+    background-color: #443627; /* Fondo marrón oscuro */
+    padding: 10px 20px;
+    color: white;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.search-bar {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0 20px;
+}
+
+.search-bar input {
+    width: 80%;
+    padding: 10px;
+    border: 2px solid #D98324; /* Borde naranja cálido */
+    border-radius: 5px;
+    font-size: 16px;
+    color: #443627; /* Texto oscuro en la barra de búsqueda */
+}
+
+.search-btn {
+    background-color: #D98324; /* Naranja cálido para el botón */
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-btn img {
+    height: 20px;
+    width: 20px;
+}
+
+.profile a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.profile img {
+    height: 25px;
+    width: 25px;
+    margin-right: 8px;
+}
+
+/* Nav */
+nav {
+    background-color: #443627; /* Fondo marrón oscuro */
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    color: #D98324; /* Naranja cálido en hover */
+}
+
+/* Main Section (Content Section) */
+.content-container {
+    display: flex;
+    justify-content: space-between;
+    flex: 1; /* Esto hace que el contenido principal ocupe el espacio restante */
+    height: auto; /* Ajusta automáticamente la altura según el contenido */
+    padding: 0; /* Elimina cualquier espacio extra */
+}
+
+/* Asides: más estrechos */
+.sidebar-left, .sidebar-right {
+    width: 18%; /* Reducimos el ancho de los asides */
+    padding: 15px;
+}
+
+/* Main Content */
+.main-content {
+    width: 64%; /* El contenido principal ocupa el 64% del espacio */
+    padding: 20px;
+    background-color: #EFDCAB; /* Fondo beige claro para el contenido principal */
+    border-radius: 8px; /* Bordes redondeados para darle un toque suave */
+}
+
+/* Footer */
+footer {
+    background-color: #443627; /* Fondo marrón oscuro */
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 0; /* Elimina el margen superior */
+    width: 100%; /* Asegura que el footer ocupe todo el ancho */
+}
+
+footer .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
