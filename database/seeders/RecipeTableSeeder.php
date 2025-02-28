@@ -26,7 +26,7 @@ class RecipeTableSeeder extends Seeder
             [
                 'name' => 'Spaghetti Carbonara',
                 'image' => 'recipes/spaghetti_carbonara.jpg',
-                'description' => 'A classic Italian pasta dish.',
+                'description' => 'Un plato clásico de Italia.',
                 'instructions' => 'Cook pasta, fry pancetta, mix with eggs and cheese.',
                 'user_id' => $users->random()->id,
             ],

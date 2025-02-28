@@ -1,14 +1,28 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::post('/change-language', function (Request $request) {
+    $language = $request->input('language');
+    Session::put('locale', $language);
+    App::setLocale($language);
+    return redirect()->back();
+})->name('changeLanguage');
+
+Route::get('/', 'CategoryController@index');
+
+Route::get('/e', function () {
+    return redirect('http://localhost/laravel/GustoYGracia/public/');
+})->name('e');
+
 Route::get('/admin', function () {
     return view('adminHome');
 });
 
+Route::get('/categories', 'CategoryController@showCategories');  // Esta ruta es para ver todas las categorías en otra vista
 Route::resource('category', 'CategoryController');
 Route::get('/category/delete/{category}', 'CategoryController@destroy')->name('category.myDestroy');
 

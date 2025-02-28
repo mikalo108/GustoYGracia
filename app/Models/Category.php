@@ -11,6 +11,29 @@ class Category extends Model
 
     protected $table = 'categories';
 
+    // Relación con las traducciones
+    public function translations()
+    {
+        return $this->hasMany(CategoryTranslation::class);
+    }
+
+     // Método para obtener la traducción en el idioma actual
+     public function getNameAttribute()
+     {
+         $locale = app()->getLocale();  // Obtiene el idioma actual
+         $translation = $this->translations->where('locale', $locale)->first();
+ 
+         return $translation ? $translation->name : null;
+     }
+ 
+     public function getDescriptionAttribute()
+     {
+         $locale = app()->getLocale();  // Obtiene el idioma actual
+         $translation = $this->translations->where('locale', $locale)->first();
+ 
+         return $translation ? $translation->description : null;
+     }
+
     public function recipes()
     {
         return $this->belongsToMany(Recipe::class, 'recipe_categories')
