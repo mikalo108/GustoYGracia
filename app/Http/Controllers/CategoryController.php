@@ -7,9 +7,15 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    public function index() { 
-        $categoryList = Category::all();
-        return view('category/all', ['categoryList'=>$categoryList]);
+    public function index() {
+        $categoryList = Category::all();  // Obtener todas las categorías
+        return view('home', ['categoryList' => $categoryList]);
+    }    
+
+    public function showCategories()
+    {
+        $categoryList = Category::all();  // Obtener todas las categorías
+        return view('category.index', ['categoryList' => $categoryList]);  // Esta vista es para la página de categorías
     }
 
     public function create() { 

@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-<?php
-use App\Models\Category;
-$categories = Category::all();
-?>
-
 <head>
     <meta charset="utf-8" />
     <title>@yield('title', 'Título por defecto')</title>
@@ -55,7 +50,7 @@ $categories = Category::all();
     <nav>
         <ul>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                @foreach ($categories as $category)
+                @foreach ($categoryList as $category)
                     <li class="nav-item">
                         <a class="nav-link" href="/{{ $category->name }}">{{ $category->name }}</a>
                     </li>
