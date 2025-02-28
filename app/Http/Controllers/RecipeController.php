@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
+    public function index(){
+        $recipes = Recipe::all();
+        return view('recipe/all', ['recipes'=>$recipes]);
+    }
     public function create()
     {
         $ingredients = Ingredient::all();
