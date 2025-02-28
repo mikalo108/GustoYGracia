@@ -1,3 +1,9 @@
+<?php
+if (Session::has('locale')) {
+    App::setLocale(Session::get('locale'));
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,7 +25,7 @@
 
             <!-- Buscador -->
             <div class="search-bar">
-                <input type="text" placeholder="Buscar recetas...">
+                <input type="text" placeholder="{{ __('messages.SearchRecipes') }}">
                 <button class="search-btn">
                     <img src="{{ asset('images/lupa-icon.png') }}" alt="Buscar">
                 </button>
@@ -29,7 +35,7 @@
             <div class="profile">
                 <a href="/perfil">
                     <img src="{{ asset('images/user-icon.png') }}" alt="Perfil">
-                    Mi Perfil
+                    {{ __('messages.MyProfile') }}
                 </a>
             </div>
 

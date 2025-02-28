@@ -4,13 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Recipe;
 
 class CategoryController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $categoryList = Category::all();  // Obtener todas las categorías
-        return view('home', ['categoryList' => $categoryList]);
-    }    
+        $recipeList = Recipe::all();  // Puedes aplicar filtros si necesitas alguna condición específica
+        return view('home', [
+            'categoryList' => $categoryList,
+            'recipesList' => $recipeList,
+        ]);
+    }
 
     public function showCategories()
     {
@@ -18,11 +24,13 @@ class CategoryController extends Controller
         return view('category.index', ['categoryList' => $categoryList]);  // Esta vista es para la página de categorías
     }
 
-    public function create() { 
-        return view('category/form');  
+    public function create()
+    {
+        return view('category/form');
     }
 
-    public function store(Request $r) { 
+    public function store(Request $r)
+    {
         $c = new Category();
         $c->name = $r->name;
         $c->description = $r->description;
@@ -30,19 +38,22 @@ class CategoryController extends Controller
         return redirect()->route('category.index');
     }
 
-    public function edit($id) { 
+    public function edit($id)
+    {
         $c = Category::find($id);
         return view('category/form', ['category' => $c]);
     }
 
-    public function update($id, Request $r) { 
+    public function update($id, Request $r)
+    {
         $c = Category::find($id);
         $c->name = $r->name;
         $c->description = $r->description;
         $c->save();
         return redirect()->route('category.index');
     }
-    public function destroy($id) { 
+    public function destroy($id)
+    {
         $c = Category::find($id);
         $c->delete();
         return redirect()->route('category.index');
