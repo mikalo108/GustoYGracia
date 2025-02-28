@@ -1,4 +1,4 @@
-/* Reset de estilos básicos */ 
+/* Reset de márgenes y rellenos */
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +9,7 @@
 body {
     font-family: 'Jost', sans-serif;
     background-color: #FBF5DD; /* Fondo claro */
-    color: #16404D; /* Texto en azul oscuro para mejor contraste */
+    color: #16404D; /* Texto en azul oscuro */
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* Asegura que el cuerpo ocupe al menos toda la altura de la pantalla */
@@ -48,7 +48,7 @@ header {
 .search-bar input {
     width: 80%;
     padding: 10px;
-    border: 2px solid #16404D; /* Borde azul oscuro para destacar */
+    border: 2px solid #16404D; /* Borde azul oscuro */
     border-radius: 5px;
     font-size: 16px;
 }
@@ -57,7 +57,7 @@ header {
     background-color: #DDA853; /* Botón amarillo dorado */
     border: none;
     padding: 12px 15px; /* Aumenté el padding para hacerlo más grande y redondeado */
-    border-radius: 50%; /* Esto lo hace completamente redondo */
+    border-radius: 50%;
     cursor: pointer;
     margin-left: 10px; /* Espacio entre el input y el botón */
 }
@@ -79,6 +79,42 @@ header {
     height: 25px;
     width: 25px;
     margin-right: 8px;
+}
+
+/* Estilos para el select de idioma */
+.language-select select {
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: 2px solid #16404D; /* Borde azul oscuro */
+    background-color: #fff;
+    font-size: 16px;
+    color: #16404D;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Cambiar color de fondo y borde cuando el select está enfocado */
+.language-select select:focus {
+    background-color: #A6CDC6; /* Fondo suave verde */
+    border-color: #DDA853; /* Borde amarillo dorado */
+    outline: none; /* Eliminar borde azul predeterminado */
+}
+
+/* Estilo para el contenedor del select */
+.language-select {
+    margin-left: 20px; /* Espacio entre el select y el perfil */
+}
+
+/* Opciones del select */
+.language-select select option {
+    font-size: 16px;
+    padding: 8px;
+    background-color: #FBF5DD; /* Fondo claro */
+    color: #16404D; /* Texto en azul oscuro */
+}
+
+.language-select select option:hover {
+    background-color: #DDA853; /* Fondo amarillo cuando el cursor pasa por encima */
 }
 
 /* Nav */

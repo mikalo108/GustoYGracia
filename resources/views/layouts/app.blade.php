@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php
-    use App\Models\Category;
-    $categories = Category::all();
+use App\Models\Category;
+$categories = Category::all();
 ?>
+
 <head>
     <meta charset="utf-8" />
     <title>@yield('title', 'Título por defecto')</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two&family=Lora&family=Jost&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two&family=Lora&family=Jost&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @stack('css')
 </head>
@@ -35,6 +37,16 @@
                     Mi Perfil
                 </a>
             </div>
+
+            <form action="{{ route('changeLanguage') }}" method="POST">
+                @csrf
+                <div class="language-select">
+                    <select name="language" onchange="this.form.submit()">
+                        <option value="es" {{ session('locale') == 'es' ? 'selected' : '' }}>Español</option>
+                        <option value="en" {{ session('locale') == 'en' ? 'selected' : '' }}>English</option>
+                    </select>
+                </div>
+            </form>
         </div>
     </header>
     <nav>
@@ -51,11 +63,11 @@
     </nav>
     <section class="content-container">
         <aside class="sidebar-left"></aside>
-        
+
         <main class="main-content">
             @yield('content')
         </main>
-        
+
         <aside class="sidebar-right"></aside>
     </section>
     <footer>

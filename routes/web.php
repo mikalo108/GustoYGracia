@@ -1,6 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
+
+Route::post('/change-language', function (Request $request) {
+    $language = $request->input('language'); // Obtiene el idioma seleccionado
+    Session::put('locale', $language); // Guarda el idioma en la sesión
+    App::setLocale($language); // Establece el idioma para la aplicación
+    return redirect()->back();
+})->name('changeLanguage');
 
 Route::get('/', function () {
     return view('home');
