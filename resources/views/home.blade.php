@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 <?php
-// En tu vista Blade, antes de cargar el contenido
-App::setLocale(session('locale'));
+if (Session::has('locale')) {
+    App::setLocale(Session::get('locale'));
+}
 ?>
 
 @push('css')
@@ -15,10 +16,15 @@ App::setLocale(session('locale'));
 @section('title', 'Home')
 
 @section('content')
-    <h1>{{ __('messages.Welcome') }}</h1> <!-- Corregido -->
-    <p>{{ __('messages.recipes') }}</p> <!-- También puedes traducir este texto -->
+    <h1>{{ __('messages.Welcome') }}</h1>
+    <p>Aquí encontrarás las mejores recetas para todos los gustos.</p>
     <!-- Puedes agregar más contenido aquí -->
 
-    <!-- Verifica el idioma actual -->
-    <p>Idioma actual: {{ App::getLocale() }}</p>
+    <p>Idioma actual: {{ app()->getLocale() }}</p>
+
+    <form action="{{ route('e') }}" method="GET">
+        @csrf
+        <button type="submit">No borrar este botón</button>
+    </form>
+
 @endsection

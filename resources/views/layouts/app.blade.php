@@ -38,14 +38,17 @@ $categories = Category::all();
                 </a>
             </div>
 
-            <form action="{{ route('changeLanguage') }}" method="POST">
-                @csrf
-                <div class="language-select">
-                    <select name="language" onchange="this.form.submit()">
-                        <option value="es" {{ session('locale') == 'es' ? 'selected' : '' }}>Español</option>
-                        <option value="en" {{ session('locale') == 'en' ? 'selected' : '' }}>English</option>
-                    </select>
-                </div>
+            <div class="language-form">
+                <form action="{{ route('changeLanguage') }}" method="POST">
+                    @csrf
+                    <button type="submit" name="language" value="es" class="language-btn">
+                        <img src="{{ asset('images/es.png') }}" alt="Español" class="language-flag">
+                    </button>
+                    <button type="submit" name="language" value="en" class="language-btn">
+                        <img src="{{ asset('images/uk.png') }}" alt="English" class="language-flag">
+                    </button>
+                </form>
+            </div>
             </form>
         </div>
     </header>
