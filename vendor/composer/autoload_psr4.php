@@ -67,6 +67,7 @@ return array(
     'Laravel\\Sail\\' => array($vendorDir . '/laravel/sail/src'),
     'Laravel\\Prompts\\' => array($vendorDir . '/laravel/prompts/src'),
     'Laravel\\Pail\\' => array($vendorDir . '/laravel/pail/src'),
+    'Laravel\\Breeze\\' => array($vendorDir . '/laravel/breeze/src'),
     'LaravelLang\\Publisher\\' => array($vendorDir . '/laravel-lang/publisher/src'),
     'LaravelLang\\NativeLocaleNames\\' => array($vendorDir . '/laravel-lang/native-locale-names/src'),
     'LaravelLang\\NativeCurrencyNames\\' => array($vendorDir . '/laravel-lang/native-currency-names/src'),

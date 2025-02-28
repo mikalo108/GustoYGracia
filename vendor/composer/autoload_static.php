@@ -130,6 +130,7 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
             'Laravel\\Sail\\' => 13,
             'Laravel\\Prompts\\' => 16,
             'Laravel\\Pail\\' => 13,
+            'Laravel\\Breeze\\' => 15,
             'LaravelLang\\Publisher\\' => 22,
             'LaravelLang\\NativeLocaleNames\\' => 30,
             'LaravelLang\\NativeCurrencyNames\\' => 32,
@@ -439,6 +440,10 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
         array (
             0 => __DIR__ . '/..' . '/laravel/pail/src',
         ),
+        'Laravel\\Breeze\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/breeze/src',
+        ),
         'LaravelLang\\Publisher\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel-lang/publisher/src',
@@ -598,6 +603,7 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
         'App\\Http\\Controllers\\RecipeIngredientController' => __DIR__ . '/../..' . '/app/Http/Controllers/RecipeIngredientController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
+        'App\\Models\\CategoryTranslation' => __DIR__ . '/../..' . '/app/Models/CategoryTranslation.php',
         'App\\Models\\Comment' => __DIR__ . '/../..' . '/app/Models/Comment.php',
         'App\\Models\\Contact' => __DIR__ . '/../..' . '/app/Models/Contact.php',
         'App\\Models\\Ingredient' => __DIR__ . '/../..' . '/app/Models/Ingredient.php',
@@ -3209,6 +3215,12 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
         'LaravelLang\\Publisher\\Services\\Filesystem\\Manager' => __DIR__ . '/..' . '/laravel-lang/publisher/src/Services/Filesystem/Manager.php',
         'LaravelLang\\Publisher\\Services\\Filesystem\\Php' => __DIR__ . '/..' . '/laravel-lang/publisher/src/Services/Filesystem/Php.php',
         'LaravelLang\\Publisher\\Services\\Renderer\\ParagraphRenderer' => __DIR__ . '/..' . '/laravel-lang/publisher/src/Services/Renderer/ParagraphRenderer.php',
+        'Laravel\\Breeze\\BreezeServiceProvider' => __DIR__ . '/..' . '/laravel/breeze/src/BreezeServiceProvider.php',
+        'Laravel\\Breeze\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallCommand.php',
+        'Laravel\\Breeze\\Console\\InstallsApiStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsApiStack.php',
+        'Laravel\\Breeze\\Console\\InstallsBladeStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsBladeStack.php',
+        'Laravel\\Breeze\\Console\\InstallsInertiaStacks' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsInertiaStacks.php',
+        'Laravel\\Breeze\\Console\\InstallsLivewireStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsLivewireStack.php',
         'Laravel\\Pail\\Console\\Commands\\PailCommand' => __DIR__ . '/..' . '/laravel/pail/src/Console/Commands/PailCommand.php',
         'Laravel\\Pail\\Contracts\\Printer' => __DIR__ . '/..' . '/laravel/pail/src/Contracts/Printer.php',
         'Laravel\\Pail\\File' => __DIR__ . '/..' . '/laravel/pail/src/File.php',
