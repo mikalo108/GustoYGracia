@@ -1,4 +1,4 @@
-/* Reset de márgenes y rellenos */
+/* Reset de estilos básicos */ 
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +9,7 @@
 body {
     font-family: 'Jost', sans-serif;
     background-color: #FBF5DD; /* Fondo claro */
-    color: #16404D; /* Texto en azul oscuro */
+    color: #16404D; /* Texto en azul oscuro para mejor contraste */
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* Asegura que el cuerpo ocupe al menos toda la altura de la pantalla */
@@ -32,6 +32,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .logo img {
@@ -48,7 +49,7 @@ header {
 .search-bar input {
     width: 80%;
     padding: 10px;
-    border: 2px solid #16404D; /* Borde azul oscuro */
+    border: 2px solid #16404D; /* Borde azul oscuro para destacar */
     border-radius: 5px;
     font-size: 16px;
 }
@@ -57,7 +58,7 @@ header {
     background-color: #DDA853; /* Botón amarillo dorado */
     border: none;
     padding: 12px 15px; /* Aumenté el padding para hacerlo más grande y redondeado */
-    border-radius: 50%;
+    border-radius: 50%; /* Esto lo hace completamente redondo */
     cursor: pointer;
     margin-left: 10px; /* Espacio entre el input y el botón */
 }
@@ -73,6 +74,7 @@ header {
     text-decoration: none;
     display: flex;
     align-items: center;
+    margin-right: 50px;
 }
 
 .profile img {
@@ -81,40 +83,31 @@ header {
     margin-right: 8px;
 }
 
-/* Estilos para el select de idioma */
-.language-select select {
-    padding: 8px 16px;
-    border-radius: 5px;
-    border: 2px solid #16404D; /* Borde azul oscuro */
-    background-color: #fff;
-    font-size: 16px;
-    color: #16404D;
+/* Estilo para los botones */
+.language-btn {
+    background-color: transparent;
+    border-color: transparent;
+    display: flex;
+    align-items: center;
     cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    transition: background-color 0.3s, color 0.3s;
+    margin-right: 0px;
 }
 
-/* Cambiar color de fondo y borde cuando el select está enfocado */
-.language-select select:focus {
-    background-color: #A6CDC6; /* Fondo suave verde */
-    border-color: #DDA853; /* Borde amarillo dorado */
-    outline: none; /* Eliminar borde azul predeterminado */
+.language-btn:hover {
+    background-color: #16404D; /* Fondo azul oscuro al hacer hover */
+    color: white; /* Cambiar el color del texto al hacer hover */
 }
 
-/* Estilo para el contenedor del select */
-.language-select {
-    margin-left: 20px; /* Espacio entre el select y el perfil */
+.language-flag {
+    width: 30px;
+    height: 25px;
 }
 
-/* Opciones del select */
-.language-select select option {
-    font-size: 16px;
-    padding: 8px;
-    background-color: #FBF5DD; /* Fondo claro */
-    color: #16404D; /* Texto en azul oscuro */
-}
-
-.language-select select option:hover {
-    background-color: #DDA853; /* Fondo amarillo cuando el cursor pasa por encima */
+/* Para el formulario */
+form {
+    display: flex;
+    align-items: center;
 }
 
 /* Nav */

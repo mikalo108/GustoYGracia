@@ -6,15 +6,20 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
 Route::post('/change-language', function (Request $request) {
-    $language = $request->input('language'); // Obtiene el idioma seleccionado
-    Session::put('locale', $language); // Guarda el idioma en la sesión
-    App::setLocale($language); // Establece el idioma para la aplicación
+    $language = $request->input('language');
+    Session::put('locale', $language);
+    App::setLocale($language);
     return redirect()->back();
 })->name('changeLanguage');
 
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/e', function () {
+    return redirect('http://localhost/laravel/GustoYGracia/public/');
+})->name('e');
+
 Route::get('/admin', function () {
     return view('adminHome');
 });
