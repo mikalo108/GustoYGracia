@@ -123,4 +123,14 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'aliases' => [
+        'Auth' => Illuminate\Support\Facades\Auth::class,
+        'Route' => Illuminate\Support\Facades\Route::class,
+        'Session' => Illuminate\Support\Facades\Session::class,
+        'App' => Illuminate\Support\Facades\App::class,
+        'auth' => App\Http\Middleware\Authenticate::class,
+        'guest' => App\Http\Middleware\RedirectIfAuthenticated::class,
+    ],
+
+
 ];
