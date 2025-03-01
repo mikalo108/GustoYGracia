@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@php
+    use Illuminate\Support\Str;
+@endphp
+
 <?php
 if (Session::has('locale')) {
     App::setLocale(Session::get('locale'));
@@ -16,16 +20,16 @@ if (Session::has('locale')) {
 @section('title', 'Home')
 
 @section('content')
-    <h1>{{ __('messages.Welcome') }}</h1>
-    <p>{{ __('messages.HomeMessage') }}</p>
-    <!-- Puedes agregar más contenido aquí -->
+    @auth
+    <h1>¡{{ __('messages.Welcome') }}, {{ Auth::user()->name }}!</h1>
+    <a href="{{ route('dashboard') }}">Ir al panel de control</a>
+    @endauth
 
-    <p>Idioma actual: {{ app()->getLocale() }}</p>
-
-    <form action="{{ route('e') }}" method="GET">
-        @csrf
-        <button type="submit">No borrar este botón</button>
-    </form>
+    @guest
+        <h2>{{ __('messages.Welcome') }}, {{ __('messages.Visitor') }}!</h2>
+    @endguest
+    
+    <br/><p>{{ __('messages.HomeMessage') }}</p>
 
     <!-- Mostrar las recetas -->
     <div class="recipe-container">
@@ -33,7 +37,6 @@ if (Session::has('locale')) {
         <div class="recipe-list">
             @foreach ($recipesList as $recipe)
                 <div class="recipe-item">
-                    <!-- Suponiendo que cada receta tiene una foto y un nombre -->
                     <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}"
                         style="width: 100%; height: auto;">
                     <h3>{{ $recipe->name }}</h3>
@@ -42,5 +45,4 @@ if (Session::has('locale')) {
             @endforeach
         </div>
     </div>
-
 @endsection

@@ -22,14 +22,5 @@ class ContactTableSeeder extends Seeder
             'country' => 'USA',
             'city' => 'New York',
         ]);
-
-        DB::table('contacts')->insert([
-            'name' => 'Jane',
-            'surname' => 'Smith',
-            'bio' => 'A designer.',
-            'phone' => '987-654-3210',
-            'country' => 'Canada',
-            'city' => 'Toronto',
-        ]);
     }
 }

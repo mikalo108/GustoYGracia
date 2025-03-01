@@ -25,6 +25,5 @@ class UserTableSeeder extends Seeder
             'remember_token' => Str::random(10),
             'contact_id' => Contact::all()->random()->id
         ]);
-
     }
 }

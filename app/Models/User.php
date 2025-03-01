@@ -20,7 +20,7 @@ class User extends Authenticatable
 
     public function contact()
     {
-        return $this->hasOne(Contact::class);
+        return $this->belongsTo(Contact::class);
     }
 
     public function comments()

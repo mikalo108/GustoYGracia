@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -13,8 +16,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
-
 Route::post('/change-language', function (Request $request) {
     $language = $request->input('language');
     Session::put('locale', $language);
@@ -22,11 +23,7 @@ Route::post('/change-language', function (Request $request) {
     return redirect()->back();
 })->name('changeLanguage');
 
-Route::get('/', 'CategoryController@index');
-
-Route::get('/e', function () {
-    return redirect('http://localhost/laravel/GustoYGracia/public/');
-})->name('e');
+Route::get('/', 'CategoryController@index')->name('home');
 
 Route::get('/admin', function () {
     return view('adminHome');
@@ -64,3 +61,5 @@ Route::resource('recipeIngredient', 'RecipeIngredientController');
 Route::get('/recipeIngredient/delete/{recipeIngredient}', 'RecipeIngredientController@destroy')->name('recipeIngredient.myDestroy');
 
 Route::resource('user', 'UserController');
+
+require __DIR__.'/auth.php';

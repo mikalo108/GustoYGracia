@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Contact;
 
 class UserController extends Controller
 {
@@ -11,20 +12,31 @@ class UserController extends Controller
     {
         return view('user.create');
     }
-    
+
     public function store(Request $request)
     {
+        // Validar los datos de entrada (por ejemplo, validaciones para name, email y password)
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
+        ]);
+
+        // Crear el contacto primero (con los valores por defecto o nulos)
+        $contact = new Contact();
+        $contact->save(); // Guarda el contacto con los campos nulos
+
+        // Luego, crea el usuario y asocia el contacto
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
+        $user->contact_id = $contact->id;  // Asocia el contacto al usuario
         $user->save();
-
-        //Pendiente contact
 
         return redirect()->route('user.index');
     }
-    
+
     public function edit($id)
     {
         $user = User::find($id);
@@ -41,7 +53,7 @@ class UserController extends Controller
         $user->save();
         return redirect()->route('user.index');
     }
-    
+
     public function destroy($id)
     {
         $user = User::find($id);

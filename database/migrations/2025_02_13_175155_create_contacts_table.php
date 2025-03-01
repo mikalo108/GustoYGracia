@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->string('surname', 100);
-            $table->string('bio', 2000);
-            $table->string('phone', 20);
-            $table->string('country', 100);
-            $table->string('city', 100);
+            $table->string('name', 100)->nullable();
+            $table->string('surname', 100)->nullable();  // Hacer nullable
+            $table->string('bio', 2000)->nullable();     // Hacer nullable
+            $table->string('phone', 20)->nullable();      // Hacer nullable
+            $table->string('country', 100)->nullable();   // Hacer nullable
+            $table->string('city', 100)->nullable();      // Hacer nullable
             $table->timestamps();
         });
     }
