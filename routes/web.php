@@ -25,9 +25,9 @@ Route::post('/change-language', function (Request $request) {
 
 Route::get('/', 'CategoryController@index')->name('home');
 
-Route::get('/admin', function () {
-    return view('adminHome');
-});
+Route::get('/myprofile', function () {
+    return view('myprofile');
+})->name('myprofile');
 
 Route::get('/categories', 'CategoryController@showCategories');  // Esta ruta es para ver todas las categorías en otra vista
 Route::resource('category', 'CategoryController');
@@ -48,11 +48,6 @@ Route::get('/recipeCategory/delete/{recipeCategory}', 'RecipeCategoryController@
 
 Route::resource('recipe', 'RecipeController');
 Route::get('/recipe/delete/{recipe}', 'RecipeController@destroy')->name('recipe.myDestroy');
-Route::get('/admin/recipe', 'RecipeController@index')->name('recipe.index');
-Route::get('/admin/recipe/show/{recipe}', 'RecipeController@show')->name('recipe.show');
-Route::get('/admin/recipe/create', 'RecipeController@create')->name('recipe.create');
-Route::get('/admin/recipe/edit/{recipe}', 'RecipeController@edit')->name('recipe.edit');
-
 
 Route::resource('recipeDetail', 'RecipeDetailController');
 Route::get('/recipeDetail/delete/{recipeDetail}', 'RecipeDetailController@destroy')->name('recipeDetail.myDestroy');

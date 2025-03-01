@@ -3,6 +3,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 /* Fuente base */
@@ -122,15 +124,11 @@ header {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
     padding: 10px;
     width: 150px;
+    z-index: 10;
 }
 
 .profile:hover .dropdown {
     display: block; /* El menú se muestra al hacer hover sobre el perfil */
-}
-
-/* Estilo para el botón de cerrar sesión */
-.logout-form {
-    display: block;
 }
 
 .logout-btn {
@@ -176,7 +174,10 @@ header {
 /* Para el formulario */
 form {
     display: flex;
-    align-items: center;
+}
+
+.search-form {
+    flex-direction: column;
 }
 
 /* Nav */
