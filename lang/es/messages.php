@@ -1,6 +1,6 @@
 <?php
 return [
-    'Welcome' => 'Bienvenido',
+    'Welcome' => 'Bienvenid@',
     'HomeMessage' => 'Aquí encontrarás las mejores recetas para todos los gustos.',
     'LastRecipes' => 'Últimas Recetas',
     'SearchRecipes' => 'Buscar recetas...',

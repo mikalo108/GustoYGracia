@@ -116,7 +116,9 @@
             <div class="header-container">
                 <!-- Logo -->
                 <div class="logo">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo de Recetario">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo de Recetario">
+                    </a>
                 </div>
                 <!-- Buscador -->
                 <div class="search-bar" style="visibility: hidden;">
@@ -276,7 +278,9 @@
             <div class="header-container">
                 <!-- Logo -->
                 <div class="logo">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo de Recetario">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo de Recetario">
+                    </a>
                 </div>
 
                 <!-- Buscador -->
