@@ -34,23 +34,22 @@ Route::get('/myprofile', function () {
 Route::resource('category', 'CategoryController');
 Route::post('/category/update/{category}', 'CategoryController@update')->name('category.update');
 Route::get('/category/show/{category}', 'CategoryController@show');
-Route::get('/category/delete/{category}', 'CategoryController@destroy')->name('category.myDestroy');
 
 Route::resource('comment', 'CommentController');
+Route::post('/comment/update/{comment}', 'CommentController@update')->name('comment.update');
 Route::get('/comment/show/{comment}', 'CommentController@show')->name('comment.show');
-Route::get('/comment/delete/{comment}', 'CommentController@destroy')->name('comment.myDestroy');
 
 Route::resource('contact', 'ContactController');
-Route::get('/category/show/{contact}', 'ContactController@show')->name('contact.show');
-Route::get('/contact/delete/{contact}', 'ContactController@destroy')->name('contact.myDestroy');
+Route::post('/contact/update/{contact}', 'ContactController@update')->name('contact.update');
+Route::get('/contact/show/{contact}', 'ContactController@show')->name('contact.show');
 
 Route::resource('ingredient', 'IngredientController');
+Route::post('/ingredient/update/{ingredient}', 'IngredientController@update')->name('ingredient.update');
 Route::get('/ingredient/show/{ingredient}', 'IngredientController@show')->name('ingredient.show');
-Route::get('/ingredient/delete/{ingredient}', 'IngredientController@destroy')->name('ingredient.myDestroy');
 
 Route::resource('recipe', 'RecipeController');
+Route::post('/recipe/update/{recipe}', 'RecipeController@update')->name('recipe.update');
 Route::get('/recipe/show/{recipe}', 'RecipeController@show')->name('recipe.show');
-Route::get('/recipe/delete/{recipe}', 'RecipeController@destroy')->name('recipe.myDestroy');
 
 Route::resource('user', 'UserController');
 
