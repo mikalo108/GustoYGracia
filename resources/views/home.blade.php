@@ -94,7 +94,7 @@
         <div class="recipe-container">
             <h2>{{ __('messages.LastRecipes') }}</h2>
             <div class="recipe-list">
-                @foreach ($recipesList as $recipe)
+                @foreach ($recipeList as $recipe)
                     <div class="recipe-item">
                         <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}"
                             style="width: 100%; height: auto;">

@@ -163,34 +163,32 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($recipes) active @endisset"
-                            @isset($recipes) style="color: white;" @endisset
+                        <a id="recetaLink" class="flex-sm-fill text-sm-center nav-link"
                             href="{{ route('recipe.index') }}">{{ __('admin.TitleRecipesTable') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($categories) active @endisset"
-                            @isset($categories) style="color: white;" @endisset
+                        <a id="categoriaLink" class="flex-sm-fill text-sm-center nav-link"
                             href="{{ route('category.index') }}">{{ __('admin.TitleCategoriesTable') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($ingredients) active @endisset"
-                            @isset($ingredients) style="color: white;" @endisset
+                        <a class="flex-sm-fill text-sm-center nav-link @isset($ingredientList) active @endisset"
+                            @isset($ingredientList) style="color: white;" @endisset
                             href="{{ route('ingredient.index') }}">{{ __('admin.TitleIngredientsTable') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($users) active @endisset"
-                            @isset($users) style="color: white;" @endisset
+                        <a class="flex-sm-fill text-sm-center nav-link @isset($userList) active @endisset"
+                            @isset($userList) style="color: white;" @endisset
                             href="{{ route('user.index') }}">{{ __('admin.TitleUsersTable') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($contacts) active @endisset"
-                            @isset($contacts) style="color: white;" @endisset
+                        <a class="flex-sm-fill text-sm-center nav-link @isset($contactList) active @endisset"
+                            @isset($contactList) style="color: white;" @endisset
                             href="{{ route('contact.index') }}">{{ __('admin.TitleContactsTable') }}</a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($comments) active @endisset"
-                            @isset($comments) style="color: white;" @endisset
+                        <a class="flex-sm-fill text-sm-center nav-link @isset($commentList) active @endisset"
+                            @isset($commentList) style="color: white;" @endisset
                             href="{{ route('comment.index') }}">{{ __('admin.TitleCommentsTable') }}</a>
                     </li>
                     
@@ -237,6 +235,22 @@
                     botonBorrar.parentElement.submit();
                 });
             });
+        
+        document.addEventListener("DOMContentLoaded", ()=>{
+            let location = window.location.href.split("/");
+            console.log(location);
+            const linkReceta = document.getElementById("recetaLink");
+            const linkCategoria = document.getElementById("categoriaLink");
+            if(location.includes("category")){
+                linkCategoria.style.color = 'white';
+                linkCategoria.classList.add('active');
+            } else if(location.includes("recipe")){
+                linkReceta.style.color = 'white';
+                linkReceta.classList.add('active');
+            }
+        })
+
+        
     </script>
 
     </html>
