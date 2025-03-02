@@ -6,6 +6,11 @@
     } else {
         App::setLocale(config('app.locale'));
     }
+    if(isset($category->name)){
+        $title=__('admin.Edit').' '.$category->name;
+    } else{
+        $title=__('admin.Create').' '.__('admin.TitleCategoryTable');
+    }
 @endphp
 
 @push('css')
@@ -15,7 +20,7 @@
     </style>
 @endpush
 
-@section("title", $category->name)
+@section("title", $title)
 
 @section('content')
     @if (Auth::check() && Auth::user()->email === 'admin@gustoygracia.com')
@@ -25,7 +30,7 @@
                     <div class="card-body">
                         <div class="card-header">
                             <div class="row">
-                                <h1>{{ $category->name }}</h1>
+                                <h1>{{ $title }}</h1>
                             </div>
                         </div>
                         <div class="col-md mt-4">

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 return [
     'Index' => 'Index',
+    'Create' => 'Create',
+    'Edit' => 'Edit',
     'Table' => 'Table',
     'TitleRecipeTable'     => 'Recipe',
     'TitleRecipesTable'     => 'Recipes',
