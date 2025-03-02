@@ -35,7 +35,7 @@ Route::resource('category', 'CategoryController');
 Route::get('/category/show/{category}', 'CategoryController@show');
 Route::get('/category/delete/{category}', 'CategoryController@destroy')->name('category.myDestroy');
 
-Route::resource('comment', 'CategoryController');
+Route::resource('comment', 'CommentController');
 Route::get('/comment/show/{comment}', 'CommentController@show')->name('comment.show');
 Route::get('/comment/delete/{comment}', 'CommentController@destroy')->name('comment.myDestroy');
 

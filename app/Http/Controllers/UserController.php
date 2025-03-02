@@ -8,6 +8,12 @@ use App\Models\Contact;
 
 class UserController extends Controller
 {
+    const PAGINATE_SIZE = 5;
+    public function index(){
+        $userList = User::all();
+        $userList = User::paginate(self::PAGINATE_SIZE);
+        return view('user/all', ['userList'=>$userList],compact('userList'));
+    }
     public function create()
     {
         return view('user.create');

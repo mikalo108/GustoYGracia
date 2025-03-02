@@ -9,9 +9,11 @@ use App\Models\Recipe;
 
 class CommentController extends Controller
 {
+    const PAGINATE_SIZE = 4;
     public function index() { 
-        $commentsList = Comment::all();
-        return view('comment/all', ['commentsList'=>$commentsList]);
+        $commentList = Comment::all();
+        $commentList = Comment::paginate(self::PAGINATE_SIZE);
+        return view('comment/all', ['commentList'=>$commentList], compact('commentList'));
     }
     public function create() { 
         $users = User::all();

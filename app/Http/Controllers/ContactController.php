@@ -8,9 +8,11 @@ use App\Models\Contact;
 
 class ContactController extends Controller
 {
+    const PAGINATE_SIZE = 4;
     public function index() { 
-        $c = Contact::all();
-        return view('contact/all', ['contactList'=>$c]);
+        $contactList = Contact::all();
+        $contactList = Contact::paginate(self::PAGINATE_SIZE);
+        return view('contact/all', ['contactList'=>$contactList], compact('contactList'));
     }
 
     public function create() { 
