@@ -77,19 +77,21 @@ class CategoryController extends Controller
         $c->save();
 
         $cES = CategoryTranslation::where('category_id', $id)
-                                    ->where('locale', 'es');
+                                    ->where('locale', 'es')
+                                    ->first();
         $cES->name = $r->categoryNameES;
         $cES->locale="es";
         $cES->description = $r->categoryDescriptionES;
-        $cES->category_id=$categoryId;
+        $cES->category_id=$id;
         $cES->save();
 
         $cEN = CategoryTranslation::where('category_id', $id)
-                                    ->where('locale', 'en');
+                                    ->where('locale', 'en')
+                                    ->first();
         $cEN->name = $r->categoryNameEN;
         $cEN->locale="en";
         $cEN->description = $r->categoryDescriptionEN;
-        $cEN->category_id=$categoryId;
+        $cEN->category_id=$id;
         $cEN->save();
 
         return redirect()->route('category.index');

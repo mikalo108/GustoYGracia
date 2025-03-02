@@ -32,7 +32,7 @@ Route::get('/myprofile', function () {
 })->name('myprofile');
 
 Route::resource('category', 'CategoryController');
-Route::post('/category/store/{category}', 'CategoryController@store')->name('category.store');
+Route::post('/category/update/{category}', 'CategoryController@update')->name('category.update');
 Route::get('/category/show/{category}', 'CategoryController@show');
 Route::get('/category/delete/{category}', 'CategoryController@destroy')->name('category.myDestroy');
 
