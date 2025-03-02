@@ -5,15 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     const PAGINATE_SIZE = 5;
-    public function index(){
+    public function index()
+    {
         $userList = User::all();
         $userList = User::paginate(self::PAGINATE_SIZE);
-        return view('user/all', ['userList'=>$userList],compact('userList'));
+        return view('user/all', ['userList' => $userList], compact('userList'));
     }
+
+    public function showProfile()
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        if ($user) {
+            // Cargar la relación 'contact'
+            $user->load('contact');
+        }
+
+        return view('myprofile', compact('user'));
+    }
+
     public function create()
     {
         return view('user.create');
@@ -48,16 +64,49 @@ class UserController extends Controller
         $user = User::find($id);
         return view('user.edit', ['user' => $user]);
     }
+
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
+
         if ($request->password) {
             $user->password = bcrypt($request->password);
         }
+
+        // Si el usuario no tiene un contacto asociado, creamos uno nuevo
+        if (!$user->contact_id) {
+            $contact = new Contact();
+            $contact->name = $request->contact_name;
+            $contact->surname = $request->contact_surname;
+            $contact->bio = $request->contact_bio;
+            $contact->phone = $request->contact_phone;
+            $contact->country = $request->contact_country;
+            $contact->city = $request->contact_city;
+            $contact->save();
+
+            $user->contact_id = $contact->id;
+        } else {
+            // Si ya tiene un contacto, simplemente lo actualizamos
+            $contact = Contact::find($user->contact_id);
+            $contact->name = $request->contact_name;
+            $contact->surname = $request->contact_surname;
+            $contact->bio = $request->contact_bio;
+            $contact->phone = $request->contact_phone;
+            $contact->country = $request->contact_country;
+            $contact->city = $request->contact_city;
+            $contact->save();
+        }
+
         $user->save();
-        return redirect()->route('user.index');
+        return redirect()->route('myprofile');
     }
 
     public function destroy($id)

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -23,13 +24,11 @@ Route::post('/change-language', function (Request $request) {
     return redirect()->back();
 })->name('changeLanguage');
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', function () { return view('home'); })->name('home');
 
-Route::get('/myprofile', function () {
-    return view('myprofile');
-})->name('myprofile');
+Route::get('/myprofile', 'UserController@showProfile')->name('myprofile');
+
+Route::put('/myprofile/{id}', 'UserController@update')->name('myprofile.update');
 
 Route::resource('category', 'CategoryController');
 Route::get('/category/show/{category}', 'CategoryController@show');

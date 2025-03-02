@@ -143,6 +143,20 @@ return [
         'numeric' => 'El tamaño de :attribute debe ser :size.',
         'string'  => 'El campo :attribute debe contener :size caracteres.',
     ],
+    'custom' => [
+        'name' => [
+            'required' => 'El nombre es obligatorio.',
+        ],
+        'email' => [
+            'required' => 'El email es obligatorio.',
+            'unique' => 'Este email ya está en uso.',
+        ],
+        'password' => [
+            'min' => 'La contraseña debe tener al menos :min caracteres.',
+            'required' => 'La contraseña es obligatoria.',
+            'confirmed' => 'La confirmación de la contraseña no se corresponde.',
+        ],
+    ],
     'starts_with'            => 'El campo :attribute debe comenzar con uno de los siguientes valores: :values',
     'string'                 => 'El campo :attribute debe ser una cadena de caracteres.',
     'timezone'               => 'El campo :attribute debe ser una zona horaria válida.',

@@ -362,6 +362,7 @@
     </html>
 @endif
 
+@stack('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const profileLink = document.querySelector('.profile-link');

@@ -143,6 +143,20 @@ return [
         'numeric' => 'The :attribute field must be :size.',
         'string'  => 'The :attribute field must be :size characters.',
     ],
+    'custom' => [
+        'name' => [
+            'required' => 'The name field is required.',
+        ],
+        'email' => [
+            'required' => 'The email field is required.',
+            'unique' => 'The email field is already taken.',
+        ],
+        'password' => [
+            'min' => 'The password must have at least :min characters.',
+            'required' => 'The password field is required.',
+            'confirmed' => 'The password confirmation does not match.',
+        ],
+    ],
     'starts_with'            => 'The :attribute field must start with one of the following: :values.',
     'string'                 => 'The :attribute field must be a string.',
     'timezone'               => 'The :attribute field must be a valid timezone.',
@@ -152,4 +166,5 @@ return [
     'uppercase'              => 'The :attribute field must be uppercase.',
     'url'                    => 'The :attribute field must be a valid URL.',
     'uuid'                   => 'The :attribute field must be a valid UUID.',
+    
 ];

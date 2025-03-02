@@ -11,4 +11,15 @@ return [
     'Login' => 'Log in',
     'Register' => 'Sign up',
     'Logout' => 'Log out',
+
+    'User' => 'User',
+    'NewPassword' => 'New password',
+    'PassConfirm' => 'Confirm new password',
+    'Email' => 'Email',
+    'Name' => 'Name',
+    'Surnames' => 'Surname',
+    'Phone' => 'Phone number',
+    'Bio' => 'Biography',
+    'Country' => 'Country',
+    'City' => 'City',
 ];

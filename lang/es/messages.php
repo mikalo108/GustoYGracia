@@ -11,4 +11,16 @@ return [
     'Login' => 'Iniciar sesión',
     'Register' => 'Registrarse',
     'Logout' => 'Cerrar sesión',
+
+    'User' => 'Usuario',
+    'NewPassword' => 'Nueva contraseña',
+    'PassConfirm' => 'Confirmar nueva contraseña',
+    'Email' => 'Correo electrónico',
+    'Name' => 'Nombre',
+    'Surnames' => 'Apellidos',
+    'Phone' => 'Teléfono',
+    'Bio' => 'Biografía',
+    'Country' => 'País',
+    'City' => 'Ciudad',
+
 ];
