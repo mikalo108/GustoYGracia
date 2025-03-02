@@ -73,7 +73,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($userList as $user)
-                                            <tr>
+                                            <tr class="filaTablaIndex" link="{{ route('user.show', $user->id) }}">
                                                 <td>{{ $user->id }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>

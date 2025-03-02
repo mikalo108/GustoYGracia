@@ -20,10 +20,9 @@ class CategoryController extends Controller
         ], compact('categoryList'));
     }
 
-    public function show()
+    public function show($category)
     {
-        $categoryList = Category::all();  // Obtener todas las categorías
-        return view('category/show', ['categoryList' => $categoryList]);  // Esta vista es para la página de categorías
+        return view('category/show', ['category' => $category]);
     }
 
     public function create()

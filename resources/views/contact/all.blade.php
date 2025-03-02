@@ -77,7 +77,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($contactList as $contact)
-                                            <tr>
+                                            <tr class="filaTablaIndex"  link="{{ route('contact.show', $contact->id) }}">
                                                 <td>{{ $contact->id }}</td>
                                                 <td>{{ $contact->name }}</td>
                                                 <td>{{ $contact->surname }}</td>

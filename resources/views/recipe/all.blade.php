@@ -76,7 +76,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($recipeList as $recipe)
-                                            <tr>
+                                            <tr class="filaTablaIndex" link="{{ route('recipe.show', $recipe->id) }}">
                                                 <td>{{ $recipe->id }}</td>
                                                 <td>{{ $recipe->name }}</td>
                                                 <td class="descripcion">{{ $recipe->description }}</td>

@@ -70,7 +70,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($ingredientList as $ingredient)
-                                            <tr>
+                                            <tr class="filaTablaIndex" link="{{ route('ingredient.show', $ingredient->id) }}">
                                                 <td>{{ $ingredient->id }}</td>
                                                 <td>{{ $ingredient->name }}</td>
                                                 <td class="descripcion">{{ $ingredient->description }}</td>

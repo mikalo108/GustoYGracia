@@ -65,7 +65,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($categoryList as $category)
-                                            <tr>
+                                            <tr class="filaTablaIndex" link="{{ route('category.show', $category) }}">
                                                 <td>{{ $category->id }}</td>
                                                 <td>{{ $category->name }}</td>
                                                 <td class="descripcion">{{ $category->description }}</td>

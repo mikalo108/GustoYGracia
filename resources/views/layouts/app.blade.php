@@ -107,6 +107,9 @@
                 grid-column: 1/3;
                 margin: 0;
             }
+            .filaTablaIndex:hover>td{
+                background-color: rgba(222, 226, 230,0.6);
+            }
         </style>
     </head>
 
@@ -251,6 +254,12 @@
             }
         })
 
+        let filasTablaIndex = document.querySelectorAll(".filaTablaIndex");
+        filasTablaIndex.forEach(fila => {
+            fila.addEventListener("dblclick", ()=>{
+                window.location.href=fila.getAttribute('link');
+            })
+        });
         
     </script>
 
