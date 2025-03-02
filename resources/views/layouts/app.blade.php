@@ -158,28 +158,28 @@
                     <li class="nav-item">
                         <a class="flex-sm-fill text-sm-center nav-link @isset($categories) active @endisset"
                             @isset($categories) style="color: white;" @endisset
-                            href="{{ route('home') }}">{{ __('admin.TitleCategoriesTable') }}</a>
+                            href="{{ route('category.index') }}">{{ __('admin.TitleCategoriesTable') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="flex-sm-fill text-sm-center nav-link @isset($ingredients) active @endisset"
                             @isset($ingredients) style="color: white;" @endisset
-                            href="{{ route('home') }}">{{ __('admin.TitleIngredientsTable') }}</a>
+                            href="{{ route('ingredient.index') }}">{{ __('admin.TitleIngredientsTable') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="flex-sm-fill text-sm-center nav-link @isset($users) active @endisset"
                             @isset($users) style="color: white;" @endisset
-                            href="{{ route('home') }}">{{ __('admin.TitleUsersTable') }}</a>
+                            href="{{ route('user.index') }}">{{ __('admin.TitleUsersTable') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="flex-sm-fill text-sm-center nav-link @isset($contacts) active @endisset"
                             @isset($contacts) style="color: white;" @endisset
-                            href="{{ route('home') }}">{{ __('admin.TitleContactsTable') }}</a>
+                            href="{{ route('contact.index') }}">{{ __('admin.TitleContactsTable') }}</a>
                     </li>
                     
                     <li class="nav-item">
                         <a class="flex-sm-fill text-sm-center nav-link @isset($comments) active @endisset"
                             @isset($comments) style="color: white;" @endisset
-                            href="{{ route('home') }}">{{ __('admin.TitleCommentsTable') }}</a>
+                            href="{{ route('comment.index') }}">{{ __('admin.TitleCommentsTable') }}</a>
                     </li>
                     
                     

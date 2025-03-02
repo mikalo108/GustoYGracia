@@ -46,12 +46,12 @@
                     <p class="card-text">{{ __('admin.DescriptionRecipeTable') }}</p>
                 </div>
             </div>
-            <button class="card text-bg-ligth" style="text-align:left" href="{{ route('category.index') }}">
+            <div class="card text-bg-ligth" link="/category">
                 <div class="card-body">
                     <h5 class="card-title">{{ __('admin.TitleCategoriesTable') }}</h5>
                     <p class="card-text">{{ __('admin.DescriptionCategoryTable') }}</p>
                 </div>
-            </button>
+            </div>
             <div class="card text-bg-ligth" link="/ingredient">
                 <div class="card-body">
                     <h5 class="card-title">{{ __('admin.TitleIngredientsTable') }}</h5>
