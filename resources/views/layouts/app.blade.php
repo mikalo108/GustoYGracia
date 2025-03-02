@@ -23,7 +23,7 @@
             .sidebar-left {
                 padding-right: 0 !important;
             }
-            
+
             #navbarTogglerDemo01 {
                 position: fixed;
                 height: 100%;
@@ -81,7 +81,7 @@
                 column-gap: 2.5px;
             }
 
-            .actions>.btn{
+            .actions>.btn {
                 padding: 0;
             }
 
@@ -94,14 +94,16 @@
                 flex-direction: column;
                 flex-wrap: wrap;
             }
-            .search-form{
+
+            .search-form {
                 display: grid;
                 text-align: left;
                 grid-template-columns: 1fr 1fr;
                 row-gap: 10px;
                 column-gap: 20px;
             }
-            .search-form>#botonBuscar{
+
+            .search-form>#botonBuscar {
                 width: 65px;
                 grid-column: 1/3;
                 margin: 0;
@@ -130,7 +132,9 @@
                         ADMIN
                     </a>
                     <div class="dropdown" style="display: none;">
-                        <a href="{{ route('myprofile') }}">Mi perfil</a>
+                        <button class="myprofile-btn">
+                            <a href="{{ route('myprofile') }}">{{ __('messages.MyProfile') }}</a>
+                        </button>
                         <hr style="color: black; margin-block:10px">
                         <form action="{{ route('logout') }}" method="POST" class="logout-form">
                             @csrf
@@ -143,10 +147,12 @@
                 <div class="language-form">
                     <form action="{{ route('changeLanguage') }}" method="POST">
                         @csrf
-                        <button type="submit" name="language" value="es" class="language-btn @if ( __('auth.lang')=='es') languageSelected @endif">
+                        <button type="submit" name="language" value="es"
+                            class="language-btn @if (__('auth.lang') == 'es') languageSelected @endif">
                             <img src="{{ asset('images/es.png') }}" alt="Español" class="language-flag">
                         </button>
-                        <button type="submit" name="language" value="en" class="language-btn @if ( __('auth.lang')=='en') languageSelected @endif">
+                        <button type="submit" name="language" value="en"
+                            class="language-btn @if (__('auth.lang') == 'en') languageSelected @endif">
                             <img src="{{ asset('images/uk.png') }}" alt="English" class="language-flag">
                         </button>
                     </form>
@@ -185,14 +191,14 @@
                             @isset($contactList) style="color: white;" @endisset
                             href="{{ route('contact.index') }}">{{ __('admin.TitleContactsTable') }}</a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a class="flex-sm-fill text-sm-center nav-link @isset($commentList) active @endisset"
                             @isset($commentList) style="color: white;" @endisset
                             href="{{ route('comment.index') }}">{{ __('admin.TitleCommentsTable') }}</a>
                     </li>
-                    
-                    
+
+
                 </ul>
             </aside>
 
@@ -229,28 +235,26 @@
         });
 
         // Capturamos el evento de borrado del formulario.
-        let botonesBorrar=document.querySelectorAll(".botonBorrar");
-            botonesBorrar.forEach((botonBorrar)=>{
-                botonBorrar.addEventListener("click", ()=>{
-                    botonBorrar.parentElement.submit();
-                });
+        let botonesBorrar = document.querySelectorAll(".botonBorrar");
+        botonesBorrar.forEach((botonBorrar) => {
+            botonBorrar.addEventListener("click", () => {
+                botonBorrar.parentElement.submit();
             });
-        
-        document.addEventListener("DOMContentLoaded", ()=>{
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
             let location = window.location.href.split("/");
             console.log(location);
             const linkReceta = document.getElementById("recetaLink");
             const linkCategoria = document.getElementById("categoriaLink");
-            if(location.includes("category")){
+            if (location.includes("category")) {
                 linkCategoria.style.color = 'white';
                 linkCategoria.classList.add('active');
-            } else if(location.includes("recipe")){
+            } else if (location.includes("recipe")) {
                 linkReceta.style.color = 'white';
                 linkReceta.classList.add('active');
             }
         })
-
-        
     </script>
 
     </html>
@@ -291,7 +295,10 @@
                             {{ __('messages.MyProfile') }}
                         </a>
                         <div class="dropdown" style="display: none;">
-                            <a href="{{ route('myprofile') }}">Mi perfil</a>
+                            <button class="myprofile-btn">
+                                <a href="{{ route('myprofile') }}">{{ __('messages.MyProfile') }}</a>
+                            </button>
+                            <hr style="color: black; margin-block:10px">
                             <form action="{{ route('logout') }}" method="POST" class="logout-form">
                                 @csrf
                                 <button type="submit" class="logout-btn">{{ __('messages.Logout') }}</button>
@@ -308,10 +315,12 @@
                 <div class="language-form">
                     <form action="{{ route('changeLanguage') }}" method="POST">
                         @csrf
-                        <button type="submit" name="language" value="es" class="language-btn @if ( __('auth.lang')=='es') languageSelected @endif">
+                        <button type="submit" name="language" value="es"
+                            class="language-btn @if (__('auth.lang') == 'es') languageSelected @endif">
                             <img src="{{ asset('images/es.png') }}" alt="Español" class="language-flag">
                         </button>
-                        <button type="submit" name="language" value="en" class="language-btn @if ( __('auth.lang')=='en') languageSelected @endif">
+                        <button type="submit" name="language" value="en"
+                            class="language-btn @if (__('auth.lang') == 'en') languageSelected @endif">
                             <img src="{{ asset('images/uk.png') }}" alt="English" class="language-flag">
                         </button>
                     </form>

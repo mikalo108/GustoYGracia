@@ -131,7 +131,7 @@ header {
     display: block; /* El menú se muestra al hacer hover sobre el perfil */
 }
 
-.logout-btn {
+.logout-btn, .myprofile-btn {
     background-color: white;
     color: #16404D;
     font-size: 14px;
@@ -142,8 +142,14 @@ header {
     width: 100%; /* Esto hace que el botón ocupe el 100% del espacio disponible */
 }
 
+.myprofile-btn > a {
+    text-decoration: none;
+    color: #16404D;
+}
+
 /* Efecto al pasar el ratón */
-.logout-btn:hover {
+.logout-btn:hover, .myprofile-btn:hover, .myprofile-btn > a:hover {
+    text-decoration: none;
     color: #DDA853;
     transform: scale(1.05); /* Aumenta ligeramente el tamaño al hacer hover */
 }
@@ -154,6 +160,7 @@ header {
     flex-direction: row;
     gap: 15px;
 }
+
 .language-btn {
     background-color: transparent;
     border-color: transparent;
