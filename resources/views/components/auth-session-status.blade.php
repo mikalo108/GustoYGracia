@@ -5,5 +5,3 @@
         {{ $status }}
     </div>
 @endif
-
-@stack('css')

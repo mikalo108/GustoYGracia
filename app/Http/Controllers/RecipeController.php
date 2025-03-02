@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
+    const PAGINATE_SIZE = 4;
     public function index(){
-        $recipes = Recipe::all();
-        return view('recipe/all', ['recipes'=>$recipes]);
+        $recipeList = Recipe::all();
+        $recipeList = Recipe::paginate(self::PAGINATE_SIZE);
+        return view('recipe/all', ['recipeList'=>$recipeList],compact('recipeList'));
     }
     public function create()
     {

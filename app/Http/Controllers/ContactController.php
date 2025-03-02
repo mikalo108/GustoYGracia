@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Contact;
 
 class ContactController extends Controller
 {
+    const PAGINATE_SIZE = 4;
     public function index() { 
-        $c = Contact::all();
-        return view('contact/all', ['contactList'=>$c]);
+        $contactList = Contact::all();
+        $contactList = Contact::paginate(self::PAGINATE_SIZE);
+        return view('contact/all', ['contactList'=>$contactList], compact('contactList'));
     }
 
     public function create() { 
-        return view('contact/form');  
+        $users = User::all();
+        return view('contact/form',['users'=>$users]);  
     }
 
     public function store(Request $r) { 
@@ -29,8 +33,9 @@ class ContactController extends Controller
     }
 
     public function edit($id) { 
+        $users = User::all();
         $c = Contact::find($id);
-        return view('contact/form', ['contact' => $c]);
+        return view('contact/form', ['contact' => $c,'users'=>$users]);
     }
 
     public function update($id, Request $r) { 

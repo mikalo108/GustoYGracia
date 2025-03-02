@@ -63,7 +63,7 @@
                 margin-top: 10px;
             }
 
-            #createIcon>span {
+            #createIcon>img {
                 position: relative;
                 bottom: 2px;
             }
@@ -74,8 +74,15 @@
             }
 
             .actions {
-                display: flex;
-                flex-wrap: wrap;
+                display: grid;
+                width: 100%;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr;
+                column-gap: 2.5px;
+            }
+
+            .actions>.btn{
+                padding: 0;
             }
 
             #tagCategory {
@@ -86,6 +93,18 @@
                 display: flex;
                 flex-direction: column;
                 flex-wrap: wrap;
+            }
+            .search-form{
+                display: grid;
+                text-align: left;
+                grid-template-columns: 1fr 1fr;
+                row-gap: 10px;
+                column-gap: 20px;
+            }
+            .search-form>#botonBuscar{
+                width: 65px;
+                grid-column: 1/3;
+                margin: 0;
             }
         </style>
     </head>
@@ -120,13 +139,14 @@
                     </div>
                 </div>
 
+                <!-- Selector idioma -->
                 <div class="language-form">
                     <form action="{{ route('changeLanguage') }}" method="POST">
                         @csrf
-                        <button type="submit" name="language" value="es" class="language-btn">
+                        <button type="submit" name="language" value="es" class="language-btn @if ( __('auth.lang')=='es') languageSelected @endif">
                             <img src="{{ asset('images/es.png') }}" alt="Español" class="language-flag">
                         </button>
-                        <button type="submit" name="language" value="en" class="language-btn">
+                        <button type="submit" name="language" value="en" class="language-btn @if ( __('auth.lang')=='en') languageSelected @endif">
                             <img src="{{ asset('images/uk.png') }}" alt="English" class="language-flag">
                         </button>
                     </form>
@@ -143,36 +163,36 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($categories) active @endisset"
-                            @isset($categories) style="color: white;" @endisset
-                            href="{{ route('home') }}">Categories</a>
+                        <a id="recetaLink" class="flex-sm-fill text-sm-center nav-link"
+                            href="{{ route('recipe.index') }}">{{ __('admin.TitleRecipesTable') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($comments) active @endisset"
-                            @isset($comments) style="color: white;" @endisset
-                            href="{{ route('home') }}">Comments</a>
+                        <a id="categoriaLink" class="flex-sm-fill text-sm-center nav-link"
+                            href="{{ route('category.index') }}">{{ __('admin.TitleCategoriesTable') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($contacts) active @endisset"
-                            @isset($contacts) style="color: white;" @endisset
-                            href="{{ route('home') }}">Contacts</a>
+                        <a class="flex-sm-fill text-sm-center nav-link @isset($ingredientList) active @endisset"
+                            @isset($ingredientList) style="color: white;" @endisset
+                            href="{{ route('ingredient.index') }}">{{ __('admin.TitleIngredientsTable') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($ingredients) active @endisset"
-                            @isset($ingredients) style="color: white;" @endisset
-                            href="{{ route('home') }}">Ingredients</a>
+                        <a class="flex-sm-fill text-sm-center nav-link @isset($userList) active @endisset"
+                            @isset($userList) style="color: white;" @endisset
+                            href="{{ route('user.index') }}">{{ __('admin.TitleUsersTable') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($recipeCategories) active @endisset"
-                            @isset($recipeCategories) style="color: white;" @endisset
-                            href="{{ route('home') }}">Recipe
-                            Categories</a>
+                        <a class="flex-sm-fill text-sm-center nav-link @isset($contactList) active @endisset"
+                            @isset($contactList) style="color: white;" @endisset
+                            href="{{ route('contact.index') }}">{{ __('admin.TitleContactsTable') }}</a>
                     </li>
+                    
                     <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($recipes) active @endisset"
-                            @isset($recipes) style="color: white;" @endisset
-                            href="{{ route('recipe.index') }}">Recipes</a>
+                        <a class="flex-sm-fill text-sm-center nav-link @isset($commentList) active @endisset"
+                            @isset($commentList) style="color: white;" @endisset
+                            href="{{ route('comment.index') }}">{{ __('admin.TitleCommentsTable') }}</a>
                     </li>
+                    
+                    
                 </ul>
             </aside>
 
@@ -182,7 +202,7 @@
 
             <aside class="sidebar-right"></aside>
         </section>
-        <footer>
+        <footer class="navOscuro">
             <div class="footer-container">
                 <p>Contacto: ejemplo@recetario.com</p>
                 <p>&copy; 2025 Recetario. Todos los derechos reservados.</p>
@@ -193,17 +213,44 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="..."
         crossorigin="anonymous"></script>
     <script refer>
+        // Detectar en cual vista nos encontramos y mostrarlo con la clase active de bootstrap.
         const adminHomeLink = document.getElementById('adminHomeLink');
         if (window.location.href == adminHomeLink.href) {
             adminHomeLink.style.color = 'white';
             adminHomeLink.classList.add('active');
         }
+
+        // Acortamos las descripciones en el index.
         const descripciones = document.querySelectorAll('.descripcion');
         descripciones.forEach((descripcion) => {
             let descripcionTexto = descripcion.textContent;
             let descripcionAcortada = descripcionTexto.substr(0, 25) + "...";
             descripcion.textContent = descripcionAcortada;
         });
+
+        // Capturamos el evento de borrado del formulario.
+        let botonesBorrar=document.querySelectorAll(".botonBorrar");
+            botonesBorrar.forEach((botonBorrar)=>{
+                botonBorrar.addEventListener("click", ()=>{
+                    botonBorrar.parentElement.submit();
+                });
+            });
+        
+        document.addEventListener("DOMContentLoaded", ()=>{
+            let location = window.location.href.split("/");
+            console.log(location);
+            const linkReceta = document.getElementById("recetaLink");
+            const linkCategoria = document.getElementById("categoriaLink");
+            if(location.includes("category")){
+                linkCategoria.style.color = 'white';
+                linkCategoria.classList.add('active');
+            } else if(location.includes("recipe")){
+                linkReceta.style.color = 'white';
+                linkReceta.classList.add('active');
+            }
+        })
+
+        
     </script>
 
     </html>
@@ -232,7 +279,7 @@
                 <div class="search-bar">
                     <input type="text" placeholder="{{ __('messages.SearchRecipes') }}">
                     <button class="search-btn">
-                        <img src="{{ asset('images/lupa-icon.png') }}" alt="Buscar">
+                        <img src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Buscar">
                     </button>
                 </div>
 
@@ -257,13 +304,14 @@
                     @endguest
                 </div>
 
+                <!-- Selector idioma -->
                 <div class="language-form">
                     <form action="{{ route('changeLanguage') }}" method="POST">
                         @csrf
-                        <button type="submit" name="language" value="es" class="language-btn">
+                        <button type="submit" name="language" value="es" class="language-btn @if ( __('auth.lang')=='es') languageSelected @endif">
                             <img src="{{ asset('images/es.png') }}" alt="Español" class="language-flag">
                         </button>
-                        <button type="submit" name="language" value="en" class="language-btn">
+                        <button type="submit" name="language" value="en" class="language-btn @if ( __('auth.lang')=='en') languageSelected @endif">
                             <img src="{{ asset('images/uk.png') }}" alt="English" class="language-flag">
                         </button>
                     </form>
@@ -272,15 +320,12 @@
             </div>
         </header>
         <nav>
-            <ul>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    @foreach ($categoryList as $category)
-                        <li class="nav-item">
-                            <a class="nav-link" href="/{{ $category->name }}">{{ $category->name }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-                </div>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 navOscuro">
+                @foreach ($categoryList as $category)
+                    <li class="nav-item">
+                        <a class="nav-link" href="/{{ $category->name }}">{{ $category->name }}</a>
+                    </li>
+                @endforeach
             </ul>
         </nav>
         <section class="content-container">
@@ -292,7 +337,7 @@
 
             <aside class="sidebar-right"></aside>
         </section>
-        <footer>
+        <footer class="navOscuro">
             <div class="footer-container">
                 <p>{{ __('messages.Contact') }}: contacto@gustoygracia.com</p>
                 <p>&copy; 2025 Gusto&Gracia. {{ __('messages.Copyright') }}</p>

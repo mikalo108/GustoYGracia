@@ -9,11 +9,16 @@ use App\Models\Recipe;
 
 class CommentController extends Controller
 {
+    const PAGINATE_SIZE = 4;
     public function index() { 
-        $commentsList = Comment::all();
-        return view('comment/all', ['commentsList'=>$commentsList]);
+        $commentList = Comment::all();
+        $commentList = Comment::paginate(self::PAGINATE_SIZE);
+        return view('comment/all', ['commentList'=>$commentList], compact('commentList'));
     }
-
+    public function create() { 
+        $users = User::all();
+        return view('contact/form',['users'=>$users]);  
+    }
     public function store(Request $r, $user, $recipe) { 
         $c = new Comment();
         $c->user_id = $user->id;
@@ -21,6 +26,12 @@ class CommentController extends Controller
         $c->content = $r->content;
         $c->save();
         return redirect()->route('comment.index');
+    }
+    public function edit($id)
+    {
+        $comment = Comment::find($id);
+        $users = User::all();
+        return view('contact/form',['users'=>$users, 'comment'=>$comment]);  
     }
 
     public function update($id, Request $r, $user, $recipe) { 

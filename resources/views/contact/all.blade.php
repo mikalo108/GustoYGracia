@@ -15,7 +15,7 @@
     </style>
 @endpush
 
-@section('title', 'Recipe Index')
+@section('title', 'Contact Index')
 
 @section('content')
     @if (Auth::check() && Auth::user()->email === 'admin@gustoygracia.com')
@@ -25,28 +25,27 @@
                     <div class="card-body">
                         <div class="card-header">
                             <div class="row">
-                                <h1>{{ __("admin.Table") }}: {{ __("admin.TitleRecipesTable") }}</h1>
+                                <h1>{{ __("admin.Table") }}: {{ __("admin.TitleContactsTable") }}</h1>
                             </div>
                         </div>
                         <div class="col-md mt-4">
                             <form action="" method="post" class="search-form">
                                 @csrf
                                 <div>
-                                    <label for="recipeName" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_1') }}</label>
-                                    <input id="recipeName" name="recipeName" class="form-control"
-                                    value="@isset($recipeName) {{ $recipeName }}@endisset"/>
+                                    <label for="contactName" class="form-label"> {{ __("admin.TitleContactTable") }} {{ __('columns.contact_1') }}</label>
+                                    <input id="contactName" name="contactName" class="form-control" value="@isset($contactName) {{ $contactName }}@endisset"/>
                                 </div>
                                 <div>
-                                    <label for="recipeDescription" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_2') }}</label>
-                                    <input id="recipeDescription" name="recipeDescription" class="form-control" value="@isset($recipeDescription) {{ $recipeDescription }} @endisset"/>
+                                    <label for="contactSurname" class="form-label"> {{ __("admin.TitleContactTable") }} {{ __('columns.contact_2') }}</label>
+                                    <input id="contactSurname" name="contactSurname" class="form-control" value="@isset($contactSurname) {{ $contactSurname }} @endisset"/>
                                 </div>
                                 <div>
-                                    <label for="recipeCategory" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_3') }}</label>
-                                    <input id="recipeCategory" name="recipeCategory" class="form-control" value="@isset($recipeCategory) {{ $recipeCategory }} @endisset"/>
+                                    <label for="contactPhone" class="form-label"> {{ __("admin.TitleContactTable") }} {{ __('columns.contact_4') }}</label>
+                                    <input id="contactPhone" name="contactPhone" class="form-control" value="@isset($contactPhone) {{ $contactPhone }} @endisset"/>
                                 </div>
                                 <div>
-                                    <label for="recipeUser" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_4') }}</label>
-                                    <input id="recipeUser" name="recipeUser" class="form-control" value="@isset($recipeUser) {{ $recipeUser }} @endisset"/>
+                                    <label for="contactCountry" class="form-label"> {{ __("admin.TitleContactTable") }} {{ __('columns.contact_5') }}</label>
+                                    <input id="contactCountry" name="contactCountry" class="form-control" value="@isset($contactCountry) {{ $contactCountry }} @endisset"/>
                                 </div>
                                 <button type="submit" id="botonBuscar" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Search"></button>
                             </form>
@@ -54,48 +53,44 @@
                         <hr>
                         <div class="d-flex justify-content-end">
                             <a id="createIcon" class="header__link btn btn-sm btn-success"
-                                href="{{ route('recipe.create') }}"><img width="30" src="{{ asset('images/plus-solid.svg') }}" alt="New"></a>
+                                href="{{ route('contact.create') }}"><img width="30" src="{{ asset('images/plus-solid.svg') }}" alt="New"></a>
                         </div>
                         <div class="table-responsive mt-3">
-                            @if (count($recipeList) > 0)
+                            @if (count($contactList) > 0)
                                 <table class="table table-striped align-items-center">
                                     <thead class="thead-light">
                                         <th>#</th>
-                                        <th>{{ __('columns.recipe_1') }}</th>
-                                        <th>{{ __('columns.recipe_2') }}</th>
-                                        <th>{{ __('columns.recipe_3') }}</th>
-                                        <th>{{ __('columns.recipe_4') }}</th>
+                                        <th>{{ __('columns.contact_1') }}</th>
+                                        <th>{{ __('columns.contact_2') }}</th>
+                                        <th>{{ __('columns.contact_3') }}</th>
+                                        <th>{{ __('columns.contact_4') }}</th>
+                                        <th>{{ __('columns.contact_5') }}</th>
+                                        <th>{{ __('columns.contact_6') }}</th>
                                         <th>{{ __('columns.created_at') }}</th>
                                         <th>{{ __('columns.updated_at') }}</th>
                                         <th>{{ __('columns.actions') }}</th>
                                     </thead>
                                     <tbody>
-                                        @foreach ($recipeList as $recipe)
+                                        @foreach ($contactList as $contact)
                                             <tr>
-                                                <td>{{ $recipe->id }}</td>
-                                                <td>{{ $recipe->name }}</td>
-                                                <td class="descripcion">{{ $recipe->description }}</td>
-                                                <td>
-                                                    @foreach ($recipe->categories as $category)
-                                                        <ul class="nav flex-column" class="categoriasLista">
-                                                            <li id="tagCategory"
-                                                                class="flex-sm-fill text-sm-center badge rounded-pill text-bg-success">
-                                                                {{ $category->name }}</li>
-                                                        </ul>
-                                                    @endforeach
-                                                </td>
-                                                <td>{{ $recipe->user->name }}</td>
-                                                <td>{{ $recipe->created_at }}</td>
-                                                <td>{{ $recipe->updated_at }}</td>
+                                                <td>{{ $contact->id }}</td>
+                                                <td>{{ $contact->name }}</td>
+                                                <td>{{ $contact->surname }}</td>
+                                                <td class="descripcion">{{ $contact->bio }}</td>
+                                                <td>{{ $contact->phone }}</td>
+                                                <td>{{ $contact->country }}</td>
+                                                <td>{{ $contact->city }}</td>
+                                                <td>{{ $contact->created_at }}</td>
+                                                <td>{{ $contact->updated_at }}</td>
 
                                                 <td>
-                                                    <div class="btn-group actions" role="group" aria-label="Recipe">
+                                                    <div class="btn-group actions" role="group" aria-label="Contact">
                                                         <div class="btn">
-                                                            <a class="btn btn-secondary" href="{{ route('recipe.edit', $recipe) }}">
+                                                            <a class="btn btn-secondary" href="{{ route('contact.edit', $contact) }}">
                                                                 <img class="editButton" src="{{ asset('images/pencil-solid.svg') }}" alt="Edit">
                                                             </a>
                                                         </div>
-                                                        <form class="btn" action="{{route('recipe.destroy', $recipe->id)}}" method="POST">
+                                                        <form class="btn" action="{{route('contact.destroy', $contact->id)}}" method="POST">
                                                             @csrf
                                                             @method("DELETE")
                                                             <a class="btn btn-danger botonBorrar">
@@ -118,7 +113,7 @@
                         <div class="row my-3 pr-3">
                             <div class="col">
                                 <div class="float-right">
-                                    {{ $recipeList->links('pagination::bootstrap-5') }}
+                                    {{ $contactList->links('pagination::bootstrap-5') }}
                                 </div>
                             </div>
                         </div>

@@ -8,20 +8,22 @@ use App\Models\Recipe;
 
 class CategoryController extends Controller
 {
+    const PAGINATE_SIZE = 4;
     public function index()
     {
         $categoryList = Category::all();  // Obtener todas las categorías
+        $categoryList = Category::paginate(self::PAGINATE_SIZE);
         $recipeList = Recipe::all();  // Puedes aplicar filtros si necesitas alguna condición específica
-        return view('home', [
+        return view('category/all', [
             'categoryList' => $categoryList,
             'recipesList' => $recipeList,
-        ]);
+        ], compact('categoryList'));
     }
 
-    public function showCategories()
+    public function show()
     {
         $categoryList = Category::all();  // Obtener todas las categorías
-        return view('category.index', ['categoryList' => $categoryList]);  // Esta vista es para la página de categorías
+        return view('category/show', ['categoryList' => $categoryList]);  // Esta vista es para la página de categorías
     }
 
     public function create()
