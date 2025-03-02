@@ -28,7 +28,7 @@
                                 <h1>DB Table Recipe</h1>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mt-4">
                             <form action="" method="post" class="search-form">
                                 @csrf
                                 <label for="recipeName" class="form-label"> Recipe Name</label>
@@ -49,7 +49,7 @@
                         @endisset"
                                     placeholder="" />
 
-                                <br><button type="submit" class="btn btn-primary">Enviar</button>
+                                <br><button type="submit" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon.png') }}" alt="Buscar"></button>
                             </form>
                         </div>
                         <hr>
@@ -91,12 +91,19 @@
 
                                                 <td>
                                                     <div class="btn-group actions" role="group" aria-label="Recipe">
-                                                        <a class="btn btn-secondary"
-                                                            href="{{ route('recipe.edit', $recipe) }}">
-                                                            <img class="editButton"
-                                                                src="{{ asset('images/pencil-solid.svg') }}"
-                                                                alt="Edit">
-                                                        </a>
+                                                        <div class="btn">
+                                                            <a class="btn btn-secondary" href="{{ route('recipe.edit', $recipe) }}">
+                                                                <img class="editButton" src="{{ asset('images/pencil-solid.svg') }}" alt="Edit">
+                                                            </a>
+                                                        </div>
+                                                        <form class="btn" action="{{route('recipe.destroy', $recipe->id)}}" method="POST">
+                                                            @csrf
+                                                            @method("DELETE")
+                                                            <a class="btn btn-danger botonBorrar">
+                                                                <img class="editButton" src="{{ asset('images/trash-solid.svg') }}" alt="Delete">
+                                                            </a>
+                                                        </form>
+                                                        
                                                     </div>
                                                 </td>
                                             </tr>

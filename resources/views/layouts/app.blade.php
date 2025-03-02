@@ -74,8 +74,15 @@
             }
 
             .actions {
-                display: flex;
-                flex-wrap: wrap;
+                display: grid;
+                width: 100%;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr;
+                column-gap: 2.5px;
+            }
+
+            .actions>.btn{
+                padding: 0;
             }
 
             #tagCategory {
@@ -193,17 +200,28 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="..."
         crossorigin="anonymous"></script>
     <script refer>
+        // Detectar en cual vista nos encontramos y mostrarlo con la clase active de bootstrap.
         const adminHomeLink = document.getElementById('adminHomeLink');
         if (window.location.href == adminHomeLink.href) {
             adminHomeLink.style.color = 'white';
             adminHomeLink.classList.add('active');
         }
+
+        // Acortamos las descripciones en el index.
         const descripciones = document.querySelectorAll('.descripcion');
         descripciones.forEach((descripcion) => {
             let descripcionTexto = descripcion.textContent;
             let descripcionAcortada = descripcionTexto.substr(0, 25) + "...";
             descripcion.textContent = descripcionAcortada;
         });
+
+        // Capturamos el evento de borrado del formulario.
+        let botonesBorrar=document.querySelectorAll(".botonBorrar");
+            botonesBorrar.forEach((botonBorrar)=>{
+                botonBorrar.addEventListener("click", ()=>{
+                    botonBorrar.parentElement.submit();
+                });
+            });
     </script>
 
     </html>
