@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 return [
+    'Index' => 'Index',
     'Table' => 'Table',
     'TitleRecipeTable'     => 'Recipe',
     'TitleRecipesTable'     => 'Recipes',

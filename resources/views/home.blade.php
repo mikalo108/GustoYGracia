@@ -33,7 +33,7 @@
     </style>
 @endpush
 
-@section('title', 'Home')
+@section('title', 'Gusto&Gracia')
 
 @section('content')
     @if (Auth::check() && Auth::user()->email === 'admin@gustoygracia.com')

@@ -6,6 +6,11 @@
     } else {
         App::setLocale(config('app.locale'));
     }
+
+    $title = __('admin.TitleRecipesTable'); 
+    if(Auth::check() && Auth::user()->email === 'admin@gustoygracia.com') {
+        $title = $title.' '. __('admin.Index');
+    }
 @endphp
 
 @push('css')
@@ -15,7 +20,7 @@
     </style>
 @endpush
 
-@section('title', 'Recipe Index')
+@section('title', $title)
 
 @section('content')
     @if (Auth::check() && Auth::user()->email === 'admin@gustoygracia.com')
