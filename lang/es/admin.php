@@ -12,7 +12,7 @@ return [
     'DescriptionIngredientTable'     => 'Aquí se gestionan los ingredientes',
     'TitleCategoryTable'     => 'Categoría',
     'TitleCategoriesTable'     => 'Categorías',
-    'DescriptionCategoryTable'     => 'Aquí se gestionan las categorías de las recetas',
+    'DescriptionCategoryTable'     => 'Aquí se gestionan las categorías',
     'TitleUserTable'     => 'Usuario',
     'TitleUsersTable'     => 'Usuarios',
     'DescriptionUserTable'     => 'Aquí se gestionan los usuarios',

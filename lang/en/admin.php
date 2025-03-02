@@ -12,7 +12,7 @@ return [
     'DescriptionIngredientTable'     => 'Here you can find all the ingredients',
     'TitleCategoryTable'     => 'Category',
     'TitleCategoriesTable'     => 'Categories',
-    'DescriptionCategoryTable'     => 'Here you can find all the categories.',
+    'DescriptionCategoryTable'     => 'Here you can find all the categories',
     'TitleUserTable'     => 'User',
     'TitleUsersTable'     => 'Users',
     'DescriptionUserTable'     => 'Here you can find all the users',

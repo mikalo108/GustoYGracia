@@ -149,21 +149,29 @@ header {
 }
 
 /* Estilo para los botones */
+.language-form>form{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
 .language-btn {
     background-color: transparent;
     border-color: transparent;
     display: flex;
     align-items: center;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
     margin-right: 0px;
+}
+.languageSelected {
+    background-color: #16404D;
+    color: white;
+    border-radius: 25%;
 }
 
 .language-btn:hover {
     background-color: #16404D;
-    /* Fondo azul oscuro al hacer hover */
     color: white;
-    /* Cambiar el color del texto al hacer hover */
+    border-radius: 25%;
 }
 
 .language-flag {

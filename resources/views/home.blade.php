@@ -46,10 +46,34 @@
                     <p class="card-text">{{ __('admin.DescriptionRecipeTable') }}</p>
                 </div>
             </div>
+            <div class="card text-bg-ligth" link="/category">
+                <div class="card-body">
+                    <h5 class="card-title">{{ __('admin.TitleCategoriesTable') }}</h5>
+                    <p class="card-text">{{ __('admin.DescriptionCategoryTable') }}</p>
+                </div>
+            </div>
             <div class="card text-bg-ligth" link="/ingredient">
                 <div class="card-body">
                     <h5 class="card-title">{{ __('admin.TitleIngredientsTable') }}</h5>
                     <p class="card-text">{{ __('admin.DescriptionIngredientTable') }}</p>
+                </div>
+            </div>
+            <div class="card text-bg-ligth" link="/user">
+                <div class="card-body">
+                    <h5 class="card-title">{{ __('admin.TitleUsersTable') }}</h5>
+                    <p class="card-text">{{ __('admin.DescriptionUserTable') }}</p>
+                </div>
+            </div>
+            <div class="card text-bg-ligth" link="/contact">
+                <div class="card-body">
+                    <h5 class="card-title">{{ __('admin.TitleContactsTable') }}</h5>
+                    <p class="card-text">{{ __('admin.DescriptionContactTable') }}</p>
+                </div>
+            </div>
+            <div class="card text-bg-ligth" link="/comment">
+                <div class="card-body">
+                    <h5 class="card-title">{{ __('admin.TitleCommentsTable') }}</h5>
+                    <p class="card-text">{{ __('admin.DescriptionCommentTable') }}</p>
                 </div>
             </div>
         </div>
