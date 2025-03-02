@@ -72,26 +72,24 @@ class CategoryController extends Controller
     public function update($id, Request $r)
     {
         $c = Category::find($id);
-        $c->name = $r->name;
-        $c->description = $r->description;
+        $c->name = $r->categoryNameEN;
+        $c->description = $r->categoryDescriptionEN;
         $c->save();
 
         $cES = CategoryTranslation::where('category_id', $id)
-                                    ->where('locale', 'es')
-                                    ->get();
+                                    ->where('locale', 'es');
         $cES->name = $r->categoryNameES;
         $cES->locale="es";
         $cES->description = $r->categoryDescriptionES;
-        $cES->category_id=$id;
+        $cES->category_id=$categoryId;
         $cES->save();
 
         $cEN = CategoryTranslation::where('category_id', $id)
-                                    ->where('locale', 'en')
-                                    ->get();
+                                    ->where('locale', 'en');
         $cEN->name = $r->categoryNameEN;
         $cEN->locale="en";
         $cEN->description = $r->categoryDescriptionEN;
-        $cEN->category_id=$id;
+        $cEN->category_id=$categoryId;
         $cEN->save();
 
         return redirect()->route('category.index');
