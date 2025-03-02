@@ -3,5 +3,12 @@
 declare(strict_types=1);
 
 return [
-    'Name'     => 'Nombre',
+    'created_at'     => 'Creado',
+    'updated_at'     => 'Última Actualización',
+    'actions'     => 'Acciones',
+    'recipe_1'     => 'Nombre',
+    'recipe_2'     => 'Descripción',
+    'recipe_3'     => 'Categorías',
+    'recipe_4'     => 'Usuario',
+    
 ];

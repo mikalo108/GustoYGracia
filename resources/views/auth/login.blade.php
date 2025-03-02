@@ -1,20 +1,10 @@
 <x-guest-layout>
-    @push('css')
-        <style>
-            #hola {
-                color: violet;
-            }
-        </style>
-    @endpush
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <div id="hola">
-            skjdoksajdlkasjdl
-        </div>
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />

@@ -40,10 +40,16 @@
         <h1>Admin Home</h1>
         <hr>
         <div class="container">
-            <div class="card text-bg-ligth" link="/admin/recipe">
+            <div class="card text-bg-ligth" link="/recipe">
                 <div class="card-body">
-                    <h5 class="card-title">Recetas</h5>
-                    <p class="card-text">Aquí se gestionan las recetas</p>
+                    <h5 class="card-title">{{ __('admin.TitleRecipesTable') }}</h5>
+                    <p class="card-text">{{ __('admin.DescriptionRecipeTable') }}</p>
+                </div>
+            </div>
+            <div class="card text-bg-ligth" link="/ingredient">
+                <div class="card-body">
+                    <h5 class="card-title">{{ __('admin.TitleIngredientsTable') }}</h5>
+                    <p class="card-text">{{ __('admin.DescriptionIngredientTable') }}</p>
                 </div>
             </div>
         </div>

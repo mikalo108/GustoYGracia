@@ -25,50 +25,45 @@
                     <div class="card-body">
                         <div class="card-header">
                             <div class="row">
-                                <h1>DB Table Recipe</h1>
+                                <h1>{{ __("admin.Table") }}: {{ __("admin.TitleRecipesTable") }}</h1>
                             </div>
                         </div>
                         <div class="col-md-6 mt-4">
                             <form action="" method="post" class="search-form">
                                 @csrf
-                                <label for="recipeName" class="form-label"> Recipe Name</label>
+                                <label for="recipeName" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_1') }}</label>
                                 <input id="recipeName" name="recipeName" class="form-control"
-                                    value="@isset($recipeName) {{ $recipeName }}
-                        @endisset"
-                                    placeholder="" />
+                                    value="@isset($recipeName) {{ $recipeName }}@endisset"/>
 
-                                <label for="recipeDescription" class="form-label"> Recipe Description </label>
-                                <input id="recipeDescription" name="recipeDescription" class="form-control"
-                                    value="@isset($recipeDescription) {{ $recipeDescription }}
-                        @endisset"
-                                    placeholder="" />
+                                <label for="recipeDescription" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_2') }}</label>
+                                <input id="recipeDescription" name="recipeDescription" class="form-control" value="@isset($recipeDescription) {{ $recipeDescription }} @endisset"/>
 
-                                <label for="recipeCategory" class="form-label"> Recipe category</label>
-                                <input id="recipeCategory" name="recipeCategory" class="form-control"
-                                    value="@isset($recipeCategory) {{ $recipeCategory }}
-                        @endisset"
-                                    placeholder="" />
+                                <label for="recipeCategory" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_3') }}</label>
+                                <input id="recipeCategory" name="recipeCategory" class="form-control" value="@isset($recipeCategory) {{ $recipeCategory }} @endisset"/>
 
-                                <br><button type="submit" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon.png') }}" alt="Buscar"></button>
+                                <label for="recipeUser" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_4') }}</label>
+                                <input id="recipeUser" name="recipeUser" class="form-control" value="@isset($recipeUser) {{ $recipeUser }} @endisset"/>
+
+                                <br><button type="submit" style="width: 65px;" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Search"></button>
                             </form>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-end">
                             <a id="createIcon" class="header__link btn btn-sm btn-success"
-                                href="{{ route('recipe.create') }}"><span>+</span></a>
+                                href="{{ route('recipe.create') }}"><img width="30" src="{{ asset('images/plus-solid.svg') }}" alt="New"></a>
                         </div>
                         <div class="table-responsive mt-3">
                             @if (count($recipes) > 0)
                                 <table class="table table-striped align-items-center">
                                     <thead class="thead-light">
                                         <th>#</th>
-                                        <th>{{ __('columns.Name') }}</th>
-                                        <th>Descripción</th>
-                                        <th>Categorías</th>
-                                        <th>Usuario</th>
-                                        <th>created_at</th>
-                                        <th>updated_at</th>
-                                        <th>Acciones</th>
+                                        <th>{{ __('columns.recipe_1') }}</th>
+                                        <th>{{ __('columns.recipe_2') }}</th>
+                                        <th>{{ __('columns.recipe_3') }}</th>
+                                        <th>{{ __('columns.recipe_4') }}</th>
+                                        <th>{{ __('columns.created_at') }}</th>
+                                        <th>{{ __('columns.updated_at') }}</th>
+                                        <th>{{ __('columns.actions') }}</th>
                                     </thead>
                                     <tbody>
                                         @foreach ($recipes as $recipe)

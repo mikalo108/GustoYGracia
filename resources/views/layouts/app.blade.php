@@ -63,7 +63,7 @@
                 margin-top: 10px;
             }
 
-            #createIcon>span {
+            #createIcon>img {
                 position: relative;
                 bottom: 2px;
             }
@@ -150,36 +150,38 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="flex-sm-fill text-sm-center nav-link @isset($recipes) active @endisset"
+                            @isset($recipes) style="color: white;" @endisset
+                            href="{{ route('recipe.index') }}">{{ __('admin.TitleRecipesTable') }}</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="flex-sm-fill text-sm-center nav-link @isset($categories) active @endisset"
                             @isset($categories) style="color: white;" @endisset
-                            href="{{ route('home') }}">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($comments) active @endisset"
-                            @isset($comments) style="color: white;" @endisset
-                            href="{{ route('home') }}">Comments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($contacts) active @endisset"
-                            @isset($contacts) style="color: white;" @endisset
-                            href="{{ route('home') }}">Contacts</a>
+                            href="{{ route('home') }}">{{ __('admin.TitleCategoriesTable') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="flex-sm-fill text-sm-center nav-link @isset($ingredients) active @endisset"
                             @isset($ingredients) style="color: white;" @endisset
-                            href="{{ route('home') }}">Ingredients</a>
+                            href="{{ route('home') }}">{{ __('admin.TitleIngredientsTable') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($recipeCategories) active @endisset"
-                            @isset($recipeCategories) style="color: white;" @endisset
-                            href="{{ route('home') }}">Recipe
-                            Categories</a>
+                        <a class="flex-sm-fill text-sm-center nav-link @isset($users) active @endisset"
+                            @isset($users) style="color: white;" @endisset
+                            href="{{ route('home') }}">{{ __('admin.TitleUsersTable') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="flex-sm-fill text-sm-center nav-link @isset($recipes) active @endisset"
-                            @isset($recipes) style="color: white;" @endisset
-                            href="{{ route('recipe.index') }}">Recipes</a>
+                        <a class="flex-sm-fill text-sm-center nav-link @isset($contacts) active @endisset"
+                            @isset($contacts) style="color: white;" @endisset
+                            href="{{ route('home') }}">{{ __('admin.TitleContactsTable') }}</a>
                     </li>
+                    
+                    <li class="nav-item">
+                        <a class="flex-sm-fill text-sm-center nav-link @isset($comments) active @endisset"
+                            @isset($comments) style="color: white;" @endisset
+                            href="{{ route('home') }}">{{ __('admin.TitleCommentsTable') }}</a>
+                    </li>
+                    
+                    
                 </ul>
             </aside>
 
@@ -250,7 +252,7 @@
                 <div class="search-bar">
                     <input type="text" placeholder="{{ __('messages.SearchRecipes') }}">
                     <button class="search-btn">
-                        <img src="{{ asset('images/lupa-icon.png') }}" alt="Buscar">
+                        <img src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Buscar">
                     </button>
                 </div>
 
