@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-md mt-4">
                             @isset($category)
-                                <form name="edit_category" action="{{ route('category.update', $category) }}" method="post">
+                                <form name="edit_category" action="{{ route('category.update', $category->id) }}" method="post">
                                 @csrf
                             @else
                                 <form name="create_category" action="{{ route('category.store') }}" method="post">
