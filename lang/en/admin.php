@@ -22,6 +22,6 @@ return [
     'TitleCommentTable'     => 'Comment',
     'TitleCommentsTable'     => 'Comments',
     'DescriptionCommentTable'     => 'Here you can find all the comments',
-
+    'noData'     => 'No data to show',
 
 ];

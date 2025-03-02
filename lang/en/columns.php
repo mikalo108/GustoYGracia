@@ -12,5 +12,8 @@ return [
     'recipe_4'     => 'User',
     'category_1'     => 'Name',
     'category_2'     => 'Description',
+    'ingredient_1'     => 'Name',
+    'ingredient_2'     => 'Description',
+    'ingredient_3'     => 'Calories / 100g',
     
 ];

@@ -15,7 +15,7 @@
     </style>
 @endpush
 
-@section('title', 'Recipe Index')
+@section('title', 'Ingredient Index')
 
 @section('content')
     @if (Auth::check() && Auth::user()->email === 'admin@gustoygracia.com')
@@ -25,28 +25,23 @@
                     <div class="card-body">
                         <div class="card-header">
                             <div class="row">
-                                <h1>{{ __("admin.Table") }}: {{ __("admin.TitleRecipesTable") }}</h1>
+                                <h1>{{ __("admin.Table") }}: {{ __("admin.TitleIngredientsTable") }}</h1>
                             </div>
                         </div>
                         <div class="col-md mt-4">
                             <form action="" method="post" class="search-form">
                                 @csrf
                                 <div>
-                                    <label for="recipeName" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_1') }}</label>
-                                    <input id="recipeName" name="recipeName" class="form-control"
-                                    value="@isset($recipeName) {{ $recipeName }}@endisset"/>
+                                    <label for="ingredientName" class="form-label"> {{ __("admin.TitleIngredientTable") }} {{ __('columns.ingredient_1') }}</label>
+                                    <input id="ingredientName" name="ingredientName" class="form-control" value="@isset($ingredientName) {{ $ingredientName }}@endisset"/>
                                 </div>
                                 <div>
-                                    <label for="recipeDescription" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_2') }}</label>
-                                    <input id="recipeDescription" name="recipeDescription" class="form-control" value="@isset($recipeDescription) {{ $recipeDescription }} @endisset"/>
+                                    <label for="ingredientDescription" class="form-label"> {{ __("admin.TitleIngredientTable") }} {{ __('columns.ingredient_2') }}</label>
+                                    <input id="ingredientDescription" name="ingredientDescription" class="form-control" value="@isset($ingredientDescription) {{ $ingredientDescription }} @endisset"/>
                                 </div>
                                 <div>
-                                    <label for="recipeCategory" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_3') }}</label>
-                                    <input id="recipeCategory" name="recipeCategory" class="form-control" value="@isset($recipeCategory) {{ $recipeCategory }} @endisset"/>
-                                </div>
-                                <div>
-                                    <label for="recipeUser" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_4') }}</label>
-                                    <input id="recipeUser" name="recipeUser" class="form-control" value="@isset($recipeUser) {{ $recipeUser }} @endisset"/>
+                                    <label for="ingredientCalories" class="form-label"> {{ __("admin.TitleIngredientTable") }} {{ __('columns.ingredient_2') }}</label>
+                                    <input id="ingredientCalories" name="ingredientCalories" class="form-control" value="@isset($ingredientCalories) {{ $ingredientCalories }} @endisset"/>
                                 </div>
                                 <button type="submit" id="botonBuscar" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Search"></button>
                             </form>
@@ -54,48 +49,38 @@
                         <hr>
                         <div class="d-flex justify-content-end">
                             <a id="createIcon" class="header__link btn btn-sm btn-success"
-                                href="{{ route('recipe.create') }}"><img width="30" src="{{ asset('images/plus-solid.svg') }}" alt="New"></a>
+                                href="{{ route('ingredient.create') }}"><img width="30" src="{{ asset('images/plus-solid.svg') }}" alt="New"></a>
                         </div>
                         <div class="table-responsive mt-3">
-                            @if (count($recipeList) > 0)
+                            @if (count($ingredientList) > 0)
                                 <table class="table table-striped align-items-center">
                                     <thead class="thead-light">
                                         <th>#</th>
-                                        <th>{{ __('columns.recipe_1') }}</th>
-                                        <th>{{ __('columns.recipe_2') }}</th>
-                                        <th>{{ __('columns.recipe_3') }}</th>
-                                        <th>{{ __('columns.recipe_4') }}</th>
+                                        <th>{{ __('columns.ingredient_1') }}</th>
+                                        <th>{{ __('columns.ingredient_2') }}</th>
+                                        <th>{{ __('columns.ingredient_3') }}</th>
                                         <th>{{ __('columns.created_at') }}</th>
                                         <th>{{ __('columns.updated_at') }}</th>
                                         <th>{{ __('columns.actions') }}</th>
                                     </thead>
                                     <tbody>
-                                        @foreach ($recipeList as $recipe)
+                                        @foreach ($ingredientList as $ingredient)
                                             <tr>
-                                                <td>{{ $recipe->id }}</td>
-                                                <td>{{ $recipe->name }}</td>
-                                                <td class="descripcion">{{ $recipe->description }}</td>
-                                                <td>
-                                                    @foreach ($recipe->categories as $category)
-                                                        <ul class="nav flex-column" class="categoriasLista">
-                                                            <li id="tagCategory"
-                                                                class="flex-sm-fill text-sm-center badge rounded-pill text-bg-success">
-                                                                {{ $category->name }}</li>
-                                                        </ul>
-                                                    @endforeach
-                                                </td>
-                                                <td>{{ $recipe->user->name }}</td>
-                                                <td>{{ $recipe->created_at }}</td>
-                                                <td>{{ $recipe->updated_at }}</td>
+                                                <td>{{ $ingredient->id }}</td>
+                                                <td>{{ $ingredient->name }}</td>
+                                                <td class="descripcion">{{ $ingredient->description }}</td>
+                                                <td>{{ $ingredient->calories_per_100g }}</td>
+                                                <td>{{ $ingredient->created_at }}</td>
+                                                <td>{{ $ingredient->updated_at }}</td>
 
                                                 <td>
-                                                    <div class="btn-group actions" role="group" aria-label="Recipe">
+                                                    <div class="btn-group actions" role="group" aria-label="Ingredient">
                                                         <div class="btn">
-                                                            <a class="btn btn-secondary" href="{{ route('recipe.edit', $recipe) }}">
+                                                            <a class="btn btn-secondary" href="{{ route('ingredient.edit', $ingredient) }}">
                                                                 <img class="editButton" src="{{ asset('images/pencil-solid.svg') }}" alt="Edit">
                                                             </a>
                                                         </div>
-                                                        <form class="btn" action="{{route('recipe.destroy', $recipe->id)}}" method="POST">
+                                                        <form class="btn" action="{{route('ingredient.destroy', $ingredient->id)}}" method="POST">
                                                             @csrf
                                                             @method("DELETE")
                                                             <a class="btn btn-danger botonBorrar">
@@ -118,7 +103,7 @@
                         <div class="row my-3 pr-3">
                             <div class="col">
                                 <div class="float-right">
-                                    {{ $recipeList->links('pagination::bootstrap-5') }}
+                                    {{ $ingredientList->links('pagination::bootstrap-5') }}
                                 </div>
                             </div>
                         </div>

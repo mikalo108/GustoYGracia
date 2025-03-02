@@ -37,7 +37,7 @@
                                 </div>
                                 <div>
                                     <label for="categoryDescription" class="form-label"> {{ __("admin.TitleCategoryTable") }} {{ __('columns.category_2') }}</label>
-                                    <input id="categoryDescription" name="categoryDescription" class="form-control" value="@isset($recipeDescription) {{ $recipeDescription }} @endisset"/>
+                                    <input id="categoryDescription" name="categoryDescription" class="form-control" value="@isset($categoryDescription) {{ $categoryDescription }} @endisset"/>
                                 </div>
                                 <button type="submit" id="botonBuscar" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Search"></button>
                             </form>
@@ -90,7 +90,7 @@
                                 </table>
                             @else
                                 <div class="alert alert-warning mt-3">
-                                    No hay recetas
+                                    {{ __('admin.noData') }}
                                 </div>
                             @endif
                         </div>

@@ -22,5 +22,6 @@ return [
     'TitleCommentTable'     => 'Comentario',
     'TitleCommentsTable'     => 'Comentarios',
     'DescriptionCommentTable'     => 'Aquí se gestionan los comentarios',
+    'noData'     => 'No hay datos que mostrar',
 
 ];

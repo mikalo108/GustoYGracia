@@ -7,9 +7,11 @@ use App\Models\Ingredient;
 
 class IngredientController extends Controller
 {
+    const PAGINATE_SIZE = 4;
     public function index() { 
         $ingredientList = Ingredient::all();
-        return view('ingredient/all', ['ingredientList'=>$ingredientList]);
+        $ingredientList = Ingredient::paginate(self::PAGINATE_SIZE);
+        return view('ingredient/all', ['ingredientList'=>$ingredientList], compact('ingredientList'));
     }
 
     public function create() { 
