@@ -60,7 +60,13 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $c = Category::find($id);
-        return view('category/form', ['category' => $c]);
+        $cES = CategoryTranslation::where('category_id', $id)
+                                    ->where('locale', 'es')
+                                    ->first();
+        $cEN = CategoryTranslation::where('category_id', $id)
+                    ->where('locale', 'en')
+                    ->first();
+        return view('category/form', ['category' => $c, 'cES'=>$cES , 'cEN'=>$cEN]);
     }
 
     public function update($id, Request $r)
@@ -69,6 +75,23 @@ class CategoryController extends Controller
         $c->name = $r->name;
         $c->description = $r->description;
         $c->save();
+
+        $cES = CategoryTranslation::where('category_id', $id)
+                                    ->where('locale', 'es');
+        $cES->name = $r->categoryNameES;
+        $cES->locale="es";
+        $cES->description = $r->categoryDescriptionES;
+        $cES->category_id=$id;
+        $cES->save();
+
+        $cEN = CategoryTranslation::where('category_id', $id)
+                                    ->where('locale', 'en');
+        $cEN->name = $r->categoryNameEN;
+        $cEN->locale="en";
+        $cEN->description = $r->categoryDescriptionEN;
+        $cEN->category_id=$id;
+        $cEN->save();
+
         return redirect()->route('category.index');
     }
     public function destroy($id)

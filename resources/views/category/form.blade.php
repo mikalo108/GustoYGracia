@@ -49,22 +49,22 @@
                                 <div class="mb-3">
                                     <label for="categoryNameES" class="form-label"> {{__('columns.category_1')}}__es</label>
                                     <input id="categoryNameES" name="categoryNameES" type="text"
-                                    class="form-control" required @isset($category) value="{{ old('categoryNameES', $category->name)}}" @else value="{{ old('categoryNameES') }}" @endisset />
+                                    class="form-control" required @isset($cES) value="{{$cES->name}}" @endisset />
                                 </div>
                                 <div class="mb-3">
                                     <label for="categoryNameEN" class="form-label"> {{__('columns.category_1')}}__en</label>
                                     <input id="categoryNameEN" name="categoryNameEN" type="text"
-                                    class="form-control" required @isset($category) value="{{ old('categoryNameEN', $category->name)}}" @else value="{{ old('categoryNameEN') }}" @endisset />
+                                    class="form-control" required @isset($cEN) value="{{$cEN->description}}" @endisset />
                                 </div>
                                 <div class="mb-3">
                                     <label for="categoryDescriptionES" class="form-label"> {{__('columns.category_2')}}__es</label>
                                     <input id="categoryDescriptionES" name="categoryDescriptionES" type="text"
-                                    class="form-control" required @isset($category) value="{{ old('categoryDescriptionES', $category->description)}}" @else value="{{ old('categoryDescriptionES') }}" @endisset />
+                                    class="form-control" required @isset($cES) value="{{$cES->name}}" @endisset />
                                 </div>
                                 <div class="mb-3">
                                     <label for="categoryDescriptionEN" class="form-label"> {{__('columns.category_2')}}__en</label>
                                     <input id="categoryDescriptionEN" name="categoryDescriptionEN" type="text"
-                                    class="form-control" required @isset($category) value="{{ old('categoryDescriptionEN', $category->description)}}" @else value="{{ old('categoryDescriptionEN') }}" @endisset />
+                                    class="form-control" required @isset($cEN) value="{{$cEN->description}}" @endisset />
                                 </div>
                                 <input type="submit" value="{{__('admin.save_btn')}}" class="btn btn-primary" name="saveBtn"/>
                             </form>

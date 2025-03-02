@@ -67,7 +67,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($commentList as $comment)
-                                            <tr class="filaTablaIndex" link="{{ route('comment.show', $commment->id) }}">
+                                            <tr class="filaTablaIndex" link="{{ route('comment.show', $comment->id) }}">
                                                 <td>{{ $comment->id }}</td>
                                                 <td> @isset($comment->user->name) {{ $comment->user->name }} @endisset</td>
                                                 <td> @isset($comment->recipe->name) {{ $comment->recipe->name }} @endisset</td>
