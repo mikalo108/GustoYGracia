@@ -156,7 +156,7 @@
         </header>
         <section class="content-container">
             <aside class="sidebar-left">
-                <ul class="nav flex-column nav-pills" id="navbarTogglerDemo01">
+                <ul class="nav flex-column nav-pills navOscuro" id="navbarTogglerDemo01">
                     <li class="nav-item">
                         <a class="flex-sm-fill text-sm-center nav-link" id="adminHomeLink" href="{{ route('home') }}">
                             <img id="imgHomeAdmin" src="{{ asset('images/house-solid.svg') }}" alt="HOME">
@@ -204,7 +204,7 @@
 
             <aside class="sidebar-right"></aside>
         </section>
-        <footer>
+        <footer class="navOscuro">
             <div class="footer-container">
                 <p>Contacto: ejemplo@recetario.com</p>
                 <p>&copy; 2025 Recetario. Todos los derechos reservados.</p>
@@ -326,7 +326,7 @@
 
             <aside class="sidebar-right"></aside>
         </section>
-        <footer>
+        <footer class="navOscuro">
             <div class="footer-container">
                 <p>{{ __('messages.Contact') }}: contacto@gustoygracia.com</p>
                 <p>&copy; 2025 Gusto&Gracia. {{ __('messages.Copyright') }}</p>
