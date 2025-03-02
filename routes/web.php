@@ -23,37 +23,33 @@ Route::post('/change-language', function (Request $request) {
     return redirect()->back();
 })->name('changeLanguage');
 
-Route::get('/', 'CategoryController@index')->name('home');
+Route::get('/', function () {
+    return view('home');
+})->name('home');
 
 Route::get('/myprofile', function () {
     return view('myprofile');
 })->name('myprofile');
 
-Route::get('/categories', 'CategoryController@showCategories');  // Esta ruta es para ver todas las categorías en otra vista
 Route::resource('category', 'CategoryController');
+Route::get('/category/show/{category}', 'CategoryController@show');
 Route::get('/category/delete/{category}', 'CategoryController@destroy')->name('category.myDestroy');
 
-Route::get('/comment', 'CommentController@index')->name('comment.index');
+Route::resource('comment', 'CategoryController');
 Route::get('/comment/show/{comment}', 'CommentController@show')->name('comment.show');
 Route::get('/comment/delete/{comment}', 'CommentController@destroy')->name('comment.myDestroy');
 
 Route::resource('contact', 'ContactController');
+Route::get('/category/show/{contact}', 'ContactController@show')->name('contact.show');
 Route::get('/contact/delete/{contact}', 'ContactController@destroy')->name('contact.myDestroy');
 
 Route::resource('ingredient', 'IngredientController');
+Route::get('/ingredient/show/{ingredient}', 'IngredientController@show')->name('ingredient.show');
 Route::get('/ingredient/delete/{ingredient}', 'IngredientController@destroy')->name('ingredient.myDestroy');
 
-Route::resource('recipeCategory', 'RecipeCategoryController');
-Route::get('/recipeCategory/delete/{recipeCategory}', 'RecipeCategoryController@destroy')->name('recipeCategory.myDestroy');
-
 Route::resource('recipe', 'RecipeController');
+Route::get('/recipe/show/{recipe}', 'RecipeController@show')->name('recipe.show');
 Route::get('/recipe/delete/{recipe}', 'RecipeController@destroy')->name('recipe.myDestroy');
-
-Route::resource('recipeDetail', 'RecipeDetailController');
-Route::get('/recipeDetail/delete/{recipeDetail}', 'RecipeDetailController@destroy')->name('recipeDetail.myDestroy');
-
-Route::resource('recipeIngredient', 'RecipeIngredientController');
-Route::get('/recipeIngredient/delete/{recipeIngredient}', 'RecipeIngredientController@destroy')->name('recipeIngredient.myDestroy');
 
 Route::resource('user', 'UserController');
 

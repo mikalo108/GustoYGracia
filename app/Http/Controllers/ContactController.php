@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Contact;
 
@@ -13,7 +14,8 @@ class ContactController extends Controller
     }
 
     public function create() { 
-        return view('contact/form');  
+        $users = User::all();
+        return view('contact/form',['users'=>$users]);  
     }
 
     public function store(Request $r) { 
@@ -29,8 +31,9 @@ class ContactController extends Controller
     }
 
     public function edit($id) { 
+        $users = User::all();
         $c = Contact::find($id);
-        return view('contact/form', ['contact' => $c]);
+        return view('contact/form', ['contact' => $c,'users'=>$users]);
     }
 
     public function update($id, Request $r) { 

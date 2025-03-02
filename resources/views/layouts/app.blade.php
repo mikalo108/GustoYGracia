@@ -278,13 +278,14 @@
                     @endguest
                 </div>
 
+                <!-- Selector idioma -->
                 <div class="language-form">
                     <form action="{{ route('changeLanguage') }}" method="POST">
                         @csrf
-                        <button type="submit" name="language" value="es" class="language-btn">
+                        <button type="submit" name="language" value="es" class="language-btn @if ( __('auth.lang')=='es') languageSelected @endif">
                             <img src="{{ asset('images/es.png') }}" alt="Español" class="language-flag">
                         </button>
-                        <button type="submit" name="language" value="en" class="language-btn">
+                        <button type="submit" name="language" value="en" class="language-btn @if ( __('auth.lang')=='en') languageSelected @endif">
                             <img src="{{ asset('images/uk.png') }}" alt="English" class="language-flag">
                         </button>
                     </form>
