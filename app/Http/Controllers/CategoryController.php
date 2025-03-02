@@ -20,8 +20,9 @@ class CategoryController extends Controller
         ], compact('categoryList'));
     }
 
-    public function show($category)
+    public function show($id)
     {
+        $category = Category::find($id);
         return view('category/show', ['category' => $category]);
     }
 
