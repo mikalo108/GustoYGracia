@@ -77,7 +77,8 @@ class CategoryController extends Controller
         $c->save();
 
         $cES = CategoryTranslation::where('category_id', $id)
-                                    ->where('locale', 'es');
+                                    ->where('locale', 'es')
+                                    ->get();
         $cES->name = $r->categoryNameES;
         $cES->locale="es";
         $cES->description = $r->categoryDescriptionES;
@@ -85,7 +86,8 @@ class CategoryController extends Controller
         $cES->save();
 
         $cEN = CategoryTranslation::where('category_id', $id)
-                                    ->where('locale', 'en');
+                                    ->where('locale', 'en')
+                                    ->get();
         $cEN->name = $r->categoryNameEN;
         $cEN->locale="en";
         $cEN->description = $r->categoryDescriptionEN;
