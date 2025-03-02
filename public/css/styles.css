@@ -188,10 +188,9 @@ form {
     flex-direction: column;
 }
 
-/* Nav */
-nav {
+/* Footer */
+footer {
     background-color: #16404D;
-    /* Azul oscuro */
 }
 
 nav ul {

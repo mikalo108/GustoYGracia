@@ -10,5 +10,7 @@ return [
     'recipe_2'     => 'Description',
     'recipe_3'     => 'Categories',
     'recipe_4'     => 'User',
+    'category_1'     => 'Name',
+    'category_2'     => 'Description',
     
 ];

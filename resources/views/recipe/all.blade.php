@@ -28,23 +28,27 @@
                                 <h1>{{ __("admin.Table") }}: {{ __("admin.TitleRecipesTable") }}</h1>
                             </div>
                         </div>
-                        <div class="col-md-6 mt-4">
+                        <div class="col-md mt-4">
                             <form action="" method="post" class="search-form">
                                 @csrf
-                                <label for="recipeName" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_1') }}</label>
-                                <input id="recipeName" name="recipeName" class="form-control"
+                                <div>
+                                    <label for="recipeName" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_1') }}</label>
+                                    <input id="recipeName" name="recipeName" class="form-control"
                                     value="@isset($recipeName) {{ $recipeName }}@endisset"/>
-
-                                <label for="recipeDescription" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_2') }}</label>
-                                <input id="recipeDescription" name="recipeDescription" class="form-control" value="@isset($recipeDescription) {{ $recipeDescription }} @endisset"/>
-
-                                <label for="recipeCategory" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_3') }}</label>
-                                <input id="recipeCategory" name="recipeCategory" class="form-control" value="@isset($recipeCategory) {{ $recipeCategory }} @endisset"/>
-
-                                <label for="recipeUser" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_4') }}</label>
-                                <input id="recipeUser" name="recipeUser" class="form-control" value="@isset($recipeUser) {{ $recipeUser }} @endisset"/>
-
-                                <br><button type="submit" style="width: 65px;" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Search"></button>
+                                </div>
+                                <div>
+                                    <label for="recipeDescription" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_2') }}</label>
+                                    <input id="recipeDescription" name="recipeDescription" class="form-control" value="@isset($recipeDescription) {{ $recipeDescription }} @endisset"/>
+                                </div>
+                                <div>
+                                    <label for="recipeCategory" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_3') }}</label>
+                                    <input id="recipeCategory" name="recipeCategory" class="form-control" value="@isset($recipeCategory) {{ $recipeCategory }} @endisset"/>
+                                </div>
+                                <div>
+                                    <label for="recipeUser" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_4') }}</label>
+                                    <input id="recipeUser" name="recipeUser" class="form-control" value="@isset($recipeUser) {{ $recipeUser }} @endisset"/>
+                                </div>
+                                <button type="submit" id="botonBuscar" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Search"></button>
                             </form>
                         </div>
                         <hr>
@@ -53,7 +57,7 @@
                                 href="{{ route('recipe.create') }}"><img width="30" src="{{ asset('images/plus-solid.svg') }}" alt="New"></a>
                         </div>
                         <div class="table-responsive mt-3">
-                            @if (count($recipes) > 0)
+                            @if (count($recipeList) > 0)
                                 <table class="table table-striped align-items-center">
                                     <thead class="thead-light">
                                         <th>#</th>
@@ -66,7 +70,7 @@
                                         <th>{{ __('columns.actions') }}</th>
                                     </thead>
                                     <tbody>
-                                        @foreach ($recipes as $recipe)
+                                        @foreach ($recipeList as $recipe)
                                             <tr>
                                                 <td>{{ $recipe->id }}</td>
                                                 <td>{{ $recipe->name }}</td>
@@ -114,7 +118,7 @@
                         <div class="row my-3 pr-3">
                             <div class="col">
                                 <div class="float-right">
-
+                                    {{ $recipeList->links('pagination::bootstrap-5') }}
                                 </div>
                             </div>
                         </div>

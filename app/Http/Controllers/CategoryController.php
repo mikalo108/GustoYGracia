@@ -8,14 +8,16 @@ use App\Models\Recipe;
 
 class CategoryController extends Controller
 {
+    const PAGINATE_SIZE = 5;
     public function index()
     {
         $categoryList = Category::all();  // Obtener todas las categorías
+        $categoryList = Category::paginate(self::PAGINATE_SIZE);
         $recipeList = Recipe::all();  // Puedes aplicar filtros si necesitas alguna condición específica
         return view('category/all', [
             'categoryList' => $categoryList,
             'recipesList' => $recipeList,
-        ]);
+        ], compact('categoryList'));
     }
 
     public function show()

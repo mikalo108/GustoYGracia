@@ -94,6 +94,18 @@
                 flex-direction: column;
                 flex-wrap: wrap;
             }
+            .search-form{
+                display: grid;
+                text-align: left;
+                grid-template-columns: 1fr 1fr;
+                row-gap: 10px;
+                column-gap: 20px;
+            }
+            .search-form>#botonBuscar{
+                width: 65px;
+                grid-column: 1/3;
+                margin: 0;
+            }
         </style>
     </head>
 
