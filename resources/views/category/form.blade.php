@@ -54,12 +54,12 @@
                                 <div class="mb-3">
                                     <label for="categoryNameEN" class="form-label"> {{__('columns.category_1')}}__en</label>
                                     <input id="categoryNameEN" name="categoryNameEN" type="text"
-                                    class="form-control" required @isset($cEN) value="{{$cEN->description}}" @endisset />
+                                    class="form-control" required @isset($cEN) value="{{$cEN->name}}" @endisset />
                                 </div>
                                 <div class="mb-3">
                                     <label for="categoryDescriptionES" class="form-label"> {{__('columns.category_2')}}__es</label>
                                     <input id="categoryDescriptionES" name="categoryDescriptionES" type="text"
-                                    class="form-control" required @isset($cES) value="{{$cES->name}}" @endisset />
+                                    class="form-control" required @isset($cES) value="{{$cES->description}}" @endisset />
                                 </div>
                                 <div class="mb-3">
                                     <label for="categoryDescriptionEN" class="form-label"> {{__('columns.category_2')}}__en</label>
