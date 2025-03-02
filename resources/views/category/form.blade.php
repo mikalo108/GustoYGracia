@@ -16,7 +16,12 @@
 @push('css')
     <!-- estilos adicionales -->
     <style>
-
+        form{
+            flex-direction: column;
+        }
+        form>input[type="submit"]{
+            align-self: flex-start;
+        }
     </style>
 @endpush
 
@@ -34,7 +39,35 @@
                             </div>
                         </div>
                         <div class="col-md mt-4">
-                            
+                            @isset($category)
+                                <form name="edit_category" action="{{ route('category.update', $category) }}" method="post">
+                                @csrf
+                            @else
+                                <form name="create_category" action="{{ route('category.store') }}" method="post">
+                                @csrf
+                            @endisset
+                                <div class="mb-3">
+                                    <label for="categoryNameES" class="form-label"> {{__('columns.category_1')}}__es</label>
+                                    <input id="categoryNameES" name="categoryNameES" type="text"
+                                    class="form-control" required @isset($category) value="{{ old('categoryNameES', $category->name)}}" @else value="{{ old('categoryNameES') }}" @endisset />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="categoryNameEN" class="form-label"> {{__('columns.category_1')}}__en</label>
+                                    <input id="categoryNameEN" name="categoryNameEN" type="text"
+                                    class="form-control" required @isset($category) value="{{ old('categoryNameEN', $category->name)}}" @else value="{{ old('categoryNameEN') }}" @endisset />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="categoryDescriptionES" class="form-label"> {{__('columns.category_2')}}__es</label>
+                                    <input id="categoryDescriptionES" name="categoryDescriptionES" type="text"
+                                    class="form-control" required @isset($category) value="{{ old('categoryDescriptionES', $category->description)}}" @else value="{{ old('categoryDescriptionES') }}" @endisset />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="categoryDescriptionEN" class="form-label"> {{__('columns.category_2')}}__en</label>
+                                    <input id="categoryDescriptionEN" name="categoryDescriptionEN" type="text"
+                                    class="form-control" required @isset($category) value="{{ old('categoryDescriptionEN', $category->description)}}" @else value="{{ old('categoryDescriptionEN') }}" @endisset />
+                                </div>
+                                <input type="submit" value="{{__('admin.save_btn')}}" class="btn btn-primary" name="saveBtn"/>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoryTranslation;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Recipe;
 
 class CategoryController extends Controller
 {
-    const PAGINATE_SIZE = 4;
+    const PAGINATE_SIZE = 5;
     public function index()
     {
         $categoryList = Category::all();  // Obtener todas las categorías
@@ -34,9 +35,25 @@ class CategoryController extends Controller
     public function store(Request $r)
     {
         $c = new Category();
-        $c->name = $r->name;
-        $c->description = $r->description;
+        $c->name = $r->categoryNameEN;
+        $c->description = $r->categoryDescriptionEN;
         $c->save();
+        $categoryId = $c->id;
+
+        $cES = new CategoryTranslation();
+        $cES->name = $r->categoryNameES;
+        $cES->locale="es";
+        $cES->description = $r->categoryDescriptionES;
+        $cES->category_id=$categoryId;
+        $cES->save();
+
+        $cEN = new CategoryTranslation();
+        $cEN->name = $r->categoryNameEN;
+        $cEN->locale="en";
+        $cEN->description = $r->categoryDescriptionEN;
+        $cEN->category_id=$categoryId;
+        $cEN->save();
+
         return redirect()->route('category.index');
     }
 

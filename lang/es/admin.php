@@ -6,6 +6,7 @@ return [
     'Index' => 'Índice',
     'Create' => 'Crear',
     'Edit' => 'Editar',
+    'save_btn' => 'Guardar',
     'Table' => 'Tabla',
     'TitleRecipeTable'     => 'Receta',
     'TitleRecipesTable'     => 'Recetas',
