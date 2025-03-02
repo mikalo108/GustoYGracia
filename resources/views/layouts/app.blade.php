@@ -156,7 +156,7 @@
         </header>
         <section class="content-container">
             <aside class="sidebar-left">
-                <ul class="nav flex-column nav-pills navOscuro" id="navbarTogglerDemo01">
+                <ul class="nav flex-column nav-pills" id="navbarTogglerDemo01">
                     <li class="nav-item">
                         <a class="flex-sm-fill text-sm-center nav-link" id="adminHomeLink" href="{{ route('home') }}">
                             <img id="imgHomeAdmin" src="{{ asset('images/house-solid.svg') }}" alt="HOME">
@@ -306,15 +306,12 @@
             </div>
         </header>
         <nav>
-            <ul>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    @foreach ($categoryList as $category)
-                        <li class="nav-item">
-                            <a class="nav-link" href="/{{ $category->name }}">{{ $category->name }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-                </div>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 navOscuro">
+                @foreach ($categoryList as $category)
+                    <li class="nav-item">
+                        <a class="nav-link" href="/{{ $category->name }}">{{ $category->name }}</a>
+                    </li>
+                @endforeach
             </ul>
         </nav>
         <section class="content-container">
