@@ -6,6 +6,11 @@
     } else {
         App::setLocale(config('app.locale'));
     }
+
+    $title = __('admin.TitleCategoryTable'); 
+    if(Auth::check() && Auth::user()->email === 'admin@gustoygracia.com') {
+        $title = $title.' '. __('admin.Index');
+    }
 @endphp
 
 @push('css')
@@ -15,7 +20,7 @@
     </style>
 @endpush
 
-@section('title', 'Category Index')
+@section("title", $title)
 
 @section('content')
     @if (Auth::check() && Auth::user()->email === 'admin@gustoygracia.com')
@@ -60,7 +65,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($categoryList as $category)
-                                            <tr>
+                                            <tr class="filaTablaIndex" link="{{ route('category.show', $category) }}">
                                                 <td>{{ $category->id }}</td>
                                                 <td>{{ $category->name }}</td>
                                                 <td class="descripcion">{{ $category->description }}</td>

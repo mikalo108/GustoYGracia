@@ -6,6 +6,11 @@
     } else {
         App::setLocale(config('app.locale'));
     }
+
+    $title = __('admin.TitleRecipesTable'); 
+    if(Auth::check() && Auth::user()->email === 'admin@gustoygracia.com') {
+        $title = $title.' '. __('admin.Index');
+    }
 @endphp
 
 @push('css')
@@ -15,7 +20,7 @@
     </style>
 @endpush
 
-@section('title', 'Recipe Index')
+@section('title', $title)
 
 @section('content')
     @if (Auth::check() && Auth::user()->email === 'admin@gustoygracia.com')
@@ -71,7 +76,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($recipeList as $recipe)
-                                            <tr>
+                                            <tr class="filaTablaIndex" link="{{ route('recipe.show', $recipe->id) }}">
                                                 <td>{{ $recipe->id }}</td>
                                                 <td>{{ $recipe->name }}</td>
                                                 <td class="descripcion">{{ $recipe->description }}</td>

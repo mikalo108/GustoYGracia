@@ -3,6 +3,10 @@
 declare(strict_types=1);
 
 return [
+    'Index' => 'Index',
+    'Create' => 'Create',
+    'Edit' => 'Edit',
+    'save_btn' => 'Save',
     'Table' => 'Table',
     'TitleRecipeTable'     => 'Recipe',
     'TitleRecipesTable'     => 'Recipes',

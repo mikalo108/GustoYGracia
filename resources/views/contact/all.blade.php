@@ -6,6 +6,11 @@
     } else {
         App::setLocale(config('app.locale'));
     }
+
+    $title = __('admin.TitleContactsTable'); 
+    if(Auth::check() && Auth::user()->email === 'admin@gustoygracia.com') {
+        $title = $title.' '. __('admin.Index');
+    }
 @endphp
 
 @push('css')
@@ -15,7 +20,7 @@
     </style>
 @endpush
 
-@section('title', 'Contact Index')
+@section('title', $title)
 
 @section('content')
     @if (Auth::check() && Auth::user()->email === 'admin@gustoygracia.com')
@@ -72,7 +77,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($contactList as $contact)
-                                            <tr>
+                                            <tr class="filaTablaIndex"  link="{{ route('contact.show', $contact->id) }}">
                                                 <td>{{ $contact->id }}</td>
                                                 <td>{{ $contact->name }}</td>
                                                 <td>{{ $contact->surname }}</td>

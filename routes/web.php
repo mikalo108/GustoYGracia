@@ -31,6 +31,7 @@ Route::get('/myprofile', 'UserController@showProfile')->name('myprofile');
 Route::put('/myprofile/{id}', 'UserController@update')->name('myprofile.update');
 
 Route::resource('category', 'CategoryController');
+Route::post('/category/update/{category}', 'CategoryController@update')->name('category.update');
 Route::get('/category/show/{category}', 'CategoryController@show');
 Route::get('/category/delete/{category}', 'CategoryController@destroy')->name('category.myDestroy');
 

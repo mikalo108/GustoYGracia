@@ -18,6 +18,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Lobster+Two&family=Lora&family=Jost&display=swap"
             rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
         @stack('css')
         <style>
             .sidebar-left {
@@ -107,6 +108,9 @@
                 width: 65px;
                 grid-column: 1/3;
                 margin: 0;
+            }
+            .filaTablaIndex:hover>td{
+                background-color: rgba(222, 226, 230,0.6);
             }
         </style>
     </head>
@@ -257,6 +261,14 @@
                 linkReceta.classList.add('active');
             }
         })
+
+        let filasTablaIndex = document.querySelectorAll(".filaTablaIndex");
+        filasTablaIndex.forEach(fila => {
+            fila.addEventListener("dblclick", ()=>{
+                window.location.href=fila.getAttribute('link');
+            })
+        });
+        
     </script>
 
     </html>

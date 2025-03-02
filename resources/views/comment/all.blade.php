@@ -6,6 +6,11 @@
     } else {
         App::setLocale(config('app.locale'));
     }
+
+    $title = __('admin.TitleCommentsTable'); 
+    if(Auth::check() && Auth::user()->email === 'admin@gustoygracia.com') {
+        $title = $title.' '. __('admin.Index');
+    }
 @endphp
 
 @push('css')
@@ -15,7 +20,7 @@
     </style>
 @endpush
 
-@section('title', 'Comment Index')
+@section('title', $title)
 
 @section('content')
     @if (Auth::check() && Auth::user()->email === 'admin@gustoygracia.com')
@@ -62,7 +67,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($commentList as $comment)
-                                            <tr>
+                                            <tr class="filaTablaIndex" link="{{ route('comment.show', $comment->id) }}">
                                                 <td>{{ $comment->id }}</td>
                                                 <td> @isset($comment->user->name) {{ $comment->user->name }} @endisset</td>
                                                 <td> @isset($comment->recipe->name) {{ $comment->recipe->name }} @endisset</td>
