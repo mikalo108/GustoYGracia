@@ -10,6 +10,7 @@ return [
     'recipe_2'     => 'Description',
     'recipe_3'     => 'Categories',
     'recipe_4'     => 'User',
+    'recipe_5'     => 'Ingredients',
     'category_1'     => 'Name',
     'category_2'     => 'Description',
     'ingredient_1'     => 'Name',

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -50,6 +51,13 @@ Route::get('/ingredient/show/{ingredient}', 'IngredientController@show')->name('
 Route::resource('recipe', 'RecipeController');
 Route::post('/recipe/update/{recipe}', 'RecipeController@update')->name('recipe.update');
 Route::get('/recipe/show/{recipe}', 'RecipeController@show')->name('recipe.show');
+
+// Búsqueda de usuarios
+Route::get('/users/search', function (Request $request) {
+    $search = $request->input('query');
+    $users = User::where('name', 'LIKE', "%{$search}%")->take(5)->get();
+    return response()->json($users);
+});
 
 Route::resource('user', 'UserController');
 
