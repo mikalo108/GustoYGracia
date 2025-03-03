@@ -31,6 +31,14 @@
             margin-top: 50px;
             align-self: flex-start;
         }
+        #removeImage{
+            position: relative;
+            top: -20px;
+        }
+        .imgSection{
+            display: flex;
+            flex-direction: column;
+        }
     </style>
 @endpush
 
@@ -54,6 +62,26 @@
                             action="{{ isset($recipe) ? route('recipe.update', $recipe->id) : route('recipe.store') }}" 
                             method="post" enctype="multipart/form-data">
                             @csrf
+
+                            <!-- Imagen de la receta -->
+                            <div class="mb-3">
+                                <label for="recipeImage" class="form-label">{{ __('columns.recipe_6') }}</label>
+                                <div class="imgSection">
+                                    <!-- Mostrar la imagen si ya existe -->
+                                    @isset($recipe->image)
+                                        <div id="imagePreviewContainer" class="mt-3">
+                                            <img id="imagePreview" src="{{ asset('storage/' . $recipe->image) }}" class="img-fluid rounded" style="max-width: 300px;">
+                                        </div>
+                                    @endisset
+
+                                    <input type="file" class="form-control" id="recipeImage" name="image" accept="image/*">
+                                    
+                                    <!-- Campo oculto para marcar eliminación (ya no se usará) -->
+                                    <input type="hidden" name="remove_image" id="removeImageInput" value="0">
+                                </div>
+                            </div>
+
+                            <hr>
 
                             <!-- Nombre de la receta -->
                             <div class="mb-3">
@@ -142,11 +170,23 @@
                                 <!-- Mostrar el usuario seleccionado -->
                                 <p id="selectedUserName" class="mt-2">
                                     @isset($recipe)
-                                        Usuario seleccionado: <strong>{{ $recipe->user->name }}</strong>
+                                        {{ __('admin.userSelected') }} <strong id="userNameText">{{ $recipe->user->name }}</strong>
+                                        <button type="button" id="clearUser" class="btn btn-danger btn-sm ms-2">X</button>
                                     @endisset
                                 </p>
                             </div>
 
+                            <!-- Detalles de la receta -->
+                            <div class="mb-3">
+                                <h6 class="form-label">{{ __('admin.recipeDetail_title') }}</h6>
+                                <label for="recipeDetail_prepTime" class="form-label">{{ __('admin.recipeDetail_1') }}  ( ´ )</label>
+                                <input id="recipeDetail_prepTime" name="recipeDetail_prepTime" type="text" class="form-control" required 
+                                @isset($recipe->details->prep_time) value="{{ $recipe->details->prep_time }}" @endisset />
+
+                                <label for="recipeDetail_difficulty_level" class="form-label">{{ __('admin.recipeDetail_2') }}</label>
+                                <input id="recipeDetail_difficulty_level" name="recipeDetail_difficulty_level" type="text" class="form-control" required 
+                                @isset($recipe->details->prep_time) value="{{ $recipe->details->difficulty_level }}" @endisset />
+                            </div>
 
 
                             <!-- Botón para enviar -->
@@ -252,6 +292,7 @@
                 const resultsDiv = document.getElementById("userResults");
                 const selectedUserId = document.getElementById("selectedUserId");
                 const selectedUserName = document.getElementById("selectedUserName");
+                const clearUserBtn = document.getElementById("clearUser");
 
                 // Captura la entrada del usuario en searchUser. Realiza una búsqueda cuando el usuario escribe.
                 searchInput.addEventListener("input", function () {
@@ -274,9 +315,16 @@
                                 // Al hacer clic en un usuario, guarda su ID y muestra su nombre. 
                                 userItem.onclick = function () {
                                     selectedUserId.value = user.id;
-                                    selectedUserName.innerHTML = `Usuario seleccionado: <strong>${user.name}</strong>`;
+                                    selectedUserName.innerHTML = `Usuario seleccionado: <strong id="userNameText">${user.name}</strong> 
+                                        <button type="button" id="clearUser" class="btn btn-danger btn-sm ms-2">X</button>`;
                                     resultsDiv.innerHTML = "";
                                     searchInput.value = "";
+
+                                    // Agregar evento al botón de limpiar
+                                    document.getElementById("clearUser").addEventListener("click", function () {
+                                        selectedUserId.value = "";
+                                        selectedUserName.innerHTML = "";
+                                    });
                                 };
                                 resultsDiv.appendChild(userItem);
                             });
@@ -290,7 +338,52 @@
                     }
                 });
 
+                // Evento para limpiar la selección de usuario
+                if (clearUserBtn) {
+                    clearUserBtn.addEventListener("click", function () {
+                        selectedUserId.value = "";
+                        selectedUserName.innerHTML = "";
+                    });
+                }
+
+
 /* ======================================================================================= */
+
+        // Sección imagen
+            const imageInput = document.getElementById("recipeImage");
+            const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+
+            // Si ya existe una imagen, mostrarla
+            @isset($recipe->image)
+                const imagePreview = document.getElementById("imagePreview");
+                imagePreviewContainer.style.display = "block";  // Asegurar que la imagen está visible
+            @endisset
+
+            // Mostrar la previsualización de la imagen seleccionada
+            imageInput.addEventListener("change", function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        // Si no hay previsualización, crearla
+                        if (!imagePreviewContainer) {
+                            const previewContainer = document.createElement("div");
+                            previewContainer.id = "imagePreviewContainer";
+                            previewContainer.classList.add("mt-3");
+                            previewContainer.innerHTML = `
+                                <img id="imagePreview" class="img-fluid rounded" style="max-width: 300px;">
+                            `;
+                            imageInput.parentNode.appendChild(previewContainer);
+                        }
+
+                        // Mostrar la nueva imagen seleccionada
+                        const imagePreview = document.getElementById("imagePreview");
+                        imagePreview.src = e.target.result; // Asignar la nueva imagen
+                        imagePreviewContainer.style.display = "block"; // Asegurar que la imagen está visible
+                    };
+                    reader.readAsDataURL(file); // Leer la imagen seleccionada
+                }
+            });
 
 
         });

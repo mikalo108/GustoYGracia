@@ -11,6 +11,7 @@ return [
     'recipe_3'     => 'Categories',
     'recipe_4'     => 'User',
     'recipe_5'     => 'Ingredients',
+    'recipe_6'     => 'Recipe Image',
     'category_1'     => 'Name',
     'category_2'     => 'Description',
     'ingredient_1'     => 'Name',

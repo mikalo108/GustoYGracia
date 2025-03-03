@@ -31,43 +31,40 @@ class RecipeController extends Controller
         return view('recipe.show', ['recipe' => $recipe, 'ingredients' => $ingredients, 'categories' => $categories]);
     }
     
-        public function store(Request $request)
-    {  
+    public function store(Request $request)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string|max:1000',
             'user_id' => 'required|exists:users,id',
             'instructions' => 'required|string|max:1000',
-            'prep_time' => 'required|string',
-            'difficulty_level' => 'required|string',
+            'prep_time' => 'required|integer',
+            'difficulty_level' => 'required|string|max:50',
             'ingredients' => 'required|array',
+            'ingredients.*' => 'exists:ingredients,id',
             'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id',
         ]);
 
-        $imagePath= $request->file('image')->store('recipe', 'public');
+        $imagePath = $request->file('image')->store('recipes', 'public');
 
-        $recipe = new Recipe();
-        $recipe->name = $request->name;
-        $recipe->description = $request->description;
-        $recipe->image = $imagePath;
-        $recipe->user_id = $request->user_id;
-        $recipe->instructions = $request->instructions;
-        $recipe->save();
+        $recipe = Recipe::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => 'recipes/' . basename($imagePath),
+            'user_id' => $request->user_id,
+            'instructions' => $request->instructions,
+        ]);
 
-        $recipeDetail = new RecipeDetail();        
-        $recipeDetail->recipe_id = $recipe->id;
-        $recipeDetail->prep_time = $request->prep_time;
-        $recipeDetail->difficulty_level = $request->difficulty_level;
-        $recipeDetail->save();
+        RecipeDetail::create([
+            'recipe_id' => $recipe->id,
+            'prep_time' => $request->prep_time,
+            'difficulty_level' => $request->difficulty_level,
+        ]);
 
-        // Asignar categorías e ingredientes
-        if ($request->has('categories')) {
-            $recipe->categories()->sync($request->categories);
-        }
-        if ($request->has('ingredients')) {
-            $recipe->ingredients()->sync($request->ingredients);
-        }
+        $recipe->categories()->sync($request->categories);
+        $recipe->ingredients()->sync($request->ingredients);
 
         return redirect()->route('recipe.index');
     }
@@ -89,41 +86,40 @@ class RecipeController extends Controller
             'description' => 'required|string|max:1000',
             'user_id' => 'required|exists:users,id',
             'instructions' => 'required|string|max:1000',
-            'prep_time' => 'required|string',
-            'difficulty_level' => 'required|string',
+            'prep_time' => 'required|integer',
+            'difficulty_level' => 'required|string|max:50',
             'ingredients' => 'nullable|array',
+            'ingredients.*' => 'exists:ingredients,id',
             'categories' => 'nullable|array',
+            'categories.*' => 'exists:categories,id',
         ]);
-    
+
         $recipe = Recipe::findOrFail($id);
-        $recipe->name = $request->name;
-        $recipe->description = $request->description;
-    
-        // Actualizar imagen si se sube una nueva
+        $recipe->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'user_id' => $request->user_id,
+            'instructions' => $request->instructions,
+        ]);
+
         if ($request->hasFile('image')) {
             if ($recipe->image) {
                 Storage::delete('public/' . $recipe->image);
             }
-            $imagePath = $request->file('image')->store('recipe', 'public');
-            $recipe->image = $imagePath;
+            $imagePath = $request->file('image')->store('recipes', 'public');
+            $recipe->image = 'recipes/' . basename($imagePath);
+            $recipe->save();
         }
-    
-        $recipe->user_id = $request->user_id;
-        $recipe->instructions = $request->instructions;
-        $recipe->save();
-    
-        // Actualizar RecipeDetail
-        $recipeDetail = $recipe->details;
-        if ($recipeDetail) {
-            $recipeDetail->prep_time = $request->prep_time;
-            $recipeDetail->difficulty_level = $request->difficulty_level;
-            $recipeDetail->save();
-        }
-    
-        // Sincronizar categorías e ingredientes
+
+        $recipeDetail = $recipe->details ?? new RecipeDetail();
+        $recipeDetail->recipe_id = $recipe->id;
+        $recipeDetail->prep_time = $request->prep_time;
+        $recipeDetail->difficulty_level = $request->difficulty_level;
+        $recipeDetail->save();
+
         $recipe->categories()->sync($request->categories ?? []);
         $recipe->ingredients()->sync($request->ingredients ?? []);
-    
+
         return redirect()->route('recipe.index');
     }
 
