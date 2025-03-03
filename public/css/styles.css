@@ -364,6 +364,11 @@ footer p {
     margin-top: 20px;
 }
 
+.recipe-container>h1 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
 .recipe-list {
     display: flex;
     flex-wrap: wrap;
@@ -686,7 +691,13 @@ footer p {
     font-weight: bold;
 }
 
+.category-link {
+    color: #555;
+    text-decoration: none;
+}
+
 .user-link:hover,
+.category-link:hover,
 .btn-back:hover {
     text-decoration: underline;
 }

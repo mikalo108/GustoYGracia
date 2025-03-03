@@ -18,14 +18,14 @@
     </style>
 @endpush
 
-@section('title', __('messages.MyRecipes') . ' | Gusto&Gracia')
+@section('title', $category->name . ' | Gusto&Gracia')
 
 @section('content')
     <div class="recipe-container">
-        <h1>{{ __('messages.MyRecipes') }}</h1>
+        <h1>{{ $category->name }}</h1>
         <br>
         <div class="recipe-list">
-            @foreach ($recipeList as $recipe)
+            @foreach ($recipesByCategory as $recipe)
                 <div class="card recipe-item" link="{{ route('recipe.show', $recipe->id) }}">
                     <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}" class="card-img-top">
                     <div class="card-body">

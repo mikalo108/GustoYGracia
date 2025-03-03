@@ -39,9 +39,16 @@ class RecipeController extends Controller
     public function showMyRecipes($userId)
     {
         $user = User::find($userId);
-        $recipeList = $user->recipes()->get(); 
+        $recipeList = $user->recipes()->get();
 
-        return view('myrecipes', compact('recipeList'));
+        return view('myRecipes', compact('recipeList'));
+    }
+
+    public function showByCategory($categoryId)
+    {
+        $category = Category::find($categoryId);
+        $recipesByCategory = $category->recipes()->get(); 
+        return view('recipe.showByCategory', ['category' => $category, 'recipesByCategory' => $recipesByCategory]);
     }
 
     public function store(Request $request)
@@ -132,5 +139,4 @@ class RecipeController extends Controller
         $recipe->delete();
         return redirect()->route('myrecipes', $userId);
     }
-
 }

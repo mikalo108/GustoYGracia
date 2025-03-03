@@ -30,7 +30,7 @@ class UserController extends Controller
         if ($user) {
             $user->load('contact');
         }
-        return view('myprofile', compact('user'));
+        return view('myProfile', compact('user'));
     }
 
     public function create()
@@ -108,7 +108,7 @@ class UserController extends Controller
         }
 
         $user->save();
-        return redirect()->route('myprofile');
+        return redirect()->route('myProfile');
     }
 
     public function destroy($id)

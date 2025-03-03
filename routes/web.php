@@ -26,10 +26,10 @@ Route::post('/change-language', function (Request $request) {
 
 Route::get('/', function () { return view('home'); })->name('home');
 
-Route::get('/myprofile', 'UserController@showMyProfile')->name('myprofile');
-Route::get('/myrecipes/{user}', 'RecipeController@showMyRecipes')->name('myrecipes');
+Route::get('/myprofile', 'UserController@showMyProfile')->name('myProfile');
+Route::get('/myrecipes/{user}', 'RecipeController@showMyRecipes')->name('myRecipes');
 
-Route::put('/myprofile/{id}', 'UserController@update')->name('myprofile.update');
+Route::put('/myprofile/{id}', 'UserController@update')->name('myProfile.update');
 
 Route::resource('category', 'CategoryController');
 Route::post('/category/update/{category}', 'CategoryController@update')->name('category.update');
@@ -51,6 +51,7 @@ Route::get('/ingredient/show/{ingredient}', 'IngredientController@show')->name('
 Route::get('/ingredient/delete/{ingredient}', 'IngredientController@destroy')->name('ingredient.myDestroy');
 
 Route::resource('recipe', 'RecipeController');
+Route::get('/category/{category}', 'RecipeController@showByCategory')->name('showByCategory');
 Route::get('/recipe/show/{recipe}', 'RecipeController@show')->name('recipe.show');
 Route::get('/recipe/delete/{recipe}', 'RecipeController@destroy')->name('recipe.myDestroy');
 Route::delete('/recipe/delete/{recipe}/{user}', 'RecipeController@removeRecipe')->name('recipe.removeRecipe');

@@ -23,8 +23,9 @@
 
 @section('content')
     @if (Auth::check() && Auth::user()->id === $recipe->user_id)
-        <div class='delete-recipe-container'> 
-            <form action="{{ route('recipe.removeRecipe', ['recipe' => $recipe->id, 'user' => Auth::user()->id]) }}" method="POST">
+        <div class='delete-recipe-container'>
+            <form action="{{ route('recipe.removeRecipe', ['recipe' => $recipe->id, 'user' => Auth::user()->id]) }}"
+                method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" id="cancel-btn">{{ __('messages.Delete') }}</button>
@@ -80,7 +81,7 @@
             <p>TAG:
                 @foreach ($categories as $category)
                     @if ($recipe->categories->contains($category->id))
-                        <span>{{ $category->name }} </span>
+                        <a class="category-link" href="{{ route('showByCategory', $category->id) }}">#{{ $category->name }}</a>
                     @endif
                 @endforeach
             </p>

@@ -317,10 +317,10 @@
 
                         <div class="dropdown" style="display: none;">
                             <button class="myprofile-btn">
-                                <a href="{{ route('myprofile') }}">{{ __('messages.EditProfile') }}</a>
+                                <a href="{{ route('myProfile') }}">{{ __('messages.EditProfile') }}</a>
                             </button>
                             <button class="myprofile-btn">
-                                <a href="{{ route('myrecipes', Auth::user()) }}">{{ __('messages.MyRecipes') }}</a>
+                                <a href="{{ route('myRecipes', Auth::user()) }}">{{ __('messages.MyRecipes') }}</a>
                             </button>
                             <hr style="color: black; margin-block:10px">
                             <form action="{{ route('logout') }}" method="POST" class="logout-form">
@@ -362,7 +362,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 navOscuro">
                 @foreach ($categoryList as $category)
                     <li class="nav-item">
-                        <a class="nav-link" href="/{{ $category->name }}">{{ $category->name }}</a>
+                        <a class="nav-link" href="{{ route('showByCategory', $category->id) }}">{{ $category->name }}</a>
                     </li>
                 @endforeach
             </ul>
