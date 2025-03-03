@@ -9,23 +9,29 @@ use App\Models\Recipe;
 
 class CommentController extends Controller
 {
-    const PAGINATE_SIZE = 4;
-    public function index()
-    {
+    private const PAGINATE_SIZE = 4;
+    public function index() { 
         $commentList = Comment::all();
         $commentList = Comment::paginate(self::PAGINATE_SIZE);
         return view('comment/all', ['commentList' => $commentList], compact('commentList'));
     }
+    
     public function create()
     {
         $users = User::all();
         return view('contact/form', ['users' => $users]);
     }
-    public function store(Request $r, $user, $recipe)
-    {
+    
+    public function store(Request $r) { 
+        $r->validate([
+            'user' => 'required|exists:users,id',  // El usuario debe ser un ID válido en la tabla 'users'
+            'recipe' => 'required|exists:recipes,id',  // La receta debe ser un ID válido en la tabla 'recipes'
+            'content' => 'required|string|max:1000',  // El contenido del comentario debe ser una cadena y no superar los 1000 caracteres
+        ]);
+
         $c = new Comment();
-        $c->user_id = $user->id;
-        $c->recipe_id = $recipe->id;
+        $c->user_id = $r->user->id;
+        $c->recipe_id = $r->recipe->id;
         $c->content = $r->content;
         $c->save();
         return redirect()->route('comment.index');
@@ -52,30 +58,32 @@ class CommentController extends Controller
     {
         $comment = Comment::find($id);
         $users = User::all();
-        return view('contact/form', ['users' => $users, 'comment' => $comment]);
+        return view('comment/form',['users'=>$users, 'comment'=>$comment]);  
     }
 
-    public function update($id, Request $r, $user, $recipe)
-    {
+    public function update($id, Request $r) { 
+        $r->validate([
+            'user' => 'required|exists:users,id',  // El usuario debe ser un ID válido en la tabla 'users'
+            'recipe' => 'required|exists:recipes,id',  // La receta debe ser un ID válido en la tabla 'recipes'
+            'content' => 'required|string|max:1000',  // El contenido del comentario debe ser una cadena y no superar los 1000 caracteres
+        ]);
+        
         $c = Comment::find($id);
-        $c->user_id = $user->id;
-        $c->recipe_id = $recipe->id;
         $c->content = $r->content;
         $c->save();
         return redirect()->route('comment.index');
     }
-    public function destroy($comment, $recipe)
+    public function destroy($id)
     {
-        $c = Comment::find($comment);
+        $c = Comment::find($id);
         $c->delete();
-        return redirect()->route('recipe.show', $recipe);
+        return redirect()->route('comment.index');
     }
 
     public function removeComment($recipe, $comment)
     {
         $c = Comment::find($comment);
         $c->delete();
-
         return redirect()->route('recipe.show', $recipe)->with('success', 'Comentario eliminado correctamente.');
     }
 }

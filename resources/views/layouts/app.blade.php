@@ -251,7 +251,6 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             let location = window.location.href.split("/");
-            console.log(location);
             const linkReceta = document.getElementById("recetaLink");
             const linkCategoria = document.getElementById("categoriaLink");
             if (location.includes("category")) {

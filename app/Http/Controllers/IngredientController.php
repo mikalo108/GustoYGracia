@@ -7,18 +7,24 @@ use App\Models\Ingredient;
 
 class IngredientController extends Controller
 {
-    const PAGINATE_SIZE = 4;
+    private const PAGINATE_SIZE = 4;
     public function index() { 
         $ingredientList = Ingredient::all();
         $ingredientList = Ingredient::paginate(self::PAGINATE_SIZE);
         return view('ingredient/all', ['ingredientList'=>$ingredientList], compact('ingredientList'));
     }
 
-    public function create() { 
+    public function create() {
         return view('ingredient/form');  
     }
 
     public function store(Request $r) { 
+        $r->validate([
+            'name' => 'required|string|max:255',  // El nombre del ingrediente debe ser obligatorio, una cadena y no superar los 255 caracteres
+            'description' => 'nullable|string|max:1000',  // La descripción es opcional, pero si se proporciona, no debe superar los 1000 caracteres
+            'calories_per_100g' => 'required|numeric|min:0',  // Las calorías por 100g deben ser un número mayor o igual a 0
+        ]);
+
         $i = new Ingredient();
         $i->name = $r->name;
         $i->description = $r->description;
@@ -33,6 +39,12 @@ class IngredientController extends Controller
     }
 
     public function update($id, Request $r) { 
+        $r->validate([
+            'name' => 'required|string|max:255',  // El nombre del ingrediente debe ser obligatorio, una cadena y no superar los 255 caracteres
+            'description' => 'nullable|string|max:1000',  // La descripción es opcional, pero si se proporciona, no debe superar los 1000 caracteres
+            'calories_per_100g' => 'required|numeric|min:0',  // Las calorías por 100g deben ser un número mayor o igual a 0
+        ]);
+        
         $i = Ingredient::find($id);
         $i->name = $r->name;
         $i->description = $r->description;

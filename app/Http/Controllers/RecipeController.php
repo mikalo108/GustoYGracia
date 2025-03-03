@@ -13,10 +13,8 @@ use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
-    const PAGINATE_SIZE = 4;
-    public function index()
-    {
-        $recipeList = Recipe::all();
+    private const PAGINATE_SIZE = 4;
+    public function index(){
         $recipeList = Recipe::paginate(self::PAGINATE_SIZE);
         return view('recipe/all', ['recipeList' => $recipeList], compact('recipeList'));
     }
@@ -24,7 +22,7 @@ class RecipeController extends Controller
     {
         $ingredients = Ingredient::all();
         $categories = Category::all();
-        return view('recipe.create', ['ingredients' => $ingredients, 'categories' => $categories]);
+        return view('recipe/form', ['ingredients' => $ingredients, 'categories' => $categories]);
     }
 
     public function show($id)
@@ -59,29 +57,38 @@ class RecipeController extends Controller
             'description' => 'required|string|max:1000',
             'user_id' => 'required|exists:users,id',
             'instructions' => 'required|string|max:1000',
-            'prep_time' => 'required|string',
-            'difficulty_level' => 'required|string',
+            'prep_time' => 'required|integer',
+            'difficulty_level' => 'required|string|max:50',
             'ingredients' => 'required|array',
+            'ingredients.*' => 'exists:ingredients,id',
             'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id',
+            'quantities' => 'required|array',
+            'quantities.*' => 'integer|min:1',
         ]);
 
-        $imagePath = $request->file('image')->store('recipe', 'public');
-        $recipe = new Recipe();
-        $recipe->name = $request->name;
-        $recipe->image = $imagePath;
-        $recipe->description = $request->description;
-        $recipe->user_id = $request->user_id;
-        $recipe->instructions = $request->instructions;
-        $recipe->save();
+        $imagePath = $request->file('image')->store('recipes', 'public');
 
-        $recipeDetail = new RecipeDetail();
-        $recipeDetail->recipe_id = $recipe->id;
-        $recipeDetail->prep_time = $request->prep_time;
-        $recipeDetail->difficulty_level = $request->difficulty_level;
-        $recipeDetail->save();
+        $recipe = Recipe::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => 'recipes/' . basename($imagePath),
+            'user_id' => $request->user_id,
+            'instructions' => $request->instructions,
+        ]);
 
-        $recipe->ingredients()->attach($request->ingredients);
-        $recipe->categories()->attach($request->categories);
+        RecipeDetail::create([
+            'recipe_id' => $recipe->id,
+            'prep_time' => $request->prep_time,
+            'difficulty_level' => $request->difficulty_level,
+        ]);
+
+        $recipe->categories()->sync($request->categories);
+        $ingredientsWithQuantities = [];
+        foreach ($request->ingredients as $ingredientId) {
+            $ingredientsWithQuantities[$ingredientId] = ['quantity' => $request->quantities[$ingredientId] ?? 1];
+        }
+        $recipe->ingredients()->sync($ingredientsWithQuantities);
 
         return redirect()->route('recipe.index');
     }
@@ -91,38 +98,59 @@ class RecipeController extends Controller
         $recipe = Recipe::find($id);
         $ingredients = Ingredient::all();
         $categories = Category::all();
-        return view('recipe.edit', ['recipe' => $recipe, 'ingredients' => $ingredients, 'categories' => $categories]);
+        return view('recipe/form', ['recipe' => $recipe, 'ingredients' => $ingredients, 'categories' => $categories]);
     }
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|string|max:1000',
+            'user_id' => 'required|exists:users,id',
+            'instructions' => 'required|string|max:1000',
+            'prep_time' => 'required|integer',
+            'difficulty_level' => 'required|string|max:50',
+            'ingredients' => 'nullable|array',
+            'ingredients.*' => 'exists:ingredients,id',
+            'categories' => 'nullable|array',
+            'categories.*' => 'exists:categories,id',
+            'quantities' => 'required|array',
+            'quantities.*' => 'integer|min:1',
+        ]);
 
-        $recipe = Recipe::find($id);
-
-
-        $recipe->name = $request->name;
+        $recipe = Recipe::findOrFail($id);
+        $recipe->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'user_id' => $request->user_id,
+            'instructions' => $request->instructions,
+        ]);
 
         if ($request->hasFile('image')) {
             if ($recipe->image) {
-                Storage::delete($recipe->image);
+                Storage::delete('public/' . $recipe->image);
             }
-
-            $imagePath = $request->file('image')->store('recipe', 'public');
-            $recipe->image = $imagePath;
+            $imagePath = $request->file('image')->store('recipes', 'public');
+            $recipe->image = 'recipes/' . basename($imagePath);
+            $recipe->save();
         }
 
-        $recipe->description = $request->description;
-        $recipe->user_id = $request->user_id;
-        $recipe->instructions = $request->instructions;
-        $recipe->save();
-
-        $recipeDetail = $recipe->details;
+        $recipeDetail = $recipe->details ?? new RecipeDetail();
+        $recipeDetail->recipe_id = $recipe->id;
         $recipeDetail->prep_time = $request->prep_time;
         $recipeDetail->difficulty_level = $request->difficulty_level;
         $recipeDetail->save();
 
-        $recipe->ingredients()->sync($request->ingredients);
-        $recipe->categories()->sync($request->categories);
+        $recipe->categories()->sync($request->categories ?? []);
+        $ingredientsWithQuantities = [];
+        if ($request->ingredients) {
+            foreach ($request->ingredients as $ingredientId) {
+                $ingredientsWithQuantities[$ingredientId] = ['quantity' => $request->quantities[$ingredientId] ?? 1];
+            }
+        }
+        $recipe->ingredients()->sync($ingredientsWithQuantities);
+
         return redirect()->route('recipe.index');
     }
 
