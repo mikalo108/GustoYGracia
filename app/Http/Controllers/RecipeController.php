@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\RecipeDetail;
@@ -28,7 +29,8 @@ class RecipeController extends Controller
         $recipe = Recipe::find($id);
         $ingredients = Ingredient::all();
         $categories = Category::all();
-        return view('recipe.show', ['recipe' => $recipe, 'ingredients' => $ingredients, 'categories' => $categories]);
+        $comments = Comment::all();
+        return view('recipe.show', ['recipe' => $recipe, 'ingredients' => $ingredients, 'categories' => $categories, 'comments' => $comments]);
     }
     
     public function store(Request $request)

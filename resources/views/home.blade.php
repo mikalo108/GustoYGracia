@@ -95,11 +95,12 @@
             <h2>{{ __('messages.LastRecipes') }}</h2>
             <div class="recipe-list">
                 @foreach ($recipeList as $recipe)
-                    <div class="recipe-item">
-                        <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}"
-                            style="width: 100%; height: auto;">
-                        <h3>{{ $recipe->name }}</h3>
-                        <p>{{ Str::limit($recipe->description, 100) }}</p>
+                    <div class="card recipe-item" link="{{ route('recipe.show', $recipe->id) }}">
+                        <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}" class="card-img-top">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ $recipe->name }}</h3>
+                            <p class="card-text">{{ Str::limit($recipe->description, 100) }}</p>
+                        </div>
                     </div>
                 @endforeach
             </div>

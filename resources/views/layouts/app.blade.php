@@ -308,11 +308,14 @@
                     @auth
                         <a href="#" class="profile-link">
                             <img src="{{ asset('images/user-icon.png') }}" alt="Perfil">
-                            {{ __('messages.MyProfile') }}
+                            {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown" style="display: none;">
                             <button class="myprofile-btn">
-                                <a href="{{ route('myprofile') }}">{{ __('messages.MyProfile') }}</a>
+                                <a href="{{ route('myprofile') }}">{{ __('messages.EditProfile') }}</a>
+                            </button>
+                            <button class="myprofile-btn">
+                                <a href="{{ route('myrecipes') }}">{{ __('messages.MyRecipes') }}</a>
                             </button>
                             <hr style="color: black; margin-block:10px">
                             <form action="{{ route('logout') }}" method="POST" class="logout-form">

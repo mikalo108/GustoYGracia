@@ -27,6 +27,7 @@ Route::post('/change-language', function (Request $request) {
 Route::get('/', function () { return view('home'); })->name('home');
 
 Route::get('/myprofile', 'UserController@showProfile')->name('myprofile');
+Route::get('/myrecipes', function () { return view('myrecipes'); })->name('myrecipes');
 
 Route::put('/myprofile/{id}', 'UserController@update')->name('myprofile.update');
 
@@ -36,8 +37,10 @@ Route::get('/category/show/{category}', 'CategoryController@show');
 Route::get('/category/delete/{category}', 'CategoryController@destroy')->name('category.myDestroy');
 
 Route::resource('comment', 'CommentController');
+Route::post('/recipe/{recipe}/comment/{user}', 'CommentController@createComment')->name('recipe.comment.store');
 Route::get('/comment/show/{comment}', 'CommentController@show')->name('comment.show');
-Route::get('/comment/delete/{comment}', 'CommentController@destroy')->name('comment.myDestroy');
+Route::delete('/comment/delete/{comment}', 'CommentController@destroy')->name('comment.myDestroy');
+Route::delete('/comment/delete/{recipe}/{comment}', 'CommentController@removeComment')->name('comment.removeComment');
 
 Route::resource('contact', 'ContactController');
 Route::get('/category/show/{contact}', 'ContactController@show')->name('contact.show');
@@ -52,5 +55,6 @@ Route::get('/recipe/show/{recipe}', 'RecipeController@show')->name('recipe.show'
 Route::get('/recipe/delete/{recipe}', 'RecipeController@destroy')->name('recipe.myDestroy');
 
 Route::resource('user', 'UserController');
+Route::get('/user/show/{user}', 'UserController@show')->name('user.show');
 
 require __DIR__.'/auth.php';

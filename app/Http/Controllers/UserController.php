@@ -17,16 +17,19 @@ class UserController extends Controller
         return view('user/all', ['userList' => $userList], compact('userList'));
     }
 
+    public function show($id)
+    {
+        $user = User::with('contact')->findOrFail($id);
+        return view('user.show', ['user' => $user]);
+    }
+
     public function showProfile()
     {
         /** @var User $user */
         $user = Auth::user();
-
         if ($user) {
-            // Cargar la relación 'contact'
             $user->load('contact');
         }
-
         return view('myprofile', compact('user'));
     }
 
@@ -37,7 +40,6 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        // Validar los datos de entrada (por ejemplo, validaciones para name, email y password)
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/myprofile.css') }}">
 @endpush
 
-@section('title', 'Mi Perfil')
+@section('title', __('messages.MyProfile') . ' | Gusto&Gracia')
 
 @section('content')
     <div class="profile-page">
@@ -59,6 +59,9 @@
                 <button type="button" id="edit-btn">Editar datos</button>
                 <button type="submit" id="save-btn" class="hidden">Guardar</button>
                 <button type="button" id="cancel-btn" class="hidden">Cancelar</button>
+            </div>
+            <div>
+                <a href="{{ url()->previous() }}" class="btn-back">Volver</a>
             </div>
         </form>
     </div>
