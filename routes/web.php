@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Recipe;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
@@ -71,8 +72,15 @@ Route::get('/recipe/{recipe}', 'RecipeController@show')->name('recipe.show');
 Route::post('/recipe/update/{recipe}', 'RecipeController@update')->name('recipe.update');
 Route::get('/recipe/delete/{recipe}', 'RecipeController@destroy')->name('recipe.myDestroy');
 Route::delete('/recipe/delete/{recipe}/{user}', 'RecipeController@removeRecipe')->name('recipe.removeRecipe');
+// Búsqueda de recetas
+Route::get('/recipe/search', function (Request $request) {
+    $search = $request->input('query');
+    $recipesSearch = Recipe::where('name', 'LIKE', "%{$search}%")->take(5)->get();
+    return response()->json($recipesSearch);
+})->name('recipe.search');
 
 Route::resource('user', 'UserController');
+Route::get('/user', 'UserController@index')->name('user.index');
 Route::get('/user/show/{user}', 'UserController@show')->name('user.show');
 Route::post('/user/update/{user}', 'UserController@update')->name('user.update');
 // Búsqueda de usuarios
