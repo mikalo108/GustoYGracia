@@ -307,10 +307,14 @@
                 <!-- Perfil -->
                 <div class="profile">
                     @auth
-                        <a href="#" class="profile-link">
-                            <img src="{{ asset('images/user-icon.png') }}" alt="Perfil">
-                            {{ Auth::user()->name }}
-                        </a>
+                        <button id="app-profile-btn">
+                            <a href="#" class="profile-link">
+                                <span><img src="{{ asset('images/user-icon.png') }}" alt="Perfil"></span>
+                                <span>{{ Auth::user()->name }}</span>
+                            
+                            </a>
+                        </button>
+
                         <div class="dropdown" style="display: none;">
                             <button class="myprofile-btn">
                                 <a href="{{ route('myprofile') }}">{{ __('messages.EditProfile') }}</a>
@@ -327,11 +331,13 @@
                     @endauth
                     @guest
                         <div id="home-buttons">
-                            <button><a href="{{ route('login') }}"
-                                    id="login-link">{{ __('messages.Login') }}</a></button>
+                            <button>
+                                <a href="{{ route('login') }}" id="login-link">{{ __('messages.Login') }}</a>
+                            </button>
                             <br>
-                            <button><a href="{{ route('register') }}"
-                                    id="signup-link">{{ __('messages.Register') }}</a></button>
+                            <button>
+                                <a href="{{ route('register') }}" id="signup-link">{{ __('messages.Register') }}</a>
+                            </button>
                         </div>
                     @endguest
                 </div>

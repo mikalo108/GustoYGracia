@@ -30,17 +30,6 @@
             background-color: #f0f0f0;
             cursor: pointer;
         }
-
-        .welcome-title {
-            text-align: center;
-        }
-
-        #welcome-msg {
-            font-size: 1.2rem;
-            color: #555;
-            text-align: center;
-            margin-bottom: 35px;
-        }
     </style>
 @endpush
 
