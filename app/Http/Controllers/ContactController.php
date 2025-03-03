@@ -21,6 +21,15 @@ class ContactController extends Controller
     }
 
     public function store(Request $r) { 
+        $r->validate([
+            'name' => 'required|string|max:255',  // El nombre debe ser una cadena de texto y no superar los 255 caracteres
+            'surname' => 'required|string|max:255',  // El apellido debe ser una cadena de texto y no superar los 255 caracteres
+            'bio' => 'nullable|string|max:1000',  // La biografía es opcional, pero si se ingresa, no debe superar los 1000 caracteres
+            'phone' => 'required|string|max:15',  // El teléfono debe ser una cadena y no debe superar los 15 caracteres
+            'country' => 'required|string|max:255',  // El país debe ser una cadena y no superar los 255 caracteres
+            'city' => 'required|string|max:255',  // La ciudad debe ser una cadena y no superar los 255 caracteres
+        ]);
+        
         $c = new Contact();
         $c->name = $r->name;
         $c->surname = $r->surname;
@@ -39,6 +48,15 @@ class ContactController extends Controller
     }
 
     public function update($id, Request $r) { 
+        $r->validate([
+            'name' => 'required|string|max:255',  // El nombre debe ser una cadena de texto y no superar los 255 caracteres
+            'surname' => 'required|string|max:255',  // El apellido debe ser una cadena de texto y no superar los 255 caracteres
+            'bio' => 'nullable|string|max:1000',  // La biografía es opcional, pero si se ingresa, no debe superar los 1000 caracteres
+            'phone' => 'required|string|max:15',  // El teléfono debe ser una cadena y no debe superar los 15 caracteres
+            'country' => 'required|string|max:255',  // El país debe ser una cadena y no superar los 255 caracteres
+            'city' => 'required|string|max:255',  // La ciudad debe ser una cadena y no superar los 255 caracteres
+        ]);
+
         $c = Contact::find($id);
         $c->name = $r->name;
         $c->surname = $r->surname;

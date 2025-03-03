@@ -19,6 +19,12 @@ class IngredientController extends Controller
     }
 
     public function store(Request $r) { 
+        $r->validate([
+            'name' => 'required|string|max:255',  // El nombre del ingrediente debe ser obligatorio, una cadena y no superar los 255 caracteres
+            'description' => 'nullable|string|max:1000',  // La descripción es opcional, pero si se proporciona, no debe superar los 1000 caracteres
+            'calories_per_100g' => 'required|numeric|min:0',  // Las calorías por 100g deben ser un número mayor o igual a 0
+        ]);
+
         $i = new Ingredient();
         $i->name = $r->name;
         $i->description = $r->description;
@@ -33,6 +39,12 @@ class IngredientController extends Controller
     }
 
     public function update($id, Request $r) { 
+        $r->validate([
+            'name' => 'required|string|max:255',  // El nombre del ingrediente debe ser obligatorio, una cadena y no superar los 255 caracteres
+            'description' => 'nullable|string|max:1000',  // La descripción es opcional, pero si se proporciona, no debe superar los 1000 caracteres
+            'calories_per_100g' => 'required|numeric|min:0',  // Las calorías por 100g deben ser un número mayor o igual a 0
+        ]);
+        
         $i = Ingredient::find($id);
         $i->name = $r->name;
         $i->description = $r->description;

@@ -34,6 +34,13 @@ class CategoryController extends Controller
 
     public function store(Request $r)
     {
+        $r->validate([
+            'categoryNameEN' => 'required|string|max:255',  // Validación para el nombre en inglés
+            'categoryDescriptionEN' => 'required|string|max:500',  // Validación para la descripción en inglés
+            'categoryNameES' => 'required|string|max:255',  // Validación para el nombre en español
+            'categoryDescriptionES' => 'required|string|max:500',  // Validación para la descripción en español
+        ]);
+
         $c = new Category();
         $c->name = $r->categoryNameEN;
         $c->description = $r->categoryDescriptionEN;
@@ -71,6 +78,13 @@ class CategoryController extends Controller
 
     public function update($id, Request $r)
     {
+        $r->validate([
+            'categoryNameEN' => 'required|string|max:255',  // Validación para el nombre en inglés
+            'categoryDescriptionEN' => 'required|string|max:500',  // Validación para la descripción en inglés
+            'categoryNameES' => 'required|string|max:255',  // Validación para el nombre en español
+            'categoryDescriptionES' => 'required|string|max:500',  // Validación para la descripción en español
+        ]);
+        
         $c = Category::find($id);
         $c->name = $r->categoryNameEN;
         $c->description = $r->categoryDescriptionEN;

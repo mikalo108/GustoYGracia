@@ -21,12 +21,17 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        // Validar los datos de entrada (por ejemplo, validaciones para name, email y password)
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-        ]);
+            'name' => 'required|string|max:255',  // El nombre debe ser obligatorio, una cadena y no más de 255 caracteres
+            'email' => 'required|email|unique:users,email',  // El correo debe ser obligatorio, válido y único en la base de datos
+            'password' => 'required|string|min:8',  // La contraseña es obligatoria y debe tener al menos 8 caracteres
+            'contactName' => 'nullable|string|max:255',  // El nombre del contacto es opcional, debe ser una cadena y no superar los 255 caracteres
+            'contactSurname' => 'nullable|string|max:255',  // El apellido del contacto es opcional, debe ser una cadena y no superar los 255 caracteres
+            'contactBio' => 'nullable|string|max:1000',  // La biografía es opcional, debe ser una cadena y no superar los 1000 caracteres
+            'contactPhone' => 'nullable|string|max:20',  // El teléfono es opcional, debe ser una cadena y no superar los 20 caracteres
+            'contactCountry' => 'nullable|string|max:255',  // El país es opcional, debe ser una cadena y no superar los 255 caracteres
+            'contactCity' => 'nullable|string|max:255',  // La ciudad es opcional, debe ser una cadena y no superar los 255 caracteres
+        ]);    
 
         // Crear el contacto primero (con los valores por defecto o nulos)
         $contact = new Contact();
@@ -56,6 +61,18 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',  // El nombre debe ser obligatorio, una cadena y no más de 255 caracteres
+            'email' => 'required|email|unique:users,email',  // El correo debe ser obligatorio, válido y único en la base de datos
+            'password' => 'required|string|min:8',  // La contraseña es obligatoria y debe tener al menos 8 caracteres
+            'contactName' => 'nullable|string|max:255',  // El nombre del contacto es opcional, debe ser una cadena y no superar los 255 caracteres
+            'contactSurname' => 'nullable|string|max:255',  // El apellido del contacto es opcional, debe ser una cadena y no superar los 255 caracteres
+            'contactBio' => 'nullable|string|max:1000',  // La biografía es opcional, debe ser una cadena y no superar los 1000 caracteres
+            'contactPhone' => 'nullable|string|max:20',  // El teléfono es opcional, debe ser una cadena y no superar los 20 caracteres
+            'contactCountry' => 'nullable|string|max:255',  // El país es opcional, debe ser una cadena y no superar los 255 caracteres
+            'contactCity' => 'nullable|string|max:255',  // La ciudad es opcional, debe ser una cadena y no superar los 255 caracteres
+        ]);
+
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
