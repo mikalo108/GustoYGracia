@@ -51,32 +51,32 @@
                                     <div class="card" style="padding-inline: 20px; padding-block: 2px; margin-bottom: 30px;">
                                         <div class="card-body">
                                             <div class="mb-3">
-                                                <label for="name" class="form-label">{{__('columns.contact_5')}} {{__('columns.contact_1')}}</label>
+                                                <label for="name" class="form-label">{{__('columns.user_5')}} {{__('columns.contact_1')}}</label>
                                                 <input id="name" name="name" type="text"
                                                 class="form-control" required @isset($contact) value="{{$contact->name}}" @endisset />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="surname" class="form-label">{{__('columns.contact_5')}} {{__('columns.contact_2')}}</label>
+                                                <label for="surname" class="form-label">{{__('columns.user_5')}} {{__('columns.contact_2')}}</label>
                                                 <input id="surname" name="surname" type="text"
                                                 class="form-control" required @isset($contact) value="{{$contact->surname}}" @endisset />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="bio" class="form-label">{{__('columns.contact_5')}} {{__('columns.contact_3')}}</label>
+                                                <label for="bio" class="form-label">{{__('columns.user_5')}} {{__('columns.contact_3')}}</label>
                                                 <input id="bio" name="bio" type="text"
                                                 class="form-control" required @isset($contact) value="{{$contact->bio}}" @endisset />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="phone" class="form-label">{{__('columns.contact_5')}} {{__('columns.contact_4')}}</label>
+                                                <label for="phone" class="form-label">{{__('columns.user_5')}} {{__('columns.contact_4')}}</label>
                                                 <input id="phone" name="phone" type="text"
                                                 class="form-control" required @isset($contact) value="{{$contact->phone}}" @endisset />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="country" class="form-label">{{__('columns.contact_5')}} {{__('columns.contact_5')}}</label>
+                                                <label for="country" class="form-label">{{__('columns.user_5')}} {{__('columns.contact_5')}}</label>
                                                 <input id="country" name="country" type="text"
                                                 class="form-control" required @isset($contact) value="{{$contact->country}}" @endisset />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="city" class="form-label">{{__('columns.contact_5')}} {{__('columns.contact_6')}}</label>
+                                                <label for="city" class="form-label">{{__('columns.user_5')}} {{__('columns.contact_6')}}</label>
                                                 <input id="city" name="city" type="text"
                                                 class="form-control" required @isset($contact) value="{{$contact->city}}" @endisset />
                                             </div>

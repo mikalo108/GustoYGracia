@@ -19,7 +19,7 @@ class CommentController extends Controller
     public function create()
     {
         $users = User::all();
-        return view('contact/form', ['users' => $users]);
+        return view('comment/form', ['users' => $users]);
     }
     
     public function store(Request $r) { 

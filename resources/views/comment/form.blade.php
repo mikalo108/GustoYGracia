@@ -51,17 +51,17 @@
                                     <div class="card" style="padding-inline: 20px; padding-block: 2px; margin-bottom: 30px;">
                                         <div class="card-body">
                                             <div class="mb-3">
-                                                <label for="recipe" class="form-label">{{__('columns.comment_1')}} {{__('columns.comment_2')}}</label>
+                                                <label for="recipe" class="form-label">{{__('admin.TitleCommentTable')}} {{__('columns.comment_2')}}</label>
                                                 <input id="recipe" @isset($comment) disabled @endisset type="text"
                                                 class="form-control"  @isset($comment) value="{{$comment->recipe->name}}" @endisset />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="user" class="form-label">{{__('columns.comment_2')}} {{__('columns.comment_3')}}</label>
+                                                <label for="user" class="form-label">{{__('admin.TitleCommentTable')}} {{__('columns.comment_1')}}</label>
                                                 <input id="user"  @isset($comment) disabled @endisset type="text"
                                                 class="form-control" @isset($comment) value="{{$comment->user->name}}" @endisset />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="content" class="form-label">{{__('columns.comment_3')}} {{__('columns.comment_1')}}</label>
+                                                <label for="content" class="form-label">{{__('admin.TitleCommentTable')}} {{__('columns.comment_3')}}</label>
                                                 <textarea id="content" required name="content" 
                                                 class="form-control">@isset($comment){{$comment->content}}@endisset</textarea>
                                             </div>
