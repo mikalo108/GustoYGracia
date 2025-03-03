@@ -8,7 +8,7 @@ use App\Models\Contact;
 
 class ContactController extends Controller
 {
-    const PAGINATE_SIZE = 4;
+    private const PAGINATE_SIZE = 4;
     public function index() { 
         $contactList = Contact::all();
         $contactList = Contact::paginate(self::PAGINATE_SIZE);

@@ -9,7 +9,7 @@ use App\Models\Recipe;
 
 class CategoryController extends Controller
 {
-    const PAGINATE_SIZE = 5;
+    private const PAGINATE_SIZE = 5;
     public function index()
     {
         $categoryList = Category::all();  // Obtener todas las categorías

@@ -9,7 +9,7 @@ use App\Models\Recipe;
 
 class CommentController extends Controller
 {
-    const PAGINATE_SIZE = 4;
+    private const PAGINATE_SIZE = 4;
     public function index() { 
         $commentList = Comment::all();
         $commentList = Comment::paginate(self::PAGINATE_SIZE);
