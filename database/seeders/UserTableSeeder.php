@@ -25,10 +25,19 @@ class UserTableSeeder extends Seeder
             'remember_token' => Str::random(10),
             'contact_id' => Contact::all()->random()->id
         ]);
+        
         DB::table('users')->insert([
             'name' => 'ADMIN',
             'email' => 'admin@gustoygracia.com',
             'password' => Hash::make('admin'),
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10)
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Andrea',
+            'email' => 't@test.com',
+            'password' => Hash::make('test'),
             'email_verified_at' => now(),
             'remember_token' => Str::random(10)
         ]);

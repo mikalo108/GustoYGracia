@@ -35,5 +35,23 @@ class CommentTableSeeder extends Seeder
             'recipe_id' => $recipes->random()->id,
             'content' => 'I love this recipe!',
         ]);
+
+        DB::table('comments')->insert([
+            'user_id' => $users->random()->id,
+            'recipe_id' => $recipes->random()->id,
+            'content' => 'La tengo que probar.',
+        ]);
+
+        DB::table('comments')->insert([
+            'user_id' => $users->random()->id,
+            'recipe_id' => $recipes->random()->id,
+            'content' => 'A mis hijos les encanta :)',
+        ]);
+
+        DB::table('comments')->insert([
+            'user_id' => $users->random()->id,
+            'recipe_id' => $recipes->random()->id,
+            'content' => '¡Muchas gracias!',
+        ]);
     }
 }

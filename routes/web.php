@@ -26,18 +26,21 @@ Route::post('/change-language', function (Request $request) {
 
 Route::get('/', function () { return view('home'); })->name('home');
 
-Route::get('/myprofile', 'UserController@showProfile')->name('myprofile');
+Route::get('/myprofile', 'UserController@showMyProfile')->name('myProfile');
+Route::get('/myrecipes/{user}', 'RecipeController@showMyRecipes')->name('myRecipes');
 
-Route::put('/myprofile/{id}', 'UserController@update')->name('myprofile.update');
+Route::put('/myprofile/{id}', 'UserController@update')->name('myProfile.update');
 
 Route::resource('category', 'CategoryController');
 Route::post('/category/update/{category}', 'CategoryController@update')->name('category.update');
-Route::get('/category/show/{category}', 'CategoryController@show');
+Route::get('/category/show/{category}', 'CategoryController@show')->name('category.show');
 Route::get('/category/delete/{category}', 'CategoryController@destroy')->name('category.myDestroy');
 
 Route::resource('comment', 'CommentController');
+Route::post('/recipe/{recipe}/comment/{user}', 'CommentController@createComment')->name('recipe.comment.store');
 Route::get('/comment/show/{comment}', 'CommentController@show')->name('comment.show');
-Route::get('/comment/delete/{comment}', 'CommentController@destroy')->name('comment.myDestroy');
+Route::delete('/comment/delete/{comment}', 'CommentController@destroy')->name('comment.myDestroy');
+Route::delete('/comment/delete/{recipe}/{comment}', 'CommentController@removeComment')->name('comment.removeComment');
 
 Route::resource('contact', 'ContactController');
 Route::get('/category/show/{contact}', 'ContactController@show')->name('contact.show');
@@ -48,9 +51,12 @@ Route::get('/ingredient/show/{ingredient}', 'IngredientController@show')->name('
 Route::get('/ingredient/delete/{ingredient}', 'IngredientController@destroy')->name('ingredient.myDestroy');
 
 Route::resource('recipe', 'RecipeController');
+Route::get('/category/{category}', 'RecipeController@showByCategory')->name('showByCategory');
 Route::get('/recipe/show/{recipe}', 'RecipeController@show')->name('recipe.show');
 Route::get('/recipe/delete/{recipe}', 'RecipeController@destroy')->name('recipe.myDestroy');
+Route::delete('/recipe/delete/{recipe}/{user}', 'RecipeController@removeRecipe')->name('recipe.removeRecipe');
 
 Route::resource('user', 'UserController');
+Route::get('/user/show/{user}', 'UserController@show')->name('user.show');
 
 require __DIR__.'/auth.php';

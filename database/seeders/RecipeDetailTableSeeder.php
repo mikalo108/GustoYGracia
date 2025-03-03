@@ -23,9 +23,39 @@ class RecipeDetailTableSeeder extends Seeder
         }
 
         DB::table('recipe_details')->insert([
-            'recipe_id' => $recipes->random()->id,
+            'recipe_id' => 1,
             'prep_time' => 30,
-            'difficulty_level' => 'Medium',
+            'difficulty_level' => 'Medio',
+        ]);
+
+        DB::table('recipe_details')->insert([
+            'recipe_id' => 2,
+            'prep_time' => 40,
+            'difficulty_level' => 'Bajo',
+        ]);
+
+        DB::table('recipe_details')->insert([
+            'recipe_id' => 3,
+            'prep_time' => 40,
+            'difficulty_level' => 'Bajo',
+        ]);
+
+        DB::table('recipe_details')->insert([
+            'recipe_id' => 3,
+            'prep_time' => 15,
+            'difficulty_level' => 'Alto',
+        ]);
+
+        DB::table('recipe_details')->insert([
+            'recipe_id' => 5,
+            'prep_time' => 40,
+            'difficulty_level' => 'Bajo',
+        ]);
+
+        DB::table('recipe_details')->insert([
+            'recipe_id' => 6,
+            'prep_time' => 25,
+            'difficulty_level' => 'Medio',
         ]);
     }
 }

@@ -109,8 +109,9 @@
                 grid-column: 1/3;
                 margin: 0;
             }
-            .filaTablaIndex:hover>td{
-                background-color: rgba(222, 226, 230,0.6);
+
+            .filaTablaIndex:hover>td {
+                background-color: rgba(222, 226, 230, 0.6);
             }
         </style>
     </head>
@@ -139,7 +140,7 @@
                     </a>
                     <div class="dropdown" style="display: none;">
                         <button class="myprofile-btn">
-                            <a href="{{ route('myprofile') }}">{{ __('messages.MyProfile') }}</a>
+                            <a href="{{ route('myProfile') }}">{{ __('messages.MyProfile') }}</a>
                         </button>
                         <hr style="color: black; margin-block:10px">
                         <form action="{{ route('logout') }}" method="POST" class="logout-form">
@@ -264,11 +265,10 @@
 
         let filasTablaIndex = document.querySelectorAll(".filaTablaIndex");
         filasTablaIndex.forEach(fila => {
-            fila.addEventListener("dblclick", ()=>{
-                window.location.href=fila.getAttribute('link');
+            fila.addEventListener("dblclick", () => {
+                window.location.href = fila.getAttribute('link');
             })
         });
-        
     </script>
 
     </html>
@@ -282,6 +282,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Lobster+Two&family=Lora&family=Jost&display=swap"
             rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
         @stack('css')
     </head>
 
@@ -306,13 +307,20 @@
                 <!-- Perfil -->
                 <div class="profile">
                     @auth
-                        <a href="#" class="profile-link">
-                            <img src="{{ asset('images/user-icon.png') }}" alt="Perfil">
-                            {{ __('messages.MyProfile') }}
-                        </a>
+                        <button id="app-profile-btn">
+                            <a href="#" class="profile-link">
+                                <span><img src="{{ asset('images/user-icon.png') }}" alt="Perfil"></span>
+                                <span>{{ Auth::user()->name }}</span>
+                            
+                            </a>
+                        </button>
+
                         <div class="dropdown" style="display: none;">
                             <button class="myprofile-btn">
-                                <a href="{{ route('myprofile') }}">{{ __('messages.MyProfile') }}</a>
+                                <a href="{{ route('myProfile') }}">{{ __('messages.EditProfile') }}</a>
+                            </button>
+                            <button class="myprofile-btn">
+                                <a href="{{ route('myRecipes', Auth::user()) }}">{{ __('messages.MyRecipes') }}</a>
                             </button>
                             <hr style="color: black; margin-block:10px">
                             <form action="{{ route('logout') }}" method="POST" class="logout-form">
@@ -322,12 +330,18 @@
                         </div>
                     @endauth
                     @guest
-                        <a href="{{ route('login') }}">{{ __('messages.Login') }}</a>
-                        <a href="{{ route('register') }}">{{ __('messages.Register') }}</a>
+                        <div id="home-buttons">
+                            <button>
+                                <a href="{{ route('login') }}" id="login-link">{{ __('messages.Login') }}</a>
+                            </button>
+                            <br>
+                            <button>
+                                <a href="{{ route('register') }}" id="signup-link">{{ __('messages.Register') }}</a>
+                            </button>
+                        </div>
                     @endguest
                 </div>
 
-                <!-- Selector idioma -->
                 <div class="language-form">
                     <form action="{{ route('changeLanguage') }}" method="POST">
                         @csrf
@@ -348,7 +362,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 navOscuro">
                 @foreach ($categoryList as $category)
                     <li class="nav-item">
-                        <a class="nav-link" href="/{{ $category->name }}">{{ $category->name }}</a>
+                        <a class="nav-link" href="{{ route('showByCategory', $category->id) }}">{{ $category->name }}</a>
                     </li>
                 @endforeach
             </ul>

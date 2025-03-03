@@ -24,10 +24,10 @@ class RecipeTableSeeder extends Seeder
         
         DB::table('recipes')->insert([
             [
-                'name' => 'Spaghetti Carbonara',
+                'name' => 'Espaguetis a la Carbonara',
                 'image' => 'recipes/spaghetti_carbonara.jpg',
                 'description' => 'Un plato clásico de Italia.',
-                'instructions' => 'Cook pasta, fry pancetta, mix with eggs and cheese.',
+                'instructions' => 'Cocinar la pasta, freír la panceta y mezclar con huevo.',
                 'user_id' => $users->random()->id,
             ],
             [

@@ -24,7 +24,11 @@ class AppServiceProvider extends ServiceProvider
     {
         $categoryList = Category::all();
         $recipeList = Recipe::all();
+        $recipeListLatest = Recipe::orderBy('id', 'desc')->take(3)->get();
+        $recipeListRandom = Recipe::inRandomOrder()->take(3)->get();
         View::share('categoryList', $categoryList);
+        View::share('recipeListLatest', $recipeListLatest);
+        View::share('recipeListRandom', $recipeListRandom);
         View::share('recipeList', $recipeList);
     }
 }

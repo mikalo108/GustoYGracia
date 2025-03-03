@@ -8,17 +8,12 @@
     }
 @endphp
 
-@push('css')
-    <link rel="stylesheet" href="{{ asset('css/myprofile.css') }}">
-@endpush
-
-@section('title', 'Mi Perfil')
+@section('title', __('messages.MyProfile') . ' | Gusto&Gracia')
 
 @section('content')
     <div class="profile-page">
         <h1>{{ __('messages.MyProfile') }}</h1>
-
-        <form action="{{ route('myprofile.update', ['id' => Auth::user()->id]) }}" method="POST" id="profile-form">
+        <form action="{{ route('myProfile.update', ['id' => Auth::user()->id]) }}" method="POST" id="profile-form">
             @csrf
             @method('PUT')
 
@@ -56,9 +51,12 @@
             <input type="text" name="contact_city" value="{{ $user->contact->city ?? '' }}" disabled>
 
             <div class="button-group">
-                <button type="button" id="edit-btn">Editar datos</button>
-                <button type="submit" id="save-btn" class="hidden">Guardar</button>
-                <button type="button" id="cancel-btn" class="hidden">Cancelar</button>
+                <button type="button" id="edit-btn">{{ __('messages.EditData') }}</button>
+                <button type="submit" id="save-btn" class="hidden">{{ __('messages.Save') }}</button>
+                <button type="button" id="cancel-btn" class="hidden">{{ __('messages.Cancel') }}</button>
+            </div>
+            <div>
+                <a href="{{ url()->previous() }}" class="btn-back">{{ __('messages.Back') }}</a>
             </div>
         </form>
     </div>
