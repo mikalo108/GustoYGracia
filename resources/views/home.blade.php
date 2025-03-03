@@ -84,7 +84,7 @@
         @endauth
 
         @guest
-            <h1 class="welcome-title">{{ __('messages.Welcome') }}, {{ __('messages.Visitor') }}!</h1>
+            <h1 class="welcome-title">¡{{ __('messages.Welcome') }}!</h1>
         @endguest
 
         <br />
