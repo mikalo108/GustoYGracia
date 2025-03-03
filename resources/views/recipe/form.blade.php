@@ -14,6 +14,7 @@
 @endphp
 
 @push('css')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet">
     <!-- estilos adicionales -->
     <style>
         .rowSelectArray{
@@ -58,7 +59,6 @@
                     <div class="col-md mt-4">
                         <form 
                             style="flex-direction:column"
-                            name="{{ isset($recipe) ? 'edit_recipe' : 'create_recipe' }}" 
                             action="{{ isset($recipe) ? route('recipe.update', $recipe->id) : route('recipe.store') }}" 
                             method="post" enctype="multipart/form-data">
                             @csrf
@@ -105,7 +105,7 @@
                             <div class="mb-3">
                                 <label for="allCategories" class="form-label">{{ __('columns.recipe_3') }}</label>
                                 <div class="rowSelectArray">
-                                    <select id="allCategories" class="form-control">
+                                    <select id="allCategories" class="form-control" data-url="{{ route('categories.search') }}">
                                        @foreach ($categories as $category)
                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                                        @endforeach
@@ -133,7 +133,7 @@
                             <div class="mb-3">
                                 <label for="allIngredients" class="form-label">{{ __('columns.recipe_5') }}</label>
                                 <div class="rowSelectArray">
-                                    <select id="allIngredients" class="form-control">
+                                    <select id="allIngredients" class="form-control" data-url="{{ route('ingredients.search') }}">
                                         @foreach ($ingredients as $ingredient)
                                             <option value="{{ $ingredient->id }}">{{ $ingredient->name }}</option>
                                         @endforeach
@@ -149,6 +149,9 @@
                                                 data-id="{{ $ingredient->id }}">
                                                 {{ $ingredient->name }}
                                                 <input type="hidden" name="ingredients[]" value="{{ $ingredient->id }}">
+                                                <input type="number" name="quantities[{{ $ingredient->id }}]" 
+                                                    value="{{ $ingredient->pivot->quantity ?? 1 }}" 
+                                                    min="1" class="form-control d-inline w-25 ms-2">
                                                 <button type="button" class="btn-close remove-ingredient ms-2"></button>
                                             </li>
                                         @endforeach
@@ -178,14 +181,26 @@
 
                             <!-- Detalles de la receta -->
                             <div class="mb-3">
-                                <h6 class="form-label">{{ __('admin.recipeDetail_title') }}</h6>
-                                <label for="prep_time" class="form-label">{{ __('admin.recipeDetail_1') }}  ( ´ )</label>
-                                <input id="prep_time" name="prep_time" type="text" class="form-control" required 
-                                @isset($recipe->details->prep_time) value="{{ $recipe->details->prep_time }}" @endisset />
+                                <h6 class="form-label" style="margin-bottom:7px;">{{ __('admin.recipeDetail_title') }}</h6>
+                                <div class="card" style="padding-inline: 20px; padding-block: 2px; margin-bottom: 30px;">
+                                    <div class="card-body">
+                                        <label for="prep_time" class="form-label">{{ __('admin.recipeDetail_1') }}  ( ´ )</label>
+                                        <input id="prep_time" name="prep_time" type="text" class="form-control" required 
+                                        @isset($recipe->details->prep_time) value="{{ $recipe->details->prep_time }}" @endisset />
 
-                                <label for="difficulty_level" class="form-label">{{ __('admin.recipeDetail_2') }}</label>
-                                <input id="difficulty_level" name="difficulty_level" type="text" class="form-control" required 
-                                @isset($recipe->details->prep_time) value="{{ $recipe->details->difficulty_level }}" @endisset />
+                                        <label for="difficulty_level" class="form-label">{{ __('admin.recipeDetail_2') }}</label>
+                                        <input id="difficulty_level" name="difficulty_level" type="text" class="form-control" required 
+                                        @isset($recipe->details->prep_time) value="{{ $recipe->details->difficulty_level }}" @endisset />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Instrucciones -->
+                            <div class="mb-3">
+                                <label for="instructions" class="form-label">{{ __('admin.recipeInstructions') }}</label>
+                                <textarea id="instructions" rows="10" name="instructions" class="form-control" 
+                                required>@isset($recipe->instructions){{$recipe->instructions}}@endisset
+                                </textarea>
                             </div>
 
 
@@ -265,6 +280,7 @@
                     nuevoIngredienteLi.innerHTML = `
                         ${ingredienteTexto}
                         <input type="hidden" name="ingredients[]" value="${ingredienteId}">
+                        <input type="number" name="quantities[${ingredienteId}]" value="1" min="1" class="form-control d-inline w-25 ms-2">
                         <button type="button" class="btn-close remove-ingredient ms-2"></button>
                     `;
 
@@ -346,6 +362,31 @@
                     });
                 }
 
+                $(document).ready(function() {
+                    function initializeSelect2(selector) {
+                        $(selector).select2({
+                            placeholder: {{ __('admin.placeHolderSearch') }},
+                            ajax: {
+                                url: $(selector).data('url'),
+                                dataType: 'json',
+                                delay: 250,
+                                data: function(params) {
+                                    return { q: params.term };
+                                },
+                                processResults: function(data) {
+                                    return {
+                                        results: data.map(item => ({ id: item.id, text: item.name }))
+                                    };
+                                },
+                                cache: true
+                            }
+                        });
+                    }
+
+                    initializeSelect2('#allCategories');
+                    initializeSelect2('#allIngredients');
+                });
+
 
 /* ======================================================================================= */
 
@@ -388,7 +429,7 @@
 
         });
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
 @else
 @endif

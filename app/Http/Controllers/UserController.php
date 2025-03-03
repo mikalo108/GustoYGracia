@@ -16,7 +16,7 @@ class UserController extends Controller
     }
     public function create()
     {
-        return view('user.create');
+        return view('user/form');
     }
 
     public function store(Request $request)
@@ -30,7 +30,13 @@ class UserController extends Controller
 
         // Crear el contacto primero (con los valores por defecto o nulos)
         $contact = new Contact();
-        $contact->save(); // Guarda el contacto con los campos nulos
+        $contact->name = $request->contactName ?? null;
+        $contact->surname = $request->contactSurname ?? null;
+        $contact->bio = $request->contactBio ?? null;
+        $contact->phone = $request->contactPhone ?? null;
+        $contact->country = $request->contactCountry ?? null;
+        $contact->city = $request->contactCity ?? null;
+        $contact->save();
 
         // Luego, crea el usuario y asocia el contacto
         $user = new User();
@@ -46,7 +52,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('user.edit', ['user' => $user]);
+        return view('user/form', ['user' => $user]);
     }
     public function update(Request $request, $id)
     {
@@ -57,12 +63,26 @@ class UserController extends Controller
             $user->password = bcrypt($request->password);
         }
         $user->save();
+
+        $contact= Contact::find($user->contact->id);
+        $contact->name = $request->contactName ?? null;
+        $contact->surname = $request->contactSurname ?? null;
+        $contact->bio = $request->contactBio ?? null;
+        $contact->phone = $request->contactPhone ?? null;
+        $contact->country = $request->contactCountry ?? null;
+        $contact->city = $request->contactCity ?? null;
+        $contact->save();
+
         return redirect()->route('user.index');
     }
 
     public function destroy($id)
     {
         $user = User::find($id);
+        if($user->contact){
+            $contact = Contact::find($user->contact->id);
+            $contact->delete();
+        }
         $user->delete();
         return redirect()->route('user.index');
     }

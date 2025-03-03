@@ -91,19 +91,21 @@
 
                                                 <td>
                                                     <div class="btn-group actions" role="group" aria-label="user">
-                                                        <div class="btn">
-                                                            <a class="btn btn-secondary" href="{{ route('user.edit', $user) }}">
-                                                                <img class="editButton" src="{{ asset('images/pencil-solid.svg') }}" alt="Edit">
-                                                            </a>
-                                                        </div>
-                                                        <form class="btn" action="{{route('user.destroy', $user->id)}}" method="POST">
-                                                            @csrf
-                                                            @method("DELETE")
-                                                            <a class="btn btn-danger botonBorrar">
-                                                                <img class="editButton" src="{{ asset('images/trash-solid.svg') }}" alt="Delete">
-                                                            </a>
-                                                        </form>
-                                                        
+                                                        @if(Auth::user()->email == $user->email) 
+                                                        @else
+                                                            <div class="btn">
+                                                                <a class="btn btn-secondary" href="{{ route('user.edit', $user) }}">
+                                                                    <img class="editButton" src="{{ asset('images/pencil-solid.svg') }}" alt="Edit">
+                                                                </a>
+                                                            </div>
+                                                            <form class="btn" action="{{route('user.destroy', $user->id)}}" method="POST">
+                                                                @csrf
+                                                                @method("DELETE")
+                                                                <a class="btn btn-danger botonBorrar">
+                                                                    <img class="editButton" src="{{ asset('images/trash-solid.svg') }}" alt="Delete">
+                                                                </a>
+                                                            </form>
+                                                        @endif                                                       
                                                     </div>
                                                 </td>
                                             </tr>

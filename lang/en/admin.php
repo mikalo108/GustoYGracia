@@ -18,6 +18,7 @@ return [
     'recipeDetail_title'    =>  'Recipe Details',
     'recipeDetail_1'    =>  'Preparation Time',
     'recipeDetail_2'    =>  'Difficulty Level',
+    'recipeInstructions'    =>  'Instructions',
     'TitleIngredientTable'     => 'Ingredient',
     'TitleIngredientsTable'     => 'Ingredients',
     'DescriptionIngredientTable'     => 'Here you can find all the ingredients',
@@ -34,5 +35,6 @@ return [
     'TitleCommentsTable'     => 'Comments',
     'DescriptionCommentTable'     => 'Here you can find all the comments',
     'noData'     => 'No data to show',
+    'optionalFields'     => 'Optional Fields',
 
 ];

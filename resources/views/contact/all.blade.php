@@ -37,6 +37,10 @@
                             <form action="" method="post" class="search-form">
                                 @csrf
                                 <div>
+                                    <label for="user_id" class="form-label"> {{ __("admin.TitleContactTable") }} {{ __('columns.contact_5') }}</label>
+                                    <input id="user_id" name="user_id" class="form-control" value="@isset($user_id) {{ $user_id }} @endisset"/>
+                                </div>
+                                <div>
                                     <label for="contactName" class="form-label"> {{ __("admin.TitleContactTable") }} {{ __('columns.contact_1') }}</label>
                                     <input id="contactName" name="contactName" class="form-control" value="@isset($contactName) {{ $contactName }}@endisset"/>
                                 </div>
@@ -56,15 +60,12 @@
                             </form>
                         </div>
                         <hr>
-                        <div class="d-flex justify-content-end">
-                            <a id="createIcon" class="header__link btn btn-sm btn-success"
-                                href="{{ route('contact.create') }}"><img width="30" src="{{ asset('images/plus-solid.svg') }}" alt="New"></a>
-                        </div>
                         <div class="table-responsive mt-3">
                             @if (count($contactList) > 0)
                                 <table class="table table-striped align-items-center">
                                     <thead class="thead-light">
                                         <th>#</th>
+                                        <th>user_id</th>
                                         <th>{{ __('columns.contact_1') }}</th>
                                         <th>{{ __('columns.contact_2') }}</th>
                                         <th>{{ __('columns.contact_3') }}</th>
@@ -79,6 +80,7 @@
                                         @foreach ($contactList as $contact)
                                             <tr class="filaTablaIndex"  link="{{ route('contact.show', $contact->id) }}">
                                                 <td>{{ $contact->id }}</td>
+                                                <td> @isset($contact->user) {{ $contact->user->id }} @endisset </td>
                                                 <td>{{ $contact->name }}</td>
                                                 <td>{{ $contact->surname }}</td>
                                                 <td class="descripcion">{{ $contact->bio }}</td>

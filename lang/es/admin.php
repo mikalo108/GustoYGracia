@@ -18,6 +18,7 @@ return [
     'recipeDetail_title'    =>  'Detalles de la receta',
     'recipeDetail_1'    =>  'Tiempo de preparación',
     'recipeDetail_2'    =>  'Nivel de dificultad',
+    'recipeInstructions'    =>  'Pasos a seguir',
     'TitleIngredientTable'     => 'Ingrediente',
     'TitleIngredientsTable'     => 'Ingredientes',
     'DescriptionIngredientTable'     => 'Aquí se gestionan los ingredientes',
@@ -34,5 +35,6 @@ return [
     'TitleCommentsTable'     => 'Comentarios',
     'DescriptionCommentTable'     => 'Aquí se gestionan los comentarios',
     'noData'     => 'No hay datos que mostrar',
+    'optionalFields'     => 'Campos Opcionales',
 
 ];

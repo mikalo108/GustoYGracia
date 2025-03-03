@@ -44,6 +44,8 @@ class RecipeController extends Controller
             'ingredients.*' => 'exists:ingredients,id',
             'categories' => 'required|array',
             'categories.*' => 'exists:categories,id',
+            'quantities' => 'required|array',
+            'quantities.*' => 'integer|min:1',
         ]);
 
         $imagePath = $request->file('image')->store('recipes', 'public');
@@ -63,7 +65,11 @@ class RecipeController extends Controller
         ]);
 
         $recipe->categories()->sync($request->categories);
-        $recipe->ingredients()->sync($request->ingredients);
+        $ingredientsWithQuantities = [];
+        foreach ($request->ingredients as $ingredientId) {
+            $ingredientsWithQuantities[$ingredientId] = ['quantity' => $request->quantities[$ingredientId] ?? 1];
+        }
+        $recipe->ingredients()->sync($ingredientsWithQuantities);
 
         return redirect()->route('recipe.index');
     }
@@ -91,6 +97,8 @@ class RecipeController extends Controller
             'ingredients.*' => 'exists:ingredients,id',
             'categories' => 'nullable|array',
             'categories.*' => 'exists:categories,id',
+            'quantities' => 'required|array',
+            'quantities.*' => 'integer|min:1',
         ]);
 
         $recipe = Recipe::findOrFail($id);
@@ -117,7 +125,13 @@ class RecipeController extends Controller
         $recipeDetail->save();
 
         $recipe->categories()->sync($request->categories ?? []);
-        $recipe->ingredients()->sync($request->ingredients ?? []);
+        $ingredientsWithQuantities = [];
+        if ($request->ingredients) {
+            foreach ($request->ingredients as $ingredientId) {
+                $ingredientsWithQuantities[$ingredientId] = ['quantity' => $request->quantities[$ingredientId] ?? 1];
+            }
+        }
+        $recipe->ingredients()->sync($ingredientsWithQuantities);
 
         return redirect()->route('recipe.index');
     }

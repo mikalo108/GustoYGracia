@@ -21,6 +21,7 @@ return [
     'user_2'     => 'Email',
     'user_3'     => 'Email Verificated',
     'user_4'     => 'Password',
+    'user_4_form'     => 'New Password (Optional)',
     'user_5'     => 'Contact',
     'contact_1'     => 'Name',
     'contact_2'     => 'Surname',

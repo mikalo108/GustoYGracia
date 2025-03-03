@@ -21,6 +21,7 @@ return [
     'user_2'     => 'Email',
     'user_3'     => 'Email Verificado',
     'user_4'     => 'Contraseña',
+    'user_4_form'     => 'Nueva Contraseña (Opcional)',
     'user_5'     => 'Contacto',
     'contact_1'     => 'Nombre',
     'contact_2'     => 'Apellidos',

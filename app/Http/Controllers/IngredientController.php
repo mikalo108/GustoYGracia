@@ -14,7 +14,7 @@ class IngredientController extends Controller
         return view('ingredient/all', ['ingredientList'=>$ingredientList], compact('ingredientList'));
     }
 
-    public function create() { 
+    public function create() {
         return view('ingredient/form');  
     }
 

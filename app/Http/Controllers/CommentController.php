@@ -17,12 +17,12 @@ class CommentController extends Controller
     }
     public function create() { 
         $users = User::all();
-        return view('contact/form',['users'=>$users]);  
+        return view('comment/form',['users'=>$users]);  
     }
-    public function store(Request $r, $user, $recipe) { 
+    public function store(Request $r) { 
         $c = new Comment();
-        $c->user_id = $user->id;
-        $c->recipe_id = $recipe->id;
+        $c->user_id = $r->user->id;
+        $c->recipe_id = $r->recipe->id;
         $c->content = $r->content;
         $c->save();
         return redirect()->route('comment.index');
@@ -31,13 +31,11 @@ class CommentController extends Controller
     {
         $comment = Comment::find($id);
         $users = User::all();
-        return view('contact/form',['users'=>$users, 'comment'=>$comment]);  
+        return view('comment/form',['users'=>$users, 'comment'=>$comment]);  
     }
 
-    public function update($id, Request $r, $user, $recipe) { 
+    public function update($id, Request $r) { 
         $c = Comment::find($id);
-        $c->user_id = $user->id;
-        $c->recipe_id = $recipe->id;
         $c->content = $r->content;
         $c->save();
         return redirect()->route('comment.index');
@@ -45,6 +43,6 @@ class CommentController extends Controller
     public function destroy($id) { 
         $c = Comment::find($id);
         $c->delete();
-        return redirect()->route('category.index');
+        return redirect()->route('comment.index');
     }
 }
