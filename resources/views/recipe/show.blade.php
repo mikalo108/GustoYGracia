@@ -22,71 +22,58 @@
 @section('title', $recipe->name . ' | Gusto&Gracia')
 
 @section('content')
+@section('content')
     <div id="body-recipe">
         <div id="recipe-container">
-            <!-- Título de la receta -->
             <h1 class="recipe-title">{{ $recipe->name }}</h1>
+            <p class="recipe-user">{{ __('messages.PostBy') }}: <a class="user-link" href="{{ route('user.show', $recipe->user->id) }}">
+                        {{ $recipe->user->name }}
+                    </a></p>
 
-            <!-- Imagen de la receta -->
             <div class="recipe-image-container">
                 <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}" class="recipe-image">
             </div>
 
-            <!-- Categorías -->
-            <div class="recipe-categories">
-                <h4>Categorías:</h4>
-                <ul>
-                    @foreach ($categories as $category)
-                        @if ($recipe->categories->contains($category->id))
-                            <p>{{ $category->name }}</p>
-                        @endif
-                    @endforeach
-                </ul>
-            </div>
-
             <div class="recipe-description">
-                <h3>Tiempo de preparación:</h3>
-                <p>{{ $recipe->details->prep_time }}</p>
+                <br><p>{{ $recipe->description }}</p>
             </div>
 
-            <div class="recipe-description">
-                <h3>Dificultad:</h3>
-                <p>{{ $recipe->details->difficulty_level }}</p>
+            <div class="recipe-details">
+                <div class="detail-item">
+                    <p><span style="color: #16404D">{{ __('messages.PrepTime') }}: </span>{{ $recipe->details->prep_time }}</p>
+                </div>
+
+                <div class="detail-item">
+                    <p><span style="color: #16404D">{{ __('messages.Difficulty') }}: </span>{{ $recipe->details->difficulty_level }}</p>
+                </div>
             </div>
 
-            <div class="recipe-description">
-                <h3>Usuario:</h3>
-                <p>{{ $recipe->user->name }}</p>
-            </div>
-
-            <!-- Descripción de la receta -->
-            <div class="recipe-description">
-                <h3>Descripción:</h3>
-                <p>{{ $recipe->description }}</p>
-            </div>
-
-            <!-- Ingredientes -->
             <div class="recipe-ingredients">
-                <h4>Ingredientes:</h4>
+                <h4>{{ __('messages.Ingredients') }}:</h4>
                 <ul>
                     @foreach ($ingredients as $ingredient)
                         @if ($recipe->ingredients->contains($ingredient->id))
-                            <p>{{ $ingredient->name }}</p>
+                            <li>{{ $ingredient->name }}</li>
                         @endif
                     @endforeach
                 </ul>
             </div>
 
-            <!-- Descripción de la receta -->
-            <div class="recipe-description">
-                <h3>Instrucciones:</h3>
+            <div class="recipe-ingredients">
+                <h4>{{ __('messages.Instructions') }}:</h4>
                 <p>{{ $recipe->instructions }}</p>
             </div>
             <br>
+            <p>TAG: 
+                @foreach ($categories as $category)
+                @if ($recipe->categories->contains($category->id))
+                    <span>{{ $category->name }}  </span>
+                @endif
+            @endforeach
+            </p>
         </div>
-
     </div>
-    <!-- Sección de comentarios -->
+
     <div class="comments-section">
         <h4>Comentarios</h4>
         <div class="comments-list">
@@ -122,7 +109,6 @@
         </div>
     </div>
 
-    <!-- Formulario para agregar un comentario -->
     @auth
         <div class="comment-form-container">
             <h4>Agregar un comentario</h4>

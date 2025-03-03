@@ -22,6 +22,11 @@ return [
     'UserData' => 'Datos del usuario',
     'ContactData' => 'Datos de contacto',
     'NoContactInfo' => 'No hay información de contacto asociada a este usuario.',
+    'PostBy' => 'Publicado por',
+    'PrepTime' => 'Tiempo de preparación',
+    'Difficulty' => 'Dificultad',
+    'Ingredients' => 'Ingredientes',
+    'Instructions' => 'Instrucciones',
 
     'User' => 'Usuario',
     'NewPassword' => 'Nueva contraseña',

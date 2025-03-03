@@ -33,5 +33,45 @@ class RecipeCategoryTableSeeder extends Seeder
             'recipe_id' => $recipes->random()->id,
             'category_id' => $categories->random()->id,
         ]);
+
+        DB::table('recipe_categories')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'category_id' => $categories->random()->id,
+        ]);
+
+        DB::table('recipe_categories')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'category_id' => $categories->random()->id,
+        ]);
+
+        DB::table('recipe_categories')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'category_id' => $categories->random()->id,
+        ]);
+
+        DB::table('recipe_categories')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'category_id' => $categories->random()->id,
+        ]);
+
+        DB::table('recipe_categories')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'category_id' => $categories->random()->id,
+        ]);
+
+        DB::table('recipe_categories')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'category_id' => $categories->random()->id,
+        ]);
+
+        DB::table('recipe_categories')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'category_id' => $categories->random()->id,
+        ]);
+
+        DB::table('recipe_categories')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'category_id' => $categories->random()->id,
+        ]);
     }
 }

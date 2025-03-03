@@ -326,8 +326,8 @@
                         </div>
                     @endauth
                     @guest
-                        <a href="{{ route('login') }}">{{ __('messages.Login') }}</a>
-                        <a href="{{ route('register') }}">{{ __('messages.Register') }}</a>
+                        <a href="{{ route('login') }}" id="login-btn">{{ __('messages.Login') }}</a>
+                        <a href="{{ route('register') }}" id="signup-btn">{{ __('messages.Register') }}</a>
                     @endguest
                 </div>
 

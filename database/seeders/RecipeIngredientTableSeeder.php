@@ -33,7 +33,61 @@ class RecipeIngredientTableSeeder extends Seeder
         DB::table('recipe_ingredients')->insert([
             'recipe_id' => $recipes->random()->id,
             'ingredient_id' => $ingredients->random()->id,
-            'quantity' => '1 cup',
+            'quantity' => '20g',
+        ]);
+
+        DB::table('recipe_ingredients')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'ingredient_id' => $ingredients->random()->id,
+            'quantity' => '4g',
+        ]);
+
+        DB::table('recipe_ingredients')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'ingredient_id' => $ingredients->random()->id,
+            'quantity' => '54g',
+        ]);
+
+        DB::table('recipe_ingredients')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'ingredient_id' => $ingredients->random()->id,
+            'quantity' => '100g',
+        ]);
+
+        DB::table('recipe_ingredients')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'ingredient_id' => $ingredients->random()->id,
+            'quantity' => '1 taza',
+        ]);
+
+        DB::table('recipe_ingredients')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'ingredient_id' => $ingredients->random()->id,
+            'quantity' => '2 tazas',
+        ]);
+
+        DB::table('recipe_ingredients')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'ingredient_id' => $ingredients->random()->id,
+            'quantity' => '1/2 taza',
+        ]);
+
+        DB::table('recipe_ingredients')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'ingredient_id' => $ingredients->random()->id,
+            'quantity' => '34g cup',
+        ]);
+
+        DB::table('recipe_ingredients')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'ingredient_id' => $ingredients->random()->id,
+            'quantity' => '3 tazas',
+        ]);
+
+        DB::table('recipe_ingredients')->insert([
+            'recipe_id' => $recipes->random()->id,
+            'ingredient_id' => $ingredients->random()->id,
+            'quantity' => '50g',
         ]);
     }
 }
