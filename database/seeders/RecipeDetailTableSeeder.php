@@ -41,7 +41,7 @@ class RecipeDetailTableSeeder extends Seeder
         ]);
 
         DB::table('recipe_details')->insert([
-            'recipe_id' => 3,
+            'recipe_id' => 4,
             'prep_time' => 15,
             'difficulty_level' => 'Alto',
         ]);
