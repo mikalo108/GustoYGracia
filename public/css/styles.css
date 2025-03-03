@@ -31,6 +31,10 @@ h6 {
     font-weight: 700;
 }
 
+h1 {
+    font-size: 2rem;
+}
+
 /* Header */
 header {
     background-color: #A6CDC6;
@@ -84,8 +88,35 @@ header {
     width: 20px;
 }
 
-#login-btn, #signup-btn {
-    color: #16404D;
+#home-buttons {
+    display: inline-block;
+    margin-right: 55px;
+    text-align: end;
+}
+
+#home-buttons>button {
+    background: #16404D;
+    width: 100%;
+    border-width: 0px;
+    border-radius: 5px;
+    padding-bottom: 2px;
+    margin: 3px;
+    font-size: 1em;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#home-buttons>button:hover {
+    background: #DDA853;
+}
+
+#login-link,
+#signup-link {
+    font-family: 'Jost', Verdana;
+    color: #FFFF;
+    text-decoration: none;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .profile {
@@ -184,7 +215,7 @@ header {
     display: flex;
     align-items: center;
     cursor: pointer;
-    margin-right: 0px;
+    margin-right: -9px;
 }
 
 .languageSelected {
@@ -357,6 +388,7 @@ footer p {
         max-width: 100%;
     }
 }
+
 #body-recipe {
     padding: 40px 10px;
     display: flex;
@@ -437,10 +469,17 @@ footer p {
     margin-bottom: 15px;
 }
 
-.recipe-ingredients li, .recipe-ingredients p {
+.recipe-ingredients li,
+.recipe-ingredients p {
     font-size: 1.1rem;
     margin-bottom: 5px;
     margin-left: 20px;
+}
+
+.delete-recipe-container>form {
+    justify-content: end;
+    margin-right: 80px;
+    margin-top: -10px;
 }
 
 @media (max-width: 768px) {
@@ -513,7 +552,8 @@ footer p {
 
 .delete-icon {
     width: 65%;
-    margin-bottom: -6px;
+    margin-bottom: -3px;
+
 }
 
 .comment-text {
@@ -613,7 +653,8 @@ footer p {
     font-weight: bold;
 }
 
-.user-link:hover, .btn-back:hover {
+.user-link:hover,
+.btn-back:hover {
     text-decoration: underline;
 }
 
@@ -630,7 +671,7 @@ footer p {
 
 .user-profile h1 {
     font-family: 'Lora', serif;
-    font-size: 2.5em;
+    font-size: 2em;
     color: #16404D;
     text-align: center;
     margin-bottom: 20px;
@@ -683,10 +724,7 @@ footer p {
 }
 
 .profile-page h1 {
-    font-family: 'Lora', serif;
-    font-size: 24px;
     text-align: center;
-    color: #16404D;
     margin-bottom: 20px;
 }
 
@@ -716,7 +754,9 @@ footer p {
     height: 80px;
 }
 
-.profile-page button {
+#edit-btn,
+#save-btn,
+#cancel-btn {
     margin-top: 20px;
     padding: 10px;
     background: #DDA853;
@@ -727,8 +767,24 @@ footer p {
     cursor: pointer;
 }
 
-.profile-page button:hover {
+#save-btn {
+    background: #388E3C;
+}
+
+#cancel-btn {
+    background: #D32F2F;
+}
+
+#edit-btn:hover {
     background: #16404D;
+}
+
+#save-btn:hover {
+    background: #2C6B2F;
+}
+
+#cancel-btn:hover {
+    background: #B71C1C;
 }
 
 .hidden {

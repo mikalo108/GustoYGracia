@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @php
+    use Illuminate\Support\Str;
+
     if (Session::has('locale')) {
         App::setLocale(Session::get('locale'));
     } else {
@@ -9,19 +11,47 @@
 @endphp
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('css/myprofile.css') }}">
+    <style>
+        .recipe-container {
+            padding-top: 8px;
+        }
+
+        .recipe-container>h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
 @endpush
 
 @section('title', __('messages.MyRecipes') . ' | Gusto&Gracia')
 
 @section('content')
-    <div class="profile-page">
-        <h1>{{ __('messages.MyProfile') }}</h1>
-
-        
+    <div class="recipe-container">
+        <h1>{{ __('messages.MyRecipes') }}</h1>
+        <br>
+        <div class="recipe-list">
+            @foreach ($recipeList as $recipe)
+                <div class="card recipe-item" link="{{ route('recipe.show', $recipe->id) }}">
+                    <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}" class="card-img-top">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ $recipe->name }}</h3>
+                        <p class="card-text">{{ Str::limit($recipe->description, 100) }}</p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
-
-    @push('scripts')
-        
-    @endpush
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const secciones = document.querySelectorAll('.card');
+            secciones.forEach(seccion => {
+                seccion.addEventListener('click', () => {
+                    window.location.href = seccion.getAttribute('link');
+                });
+            });
+        })
+    </script>
+@endpush

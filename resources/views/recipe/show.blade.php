@@ -22,29 +22,42 @@
 @section('title', $recipe->name . ' | Gusto&Gracia')
 
 @section('content')
-@section('content')
+    @if (Auth::check() && Auth::user()->id === $recipe->user_id)
+        <div class='delete-recipe-container'> 
+            <form action="{{ route('recipe.removeRecipe', ['recipe' => $recipe->id, 'user' => Auth::user()->id]) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" id="cancel-btn">{{ __('messages.Delete') }}</button>
+            </form>
+        </div>
+    @endif
     <div id="body-recipe">
         <div id="recipe-container">
             <h1 class="recipe-title">{{ $recipe->name }}</h1>
-            <p class="recipe-user">{{ __('messages.PostBy') }}: <a class="user-link" href="{{ route('user.show', $recipe->user->id) }}">
-                        {{ $recipe->user->name }}
-                    </a></p>
+            <p class="recipe-user">{{ __('messages.PostBy') }}: <a class="user-link"
+                    href="{{ route('user.show', $recipe->user->id) }}">
+                    {{ $recipe->user->name }}
+                </a></p>
 
             <div class="recipe-image-container">
                 <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}" class="recipe-image">
             </div>
 
             <div class="recipe-description">
-                <br><p>{{ $recipe->description }}</p>
+                <br>
+                <p>{{ $recipe->description }}</p>
             </div>
 
             <div class="recipe-details">
                 <div class="detail-item">
-                    <p><span style="color: #16404D">{{ __('messages.PrepTime') }}: </span>{{ $recipe->details->prep_time }}</p>
+                    <p><span style="color: #16404D">{{ __('messages.PrepTime') }}:
+                        </span>{{ $recipe->details->prep_time }}
+                    </p>
                 </div>
 
                 <div class="detail-item">
-                    <p><span style="color: #16404D">{{ __('messages.Difficulty') }}: </span>{{ $recipe->details->difficulty_level }}</p>
+                    <p><span style="color: #16404D">{{ __('messages.Difficulty') }}:
+                        </span>{{ $recipe->details->difficulty_level }}</p>
                 </div>
             </div>
 
@@ -64,12 +77,12 @@
                 <p>{{ $recipe->instructions }}</p>
             </div>
             <br>
-            <p>TAG: 
+            <p>TAG:
                 @foreach ($categories as $category)
-                @if ($recipe->categories->contains($category->id))
-                    <span>{{ $category->name }}  </span>
-                @endif
-            @endforeach
+                    @if ($recipe->categories->contains($category->id))
+                        <span>{{ $category->name }} </span>
+                    @endif
+                @endforeach
             </p>
         </div>
     </div>

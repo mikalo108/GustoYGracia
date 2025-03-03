@@ -30,6 +30,17 @@
             background-color: #f0f0f0;
             cursor: pointer;
         }
+
+        .welcome-title {
+            text-align: center;
+        }
+
+        #welcome-msg {
+            font-size: 1.2rem;
+            color: #555;
+            text-align: center;
+            margin-bottom: 35px;
+        }
     </style>
 @endpush
 
@@ -78,24 +89,25 @@
             </div>
         </div>
     @else
+        <br>
         @auth
-            <h1>¡{{ __('messages.Welcome') }}, {{ Auth::user()->name }}!</h1>
+            <h1 class="welcome-title">¡{{ __('messages.Welcome') }}, {{ Auth::user()->name }}!</h1>
         @endauth
 
         @guest
-            <h2>{{ __('messages.Welcome') }}, {{ __('messages.Visitor') }}!</h2>
+            <h1 class="welcome-title">{{ __('messages.Welcome') }}, {{ __('messages.Visitor') }}!</h1>
         @endguest
 
         <br />
-        <p>{{ __('messages.HomeMessage') }}</p>
+        <p id="welcome-msg">{{ __('messages.HomeMessage') }}</p>
 
-        <!-- Mostrar las recetas recientes -->
         <div class="recipe-container">
             <h2>{{ __('messages.LastRecipes') }}</h2>
             <div class="recipe-list">
                 @foreach ($recipeListLatest as $recipe)
                     <div class="card recipe-item" link="{{ route('recipe.show', $recipe->id) }}">
-                        <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}" class="card-img-top">
+                        <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}"
+                            class="card-img-top">
                         <div class="card-body">
                             <h3 class="card-title">{{ $recipe->name }}</h3>
                             <p class="card-text">{{ Str::limit($recipe->description, 100) }}</p>
@@ -107,7 +119,8 @@
             <div class="recipe-list">
                 @foreach ($recipeListRandom as $recipe)
                     <div class="card recipe-item" link="{{ route('recipe.show', $recipe->id) }}">
-                        <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}" class="card-img-top">
+                        <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}"
+                            class="card-img-top">
                         <div class="card-body">
                             <h3 class="card-title">{{ $recipe->name }}</h3>
                             <p class="card-text">{{ Str::limit($recipe->description, 100) }}</p>
@@ -119,13 +132,15 @@
     @endif
 @endsection
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const secciones = document.querySelectorAll('.card');
-        secciones.forEach(seccion => {
-            seccion.addEventListener('click', () => {
-                window.location.href = seccion.getAttribute('link');
+@push('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const secciones = document.querySelectorAll('.card');
+            secciones.forEach(seccion => {
+                seccion.addEventListener('click', () => {
+                    window.location.href = seccion.getAttribute('link');
+                });
             });
-        });
-    })
-</script>
+        })
+    </script>
+@endpush

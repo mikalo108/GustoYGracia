@@ -18,6 +18,8 @@ return [
     'Back' => 'Go back',
     'Save' => 'Save',
     'Cancel' => 'Cancel',
+    'Delete' => 'Delete',
+    'Edit' => 'Edit',
     'InfoFrom' => 'Information from',
     'UserData' => 'User Data',
     'ContactData' => 'Contact Data',

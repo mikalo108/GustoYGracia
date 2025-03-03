@@ -13,7 +13,6 @@
 @section('content')
     <div class="profile-page">
         <h1>{{ __('messages.MyProfile') }}</h1>
-
         <form action="{{ route('myprofile.update', ['id' => Auth::user()->id]) }}" method="POST" id="profile-form">
             @csrf
             @method('PUT')

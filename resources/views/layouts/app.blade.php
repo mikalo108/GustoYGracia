@@ -109,8 +109,9 @@
                 grid-column: 1/3;
                 margin: 0;
             }
-            .filaTablaIndex:hover>td{
-                background-color: rgba(222, 226, 230,0.6);
+
+            .filaTablaIndex:hover>td {
+                background-color: rgba(222, 226, 230, 0.6);
             }
         </style>
     </head>
@@ -264,11 +265,10 @@
 
         let filasTablaIndex = document.querySelectorAll(".filaTablaIndex");
         filasTablaIndex.forEach(fila => {
-            fila.addEventListener("dblclick", ()=>{
-                window.location.href=fila.getAttribute('link');
+            fila.addEventListener("dblclick", () => {
+                window.location.href = fila.getAttribute('link');
             })
         });
-        
     </script>
 
     </html>
@@ -316,7 +316,7 @@
                                 <a href="{{ route('myprofile') }}">{{ __('messages.EditProfile') }}</a>
                             </button>
                             <button class="myprofile-btn">
-                                <a href="{{ route('myrecipes') }}">{{ __('messages.MyRecipes') }}</a>
+                                <a href="{{ route('myrecipes', Auth::user()) }}">{{ __('messages.MyRecipes') }}</a>
                             </button>
                             <hr style="color: black; margin-block:10px">
                             <form action="{{ route('logout') }}" method="POST" class="logout-form">
@@ -326,12 +326,16 @@
                         </div>
                     @endauth
                     @guest
-                        <a href="{{ route('login') }}" id="login-btn">{{ __('messages.Login') }}</a>
-                        <a href="{{ route('register') }}" id="signup-btn">{{ __('messages.Register') }}</a>
+                        <div id="home-buttons">
+                            <button><a href="{{ route('login') }}"
+                                    id="login-link">{{ __('messages.Login') }}</a></button>
+                            <br>
+                            <button><a href="{{ route('register') }}"
+                                    id="signup-link">{{ __('messages.Register') }}</a></button>
+                        </div>
                     @endguest
                 </div>
 
-                <!-- Selector idioma -->
                 <div class="language-form">
                     <form action="{{ route('changeLanguage') }}" method="POST">
                         @csrf
