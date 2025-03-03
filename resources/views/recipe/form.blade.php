@@ -179,12 +179,12 @@
                             <!-- Detalles de la receta -->
                             <div class="mb-3">
                                 <h6 class="form-label">{{ __('admin.recipeDetail_title') }}</h6>
-                                <label for="recipeDetail_prepTime" class="form-label">{{ __('admin.recipeDetail_1') }}  ( ´ )</label>
-                                <input id="recipeDetail_prepTime" name="recipeDetail_prepTime" type="text" class="form-control" required 
+                                <label for="prep_time" class="form-label">{{ __('admin.recipeDetail_1') }}  ( ´ )</label>
+                                <input id="prep_time" name="prep_time" type="text" class="form-control" required 
                                 @isset($recipe->details->prep_time) value="{{ $recipe->details->prep_time }}" @endisset />
 
-                                <label for="recipeDetail_difficulty_level" class="form-label">{{ __('admin.recipeDetail_2') }}</label>
-                                <input id="recipeDetail_difficulty_level" name="recipeDetail_difficulty_level" type="text" class="form-control" required 
+                                <label for="difficulty_level" class="form-label">{{ __('admin.recipeDetail_2') }}</label>
+                                <input id="difficulty_level" name="difficulty_level" type="text" class="form-control" required 
                                 @isset($recipe->details->prep_time) value="{{ $recipe->details->difficulty_level }}" @endisset />
                             </div>
 
