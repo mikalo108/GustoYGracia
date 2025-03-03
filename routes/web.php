@@ -67,6 +67,7 @@ Route::get('/ingredient/search', function (Request $request) {
 })->name('ingredients.search');
 
 Route::resource('recipe', 'RecipeController');
+Route::get('/search', 'RecipeController@search')->name('recipe.search');
 Route::get('/recipe/{recipe}', 'RecipeController@show')->name('recipe.show');
 Route::post('/recipe/update/{recipe}', 'RecipeController@update')->name('recipe.update');
 Route::get('/recipe/delete/{recipe}', 'RecipeController@destroy')->name('recipe.myDestroy');

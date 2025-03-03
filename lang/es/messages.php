@@ -4,7 +4,7 @@ return [
     'HomeMessage' => 'Aquí encontrarás las mejores recetas para todos los gustos.',
     'LastRecipes' => 'Últimas Recetas',
     'ExploreRecipes' => 'Explora Recetas',
-    'SearchRecipes' => 'Buscar recetas...',
+    'SearchRecipes' => 'Buscar por receta o ingrediente...',
     'MyProfile' => 'Mi perfil',
     'EditProfile' => 'Editar perfil',
     'MyRecipes' => 'Mis recetas',

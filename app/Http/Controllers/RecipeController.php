@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Storage;
 class RecipeController extends Controller
 {
     private const PAGINATE_SIZE = 4;
-    public function index(){
+    public function index()
+    {
         $recipeList = Recipe::paginate(self::PAGINATE_SIZE);
         return view('recipe/all', ['recipeList' => $recipeList], compact('recipeList'));
     }
@@ -23,6 +24,19 @@ class RecipeController extends Controller
         $ingredients = Ingredient::all();
         $categories = Category::all();
         return view('recipe/form', ['ingredients' => $ingredients, 'categories' => $categories]);
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $recipes = Recipe::where('name', 'LIKE', "%$query%")
+            ->orWhereHas('ingredients', function ($q) use ($query) {
+                $q->where('name', 'LIKE', "%$query%");
+            })
+            ->get();
+
+        return view('recipe.searchResults', ['recipes' => $recipes, 'query' => $query]);
     }
 
     public function show($id)
@@ -45,8 +59,8 @@ class RecipeController extends Controller
     public function showByCategory($categoryId)
     {
         $category = Category::find($categoryId);
-        $recipesByCategory = $category->recipes()->get(); 
-        return view('recipe.showByCategory', ['category' => $category, 'recipesByCategory' => $recipesByCategory]);
+        $recipesByCategory = $category->recipes()->get();
+        return view('recipe.searchResults', ['category' => $category, 'recipesByCategory' => $recipesByCategory]);
     }
 
     public function store(Request $request)
