@@ -140,7 +140,7 @@
                     </a>
                     <div class="dropdown" style="display: none;">
                         <button class="myprofile-btn">
-                            <a href="{{ route('myprofile') }}">{{ __('messages.MyProfile') }}</a>
+                            <a href="{{ route('myProfile') }}">{{ __('messages.MyProfile') }}</a>
                         </button>
                         <hr style="color: black; margin-block:10px">
                         <form action="{{ route('logout') }}" method="POST" class="logout-form">
