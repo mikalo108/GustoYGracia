@@ -22,54 +22,70 @@
 @section('title', $recipe->name . ' | Gusto&Gracia')
 
 @section('content')
-    <div id="recipe-container">
-        <!-- Título de la receta -->
-        <h1 class="recipe-title">{{ $recipe->name }}</h1>
+    <div id="body-recipe">
+        <div id="recipe-container">
+            <!-- Título de la receta -->
+            <h1 class="recipe-title">{{ $recipe->name }}</h1>
 
-        <!-- Imagen de la receta -->
-        <div class="recipe-image-container">
-            <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}" class="recipe-image">
+            <!-- Imagen de la receta -->
+            <div class="recipe-image-container">
+                <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}" class="recipe-image">
+            </div>
+
+            <!-- Categorías -->
+            <div class="recipe-categories">
+                <h4>Categorías:</h4>
+                <ul>
+                    @foreach ($categories as $category)
+                        @if ($recipe->categories->contains($category->id))
+                            <p>{{ $category->name }}</p>
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
+
+            <div class="recipe-description">
+                <h3>Tiempo de preparación:</h3>
+                <p>{{ $recipe->details->prep_time }}</p>
+            </div>
+
+            <div class="recipe-description">
+                <h3>Dificultad:</h3>
+                <p>{{ $recipe->details->difficulty_level }}</p>
+            </div>
+
+            <div class="recipe-description">
+                <h3>Usuario:</h3>
+                <p>{{ $recipe->user->name }}</p>
+            </div>
+
+            <!-- Descripción de la receta -->
+            <div class="recipe-description">
+                <h3>Descripción:</h3>
+                <p>{{ $recipe->description }}</p>
+            </div>
+
+            <!-- Ingredientes -->
+            <div class="recipe-ingredients">
+                <h4>Ingredientes:</h4>
+                <ul>
+                    @foreach ($ingredients as $ingredient)
+                        @if ($recipe->ingredients->contains($ingredient->id))
+                            <p>{{ $ingredient->name }}</p>
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
+
+            <!-- Descripción de la receta -->
+            <div class="recipe-description">
+                <h3>Instrucciones:</h3>
+                <p>{{ $recipe->instructions }}</p>
+            </div>
+            <br>
         </div>
 
-
-        <!-- Categorías -->
-        <div class="recipe-categories">
-            <h4>Categorías:</h4>
-            <ul>
-                @foreach ($categories as $category)
-                    @if ($recipe->categories->contains($category->id))
-                        <p>{{ $category->name }}</p>
-                    @endif
-                @endforeach
-            </ul>
-        </div>
-
-        <!-- Descripción de la receta -->
-        <div class="recipe-description">
-            <h3>Descripción:</h3>
-            <p>{{ $recipe->description }}</p>
-        </div>
-
-        <!-- Ingredientes -->
-        <div class="recipe-ingredients">
-            <h4>Ingredientes:</h4>
-            <ul>
-                @foreach ($ingredients as $ingredient)
-                    @if ($recipe->ingredients->contains($ingredient->id))
-                        <p>{{ $ingredient->name }}</p>
-                    @endif
-                @endforeach
-            </ul>
-        </div>
-
-        <!-- Descripción de la receta -->
-        <div class="recipe-description">
-            <h3>Instrucciones:</h3>
-            <p>{{ $recipe->instructions }}</p>
-        </div>
-        <br>
     </div>
-
     <!-- Sección de comentarios -->
     <div class="comments-section">
         <h4>Comentarios</h4>
@@ -125,5 +141,4 @@
         </div>
     @endauth
     </div>
-
 @endsection

@@ -80,7 +80,6 @@
     @else
         @auth
             <h1>¡{{ __('messages.Welcome') }}, {{ Auth::user()->name }}!</h1>
-            <a href="{{ route('dashboard') }}">Ir al panel de control</a>
         @endauth
 
         @guest
@@ -90,11 +89,23 @@
         <br />
         <p>{{ __('messages.HomeMessage') }}</p>
 
-        <!-- Mostrar las recetas -->
+        <!-- Mostrar las recetas recientes -->
         <div class="recipe-container">
             <h2>{{ __('messages.LastRecipes') }}</h2>
             <div class="recipe-list">
-                @foreach ($recipeList as $recipe)
+                @foreach ($recipeListLatest as $recipe)
+                    <div class="card recipe-item" link="{{ route('recipe.show', $recipe->id) }}">
+                        <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}" class="card-img-top">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ $recipe->name }}</h3>
+                            <p class="card-text">{{ Str::limit($recipe->description, 100) }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <h2>{{ __('messages.ExploreRecipes') }}</h2>
+            <div class="recipe-list">
+                @foreach ($recipeListRandom as $recipe)
                     <div class="card recipe-item" link="{{ route('recipe.show', $recipe->id) }}">
                         <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}" class="card-img-top">
                         <div class="card-body">

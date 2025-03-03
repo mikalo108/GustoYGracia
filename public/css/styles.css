@@ -351,13 +351,18 @@ footer p {
 @media (max-width: 480px) {
     .recipe-item {
         flex: 1 0 100%;
-        /* 1 receta por fila */
         max-width: 100%;
     }
 }
 
-#recipe-container {
+#body-recipe {
+    display: flex;
+    justify-content: center;
     width: 100%;
+}
+
+#recipe-container {
+    width: 70%;
     margin: 10px 0;
     background-color: #fff;
     padding: 20px;
@@ -377,7 +382,7 @@ footer p {
 }
 
 .recipe-image {
-    max-width: 60%;
+    max-width: 70%;
     height: auto;
     border-radius: 8px;
 }
@@ -386,7 +391,6 @@ footer p {
 .recipe-ingredients,
 .recipe-categories {
     margin-top: 20px;
-    text-align: center;
 }
 
 .comments-section {
