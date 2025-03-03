@@ -29,6 +29,10 @@ return [
     'Difficulty' => 'Dificultad',
     'Ingredients' => 'Ingredientes',
     'Instructions' => 'Instrucciones',
+    'Comments' => 'Comentarios',
+    'AddComment' => 'Añadir un comentario',
+    'NoComments' => 'No hay comentarios aún. Sé el primero en comentar.',
+    'InOrderToComment' => 'para añadir un comentario.',
 
     'User' => 'Usuario',
     'NewPassword' => 'Nueva contraseña',

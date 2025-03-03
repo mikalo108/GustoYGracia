@@ -89,7 +89,7 @@
     </div>
 
     <div class="comments-section">
-        <h4>Comentarios</h4>
+        <h4>{{ __('messages.Comments') }}</h4>
         <div class="comments-list">
             @if ($recipe->comments->count() > 0)
                 @foreach ($recipe->comments as $comment)
@@ -118,14 +118,14 @@
                     </div>
                 @endforeach
             @else
-                <p class="no-comments">No hay comentarios aún. Sé el primero en comentar.</p>
+                <p class="no-comments">{{ __('messages.NoComments') }}</p>
             @endif
         </div>
     </div>
 
     @auth
         <div class="comment-form-container">
-            <h4>Agregar un comentario</h4>
+            <h4>{{ __('messages.AddComment') }}</h4>
             <form action="{{ route('recipe.comment.store', ['recipe' => $recipe->id, 'user' => Auth::user()->id]) }}"
                 method="POST">
                 @csrf
@@ -137,7 +137,7 @@
         </div>
     @else
         <div class="login-prompt">
-            <p><a href="{{ route('login') }}" class="login-link">Inicia sesión</a> para agregar un comentario.</p>
+            <p><a href="{{ route('login') }}" class="login-link">{{ __('messages.Login') }}</a> {{ __('messages.InOrderToComment') }}</p>
         </div>
     @endauth
     </div>
