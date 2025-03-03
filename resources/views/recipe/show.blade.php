@@ -35,10 +35,13 @@
     <div id="body-recipe">
         <div id="recipe-container">
             <h1 class="recipe-title">{{ $recipe->name }}</h1>
-            <p class="recipe-user">{{ __('messages.PostBy') }}: <a class="user-link"
-                    href="{{ route('user.show', $recipe->user->id) }}">
+            <p class="recipe-user">
+                {{ __('messages.PostBy') }}: 
+                <a class="user-link" href="{{ route('user.show', $recipe->user->id) }}">
                     {{ $recipe->user->name }}
-                </a></p>
+                </a>
+                <span class="recipe-date">{{ $recipe->created_at->format('d/m/Y') }}</span>
+            </p>
 
             <div class="recipe-image-container">
                 <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}" class="recipe-image">

@@ -29,9 +29,8 @@ Route::post('/change-language', function (Request $request) {
 Route::get('/', function () { return view('home'); })->name('home');
 
 Route::get('/myprofile', 'UserController@showMyProfile')->name('myProfile');
+Route::put('/myprofile/{id}', 'UserController@updateMyProfile')->name('myProfile.update');
 Route::get('/myrecipes/{user}', 'RecipeController@showMyRecipes')->name('myRecipes');
-
-Route::put('/myprofile/{id}', 'UserController@update')->name('myProfile.update');
 
 Route::resource('category', 'CategoryController');
 Route::post('/category/update/{category}', 'CategoryController@update')->name('category.update');

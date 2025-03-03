@@ -112,8 +112,7 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
-    /*
-    public function update(Request $request, $id)
+    public function updateMyProfile(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',  // El nombre debe ser obligatorio, una cadena y no más de 255 caracteres
@@ -162,7 +161,6 @@ class UserController extends Controller
         $user->save();
         return redirect()->route('myProfile');
     }
-*/
 
     public function destroy($id)
     {

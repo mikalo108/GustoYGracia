@@ -30,7 +30,7 @@
         @if (isset($category))
             <h1>{{ $category->name }}</h1>
         @else
-            <h1>Resultados de búsqueda para "{{ $query }}"</h1>
+            <h1>{{ __('messages.SearchResultsFor') }} "{{ $query }}"</h1>
         @endif
         <br>
         <div class="recipe-list">

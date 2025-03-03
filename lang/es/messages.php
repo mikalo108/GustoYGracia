@@ -33,6 +33,7 @@ return [
     'AddComment' => 'Añadir un comentario',
     'NoComments' => 'No hay comentarios aún. Sé el primero en comentar.',
     'InOrderToComment' => 'para añadir un comentario.',
+    'SearchResultsFor' => 'Resultados de búsqueda para',
 
     'User' => 'Usuario',
     'NewPassword' => 'Nueva contraseña',

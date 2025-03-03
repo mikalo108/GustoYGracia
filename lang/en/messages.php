@@ -33,6 +33,7 @@ return [
     'AddComment' => 'Add comment',
     'NoComments' => 'There are no comments yet. Be the first to comment.',
     'InOrderToComment' => 'in order to add a comment.',
+    'SearchResultsFor' => 'Search results for',
     
     'User' => 'User',
     'NewPassword' => 'New password',
