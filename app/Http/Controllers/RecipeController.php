@@ -116,52 +116,58 @@ class RecipeController extends Controller
         return redirect()->route('recipe.index');
     }
 
-    public function userStore(Request $request, $userId)
+    public function userStore(Request $request, $user_id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'description' => 'required|string|max:1000',
-            'user_id' => 'required|exists:users,id',
-            'instructions' => 'required|string|max:1000',
-            'prep_time' => 'required|integer',
-            'difficulty_level' => 'required|string|max:50',
+            'description' => 'required|string',
+            'instructions' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'prep_time' => 'required|integer|min:1',
+            'difficulty_level' => 'required|string|in:baja,media,alta',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'ingredients' => 'required|array',
-            'ingredients.*' => 'exists:ingredients,id',
-            'categories' => 'required|array',
-            'categories.*' => 'exists:categories,id',
-            'quantities' => 'required|array',
-            'quantities.*' => 'integer|min:1',
+            'ingredients.*.name' => 'required|string|max:255',
+            'ingredients.*.quantity' => 'required|string|max:100',
         ]);
 
-        $imagePath = $request->file('image')->store('recipes', 'public');
+        $imagePath = 'recipes/default.png'; // Ruta por defecto
 
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName(); // Prefijo para evitar colisiones
+            $imagePath = $image->storeAs('recipes', $imageName, 'public'); // Guarda la imagen con su nombre original
+        }
+        
         $recipe = Recipe::create([
             'name' => $request->name,
             'description' => $request->description,
-            'image' => 'recipes/' . basename($imagePath),
-            'user_id' => $request->user_id,
             'instructions' => $request->instructions,
+            'image' => $imagePath ?? 'default.png',
+            'user_id' => $user_id,
         ]);
 
-        RecipeDetail::create([
-            'recipe_id' => $recipe->id,
+        $recipe->categories()->sync($request->category_id);
+
+        $recipe->details()->create([
             'prep_time' => $request->prep_time,
             'difficulty_level' => $request->difficulty_level,
         ]);
+        
 
         foreach ($request->ingredients as $ingredientData) {
-            // Si el ingrediente existe en la base de datos, lo asociamos directamente
-            $ingredient = Ingredient::findOrCreate(['name' => $ingredientData['ingredient_id']]);
-
-            // Asociamos el ingrediente con la receta
-            $recipe->ingredients()->attach($ingredient->id, ['quantity' => $ingredientData['quantity']]);
+            // Buscar si el ingrediente ya existe
+            $ingredient = Ingredient::firstOrCreate(
+                ['name' => $ingredientData['name']]
+            );
+    
+            // Asignar la relación en recipe_ingredients
+            $recipe->ingredients()->attach($ingredient->id, [
+                'quantity' => $ingredientData['quantity']
+            ]);
         }
 
-        // Asociar categorías
-        $recipe->categories()->sync($request->categories);
-
-        return redirect()->route('myRecipes', $userId);
+        return redirect()->route('myRecipes', $user_id);
     }
 
     public function edit($id)

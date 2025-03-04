@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
-            $table->integer('calories_per_100g');
+            $table->string('description')->nullable();
+            $table->integer('calories_per_100g')->nullable();
             $table->timestamps();
         });
     }

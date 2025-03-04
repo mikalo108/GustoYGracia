@@ -10,6 +10,7 @@ class Ingredient extends Model
     use HasFactory;
 
     protected $table = 'ingredients';
+    protected $fillable = ['name', 'description', 'calories_per_100g'];
 
     public function recipes()
     {

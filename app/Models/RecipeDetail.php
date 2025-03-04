@@ -10,6 +10,7 @@ class RecipeDetail extends Model
     use HasFactory;
 
     protected $table = 'recipe_details';
+    protected $fillable = ['recipe_id', 'prep_time', 'difficulty_level'];
 
     public function recipe()
     {

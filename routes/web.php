@@ -69,7 +69,7 @@ Route::resource('recipe', 'RecipeController');
 Route::get('/recipe/{recipe}', 'RecipeController@show')->name('recipe.show');
 Route::get('/search/query', 'RecipeController@userSearch')->name('recipe.userSearch');
 Route::get('/add/recipe', 'RecipeController@userCreate')->name('recipe.userCreate');
-Route::post('/save/recipe', 'RecipeController@userStore')->name('recipe.userStore');
+Route::post('/save/recipe/{user}', 'RecipeController@userStore')->name('recipe.userStore');
 Route::post('/recipe/update/{recipe}', 'RecipeController@update')->name('recipe.update');
 Route::get('/recipe/delete/{recipe}', 'RecipeController@destroy')->name('recipe.myDestroy');
 Route::delete('/recipe/delete/{recipe}/{user}', 'RecipeController@removeRecipe')->name('recipe.removeRecipe');
