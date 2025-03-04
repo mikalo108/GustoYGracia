@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label"> {{__('columns.user_2')}}</label>
-                                    <input id="email" name="email" type="text"
+                                    <input id="email" name="email" type="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                                     class="form-control" required @isset($user) value="{{$user->email}}" @endisset />
                                 </div>
                                 <div class="mb-3">
@@ -68,34 +68,34 @@
                                     <div class="card" style="padding-inline: 20px; padding-block: 2px; margin-bottom: 30px;">
                                         <div class="card-body">
                                             <div class="mb-3">
-                                                <label for="contactName" class="form-label">{{__('columns.user_5')}} {{__('columns.contact_1')}}</label>
+                                                <label for="contactName" class="form-label">{{__('columns.contact_1')}}</label>
                                                 <input id="contactName" name="contactName" type="text"
-                                                class="form-control" required @isset($user->contact) value="{{$user->contact->name}}" @endisset />
+                                                class="form-control" @isset($user->contact) value="{{$user->contact->name}}" @endisset />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="contactSurname" class="form-label">{{__('columns.user_5')}} {{__('columns.contact_2')}}</label>
+                                                <label for="contactSurname" class="form-label">{{__('columns.contact_2')}}</label>
                                                 <input id="contactSurname" name="contactSurname" type="text"
-                                                class="form-control" required @isset($user->contact) value="{{$user->contact->surname}}" @endisset />
+                                                class="form-control" @isset($user->contact) value="{{$user->contact->surname}}" @endisset />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="contactBio" class="form-label">{{__('columns.user_5')}} {{__('columns.contact_3')}}</label>
+                                                <label for="contactBio" class="form-label">{{__('columns.contact_3')}}</label>
                                                 <input id="contactBio" name="contactBio" type="text"
-                                                class="form-control" required @isset($user->contact) value="{{$user->contact->bio}}" @endisset />
+                                                class="form-control" @isset($user->contact) value="{{$user->contact->bio}}" @endisset />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="contactPhone" class="form-label">{{__('columns.user_5')}} {{__('columns.contact_4')}}</label>
+                                                <label for="contactPhone" class="form-label">{{__('columns.contact_4')}}</label>
                                                 <input id="contactPhone" name="contactPhone" type="text"
-                                                class="form-control" required @isset($user->contact) value="{{$user->contact->phone}}" @endisset />
+                                                class="form-control" @isset($user->contact) value="{{$user->contact->phone}}" @endisset />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="contactCountry" class="form-label">{{__('columns.user_5')}} {{__('columns.contact_5')}}</label>
+                                                <label for="contactCountry" class="form-label">{{__('columns.contact_5')}}</label>
                                                 <input id="contactCountry" name="contactCountry" type="text"
-                                                class="form-control" required @isset($user->contact) value="{{$user->contact->country}}" @endisset />
+                                                class="form-control" @isset($user->contact) value="{{$user->contact->country}}" @endisset />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="contactCity" class="form-label">{{__('columns.user_5')}} {{__('columns.contact_6')}}</label>
+                                                <label for="contactCity" class="form-label">{{__('columns.contact_6')}}</label>
                                                 <input id="contactCity" name="contactCity" type="text"
-                                                class="form-control" required @isset($user->contact) value="{{$user->contact->city}}" @endisset />
+                                                class="form-control" @isset($user->contact) value="{{$user->contact->city}}" @endisset />
                                             </div>
                                         </div>
                                     </div>

@@ -11,7 +11,7 @@ class ContactController extends Controller
     private const PAGINATE_SIZE = 4;
     public function index() { 
         $contactList = Contact::all();
-        $contactList = Contact::paginate(self::PAGINATE_SIZE);
+        $contactList = Contact::orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
         return view('contact/all', ['contactList'=>$contactList], compact('contactList'));
     }
 

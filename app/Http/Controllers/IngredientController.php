@@ -10,7 +10,7 @@ class IngredientController extends Controller
     private const PAGINATE_SIZE = 4;
     public function index() { 
         $ingredientList = Ingredient::all();
-        $ingredientList = Ingredient::paginate(self::PAGINATE_SIZE);
+        $ingredientList = Ingredient::orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
         return view('ingredient/all', ['ingredientList'=>$ingredientList], compact('ingredientList'));
     }
 

@@ -15,6 +15,7 @@ return [
     'DescriptionRecipeTable'     => 'Aquí se gestionan las recetas',
     'userBrowser'     => 'Buscador de Usuario',
     'userSelected'     => 'Usuario seleccionado: ',
+    'recipeSelected'     => 'Receta seleccionada: ',
     'recipeDetail_title'    =>  'Detalles de la receta',
     'recipeDetail_1'    =>  'Tiempo de preparación',
     'recipeDetail_2'    =>  'Nivel de dificultad',

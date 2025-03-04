@@ -12,7 +12,7 @@ class CommentController extends Controller
     private const PAGINATE_SIZE = 4;
     public function index() { 
         $commentList = Comment::all();
-        $commentList = Comment::paginate(self::PAGINATE_SIZE);
+        $commentList = Comment::orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
         return view('comment/all', ['commentList' => $commentList], compact('commentList'));
     }
     
@@ -24,14 +24,12 @@ class CommentController extends Controller
     
     public function store(Request $r) { 
         $r->validate([
-            'user' => 'required|exists:users,id',  // El usuario debe ser un ID válido en la tabla 'users'
-            'recipe' => 'required|exists:recipes,id',  // La receta debe ser un ID válido en la tabla 'recipes'
-            'content' => 'required|string|max:1000',  // El contenido del comentario debe ser una cadena y no superar los 1000 caracteres
+            'content' => 'required|string|max:1000',
         ]);
 
         $c = new Comment();
-        $c->user_id = $r->user->id;
-        $c->recipe_id = $r->recipe->id;
+        $c->user_id = $r->user_id;
+        $c->recipe_id = $r->recipe_id;
         $c->content = $r->content;
         $c->save();
         return redirect()->route('comment.index');
@@ -63,7 +61,7 @@ class CommentController extends Controller
 
     public function update($id, Request $r) { 
         $r->validate([
-            'content' => 'required|string|max:2700',  // El contenido del comentario debe ser una cadena y no superar los 1000 caracteres
+            'content' => 'required|string|max:1000',
         ]);
         
         $c = Comment::find($id);

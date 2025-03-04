@@ -12,7 +12,7 @@ class UserController extends Controller
     private const PAGINATE_SIZE = 5;
     public function index(){
         $userList = User::all();
-        $userList = User::paginate(self::PAGINATE_SIZE);
+        $userList = User::orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
         return view('user/all', ['userList' => $userList], compact('userList'));
     }
 
@@ -41,14 +41,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',  // El nombre debe ser obligatorio, una cadena y no más de 255 caracteres
-            'email' => 'required|email|unique:users,email',  // El correo debe ser obligatorio, válido y único en la base de datos
-            'password' => 'required|string|min:8',  // La contraseña es obligatoria y debe tener al menos 8 caracteres
-            'contactName' => 'nullable|string|max:255',  // El nombre del contacto es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactSurname' => 'nullable|string|max:255',  // El apellido del contacto es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactBio' => 'nullable|string|max:1000',  // La biografía es opcional, debe ser una cadena y no superar los 1000 caracteres
-            'contactPhone' => 'nullable|string|max:20',  // El teléfono es opcional, debe ser una cadena y no superar los 20 caracteres
-            'contactCountry' => 'nullable|string|max:255',  // El país es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactCity' => 'nullable|string|max:255',  // La ciudad es opcional, debe ser una cadena y no superar los 255 caracteres
+            'email' => 'required|email',
         ]);    
 
         // Crear el contacto primero (con los valores por defecto o nulos)
@@ -82,14 +75,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',  // El nombre debe ser obligatorio, una cadena y no más de 255 caracteres
-            'email' => 'required|email|unique:users,email',  // El correo debe ser obligatorio, válido y único en la base de datos
-            'password' => 'required|string|min:8',  // La contraseña es obligatoria y debe tener al menos 8 caracteres
-            'contactName' => 'nullable|string|max:255',  // El nombre del contacto es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactSurname' => 'nullable|string|max:255',  // El apellido del contacto es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactBio' => 'nullable|string|max:1000',  // La biografía es opcional, debe ser una cadena y no superar los 1000 caracteres
-            'contactPhone' => 'nullable|string|max:20',  // El teléfono es opcional, debe ser una cadena y no superar los 20 caracteres
-            'contactCountry' => 'nullable|string|max:255',  // El país es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactCity' => 'nullable|string|max:255',  // La ciudad es opcional, debe ser una cadena y no superar los 255 caracteres
+            'email' => 'required|email|unique:users,email',
         ]);
 
         $user = User::find($id);
@@ -111,58 +97,6 @@ class UserController extends Controller
 
         return redirect()->route('user.index');
     }
-
-    /*
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',  // El nombre debe ser obligatorio, una cadena y no más de 255 caracteres
-            'email' => 'required|email|unique:users,email',  // El correo debe ser obligatorio, válido y único en la base de datos
-            'password' => 'required|string|min:8',  // La contraseña es obligatoria y debe tener al menos 8 caracteres
-            'contactName' => 'nullable|string|max:255',  // El nombre del contacto es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactSurname' => 'nullable|string|max:255',  // El apellido del contacto es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactBio' => 'nullable|string|max:1000',  // La biografía es opcional, debe ser una cadena y no superar los 1000 caracteres
-            'contactPhone' => 'nullable|string|max:20',  // El teléfono es opcional, debe ser una cadena y no superar los 20 caracteres
-            'contactCountry' => 'nullable|string|max:255',  // El país es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactCity' => 'nullable|string|max:255',  // La ciudad es opcional, debe ser una cadena y no superar los 255 caracteres
-        ]);
-
-        $user = User::find($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-
-        if ($request->password) {
-            $user->password = bcrypt($request->password);
-        }
-
-        // Si el usuario no tiene un contacto asociado, creamos uno nuevo
-        if (!$user->contact_id) {
-            $contact = new Contact();
-            $contact->name = $request->contact_name;
-            $contact->surname = $request->contact_surname;
-            $contact->bio = $request->contact_bio;
-            $contact->phone = $request->contact_phone;
-            $contact->country = $request->contact_country;
-            $contact->city = $request->contact_city;
-            $contact->save();
-
-            $user->contact_id = $contact->id;
-        } else {
-            // Si ya tiene un contacto, simplemente lo actualizamos
-            $contact = Contact::find($user->contact_id);
-            $contact->name = $request->contact_name;
-            $contact->surname = $request->contact_surname;
-            $contact->bio = $request->contact_bio;
-            $contact->phone = $request->contact_phone;
-            $contact->country = $request->contact_country;
-            $contact->city = $request->contact_city;
-            $contact->save();
-        }
-        
-        $user->save();
-        return redirect()->route('myProfile');
-    }
-*/
 
     public function destroy($id)
     {

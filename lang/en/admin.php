@@ -15,6 +15,7 @@ return [
     'DescriptionRecipeTable'     => 'Here you can find all the recipes.',
     'userBrowser'     => 'User Browser',
     'userSelected'     => 'User selected: ',
+    'recipeSelected'     => 'Recipe selected: ',
     'recipeDetail_title'    =>  'Recipe Details',
     'recipeDetail_1'    =>  'Preparation Time',
     'recipeDetail_2'    =>  'Difficulty Level',

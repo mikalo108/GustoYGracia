@@ -110,7 +110,7 @@
                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                                        @endforeach
                                     </select>
-                                    <input type="button" value="{{ __('admin.Add') }}" id="botonAddCategorias" class="btn btn-success mt-2">
+                                    <input type="button" value="{{ __('admin.Add') }}" id="botonAddCategorias" class="btn btn-success">
                                 </div>
                                 <!-- Lista de categorías seleccionadas -->
                                 <ul id="selectedCategories" class="nav categoriasLista mt-3">
@@ -138,7 +138,7 @@
                                             <option value="{{ $ingredient->id }}">{{ $ingredient->name }}</option>
                                         @endforeach
                                     </select>
-                                    <input type="button" value="{{ __('admin.Add') }}" id="botonAddIngredientes" class="btn btn-info mt-2">
+                                    <input type="button" value="{{ __('admin.Add') }}" id="botonAddIngredientes" class="btn btn-info">
                                 </div>
 
                                 <!-- Lista de ingredientes seleccionados -->
@@ -171,7 +171,7 @@
                                 <input type="hidden" name="user_id" id="selectedUserId" value="{{ isset($recipe) ? $recipe->user_id : '' }}">
 
                                 <!-- Mostrar el usuario seleccionado -->
-                                <p id="selectedUserName" class="mt-2">
+                                <p id="selectedUserName" style="margin-top: 10px;">
                                     @isset($recipe)
                                         {{ __('admin.userSelected') }} <strong id="userNameText">{{ $recipe->user->name }}</strong>
                                         <button type="button" id="clearUser" class="btn btn-danger btn-sm ms-2">X</button>
@@ -303,23 +303,22 @@
 /* ======================================================================================= */
 
             // Sección Usuario
-            
-                const searchInput = document.getElementById("searchUser");
+                const userInput = document.querySelector("#searchUser");
                 const resultsDiv = document.getElementById("userResults");
                 const selectedUserId = document.getElementById("selectedUserId");
                 const selectedUserName = document.getElementById("selectedUserName");
                 const clearUserBtn = document.getElementById("clearUser");
 
                 // Captura la entrada del usuario en searchUser. Realiza una búsqueda cuando el usuario escribe.
-                searchInput.addEventListener("input", function () {
-                    const query = searchInput.value;
+                userInput.addEventListener("input", function () {
+                    const query = userInput.value;
 
                     if (query.length < 2) {
                         resultsDiv.innerHTML = "";
                         return;
                     }
 
-                    fetch(`/users/search?query=${query}`)
+                    fetch(`/searchUsers?query=${query}`)
                         .then(response => response.json())
                         .then(users => {
                             resultsDiv.innerHTML = "";
@@ -328,15 +327,15 @@
                                 userItem.className = "list-group-item list-group-item-action";
                                 userItem.textContent = user.name;
 
-                                // Al hacer clic en un usuario, guarda su ID y muestra su nombre. 
+                                // Al hacer clic en un usuario, guarda su ID y muestra su nombre.
                                 userItem.onclick = function () {
                                     selectedUserId.value = user.id;
-                                    selectedUserName.innerHTML = `Usuario seleccionado: <strong id="userNameText">${user.name}</strong> 
+                                    selectedUserName.innerHTML = `{{ __('admin.userSelected') }} <strong id="userNameText">${user.name}</strong>
                                         <button type="button" id="clearUser" class="btn btn-danger btn-sm ms-2">X</button>`;
                                     resultsDiv.innerHTML = "";
-                                    searchInput.value = "";
+                                    userInput.value = "";  // Limpiar el campo de búsqueda
 
-                                    // Agregar evento al botón de limpiar
+                                    // Mover la lógica del "clearUser" aquí para evitar múltiples escuchadores
                                     document.getElementById("clearUser").addEventListener("click", function () {
                                         selectedUserId.value = "";
                                         selectedUserName.innerHTML = "";
@@ -349,7 +348,7 @@
 
                 // Oculta los resultados al hacer clic fuera del buscador.
                 document.addEventListener("click", function (event) {
-                    if (!searchInput.contains(event.target) && !resultsDiv.contains(event.target)) {
+                    if (!userInput.contains(event.target) && !resultsDiv.contains(event.target)) {
                         resultsDiv.innerHTML = "";
                     }
                 });
@@ -361,31 +360,6 @@
                         selectedUserName.innerHTML = "";
                     });
                 }
-
-                $(document).ready(function() {
-                    function initializeSelect2(selector) {
-                        $(selector).select2({
-                            placeholder: {{ __('admin.placeHolderSearch') }},
-                            ajax: {
-                                url: $(selector).data('url'),
-                                dataType: 'json',
-                                delay: 250,
-                                data: function(params) {
-                                    return { q: params.term };
-                                },
-                                processResults: function(data) {
-                                    return {
-                                        results: data.map(item => ({ id: item.id, text: item.name }))
-                                    };
-                                },
-                                cache: true
-                            }
-                        });
-                    }
-
-                    initializeSelect2('#allCategories');
-                    initializeSelect2('#allIngredients');
-                });
 
 
 /* ======================================================================================= */
@@ -429,8 +403,7 @@
 
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-
+   
 @else
 @endif
 @endsection
