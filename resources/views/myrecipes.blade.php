@@ -23,6 +23,14 @@
 @section('content')
     <div class="recipe-container">
         <h1>{{ __('messages.MyRecipes') }}</h1>
+
+        <!-- Botón para Crear receta -->
+        <div class="create-recipe-btn-container">
+            <a href="{{ route('recipe.userCreate') }}" class="create-recipe-btn">
+                +
+            </a>
+        </div>
+
         <br>
         <div class="recipe-list">
             @foreach ($recipeList as $recipe)

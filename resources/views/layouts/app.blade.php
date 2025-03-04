@@ -294,13 +294,16 @@
                         <img src="{{ asset('images/logo.png') }}" alt="Logo de Recetario">
                     </a>
                 </div>
-
+                
                 <!-- Buscador -->
                 <div class="search-bar">
-                    <input type="text" placeholder="{{ __('messages.SearchRecipes') }}">
-                    <button class="search-btn">
-                        <img src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Buscar">
-                    </button>
+                    <form action="{{ route('recipe.userSearch') }}" method="GET">
+                        <input type="text" name="query" placeholder="{{ __('messages.SearchRecipes') }}"
+                            value="{{ request('query') }}">
+                        <button type="submit" class="search-btn">
+                            <img src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Buscar">
+                        </button>
+                    </form>
                 </div>
 
                 <!-- Perfil -->
@@ -309,8 +312,8 @@
                         <button id="app-profile-btn">
                             <a href="#" class="profile-link">
                                 <span><img src="{{ asset('images/user-icon.png') }}" alt="Perfil"></span>
-                                <span>{{ Auth::user()->name }}</span>
-                            
+                                <span id="user-name">{{ Auth::user()->name }}</span>
+
                             </a>
                         </button>
 
@@ -361,7 +364,8 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 navOscuro">
                 @foreach ($categoryList as $category)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('showByCategory', $category->id) }}">{{ $category->name }}</a>
+                        <a class="nav-link"
+                            href="{{ route('showByCategory', $category->id) }}">{{ $category->name }}</a>
                     </li>
                 @endforeach
             </ul>

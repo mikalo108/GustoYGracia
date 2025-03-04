@@ -99,12 +99,12 @@
                             class="card-img-top">
                         <div class="card-body">
                             <h3 class="card-title">{{ $recipe->name }}</h3>
-                            <p class="card-text">{{ Str::limit($recipe->description, 100) }}</p>
+                            <p class="card-text">{{ Str::limit($recipe->description, 50) }}</p>
                         </div>
                     </div>
                 @endforeach
             </div>
-            <h2>{{ __('messages.ExploreRecipes') }}</h2>
+            <h2>{{ __('messages.DiscoverRecipes') }}</h2>
             <div class="recipe-list">
                 @foreach ($recipeListRandom as $recipe)
                     <div class="card recipe-item" link="{{ route('recipe.show', $recipe->id) }}">

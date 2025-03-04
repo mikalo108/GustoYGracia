@@ -35,10 +35,13 @@
     <div id="body-recipe">
         <div id="recipe-container">
             <h1 class="recipe-title">{{ $recipe->name }}</h1>
-            <p class="recipe-user">{{ __('messages.PostBy') }}: <a class="user-link"
-                    href="{{ route('user.show', $recipe->user->id) }}">
+            <p class="recipe-user">
+                {{ __('messages.PostBy') }}:
+                <a class="user-link" href="{{ route('user.show', $recipe->user->id) }}">
                     {{ $recipe->user->name }}
-                </a></p>
+                </a>
+                <span class="recipe-date">{{ $recipe->created_at->format('d/m/Y') }}</span>
+            </p>
 
             <div class="recipe-image-container">
                 <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}" class="recipe-image">
@@ -65,10 +68,10 @@
             <div class="recipe-ingredients">
                 <h4>{{ __('messages.Ingredients') }}:</h4>
                 <ul>
-                    @foreach ($ingredients as $ingredient)
-                        @if ($recipe->ingredients->contains($ingredient->id))
-                            <li>{{ $ingredient->name }}</li>
-                        @endif
+                    @foreach ($recipe->ingredients as $ingredient)
+                        <li>
+                            {{ $ingredient->pivot->quantity }} de {{ $ingredient->name }}
+                        </li>
                     @endforeach
                 </ul>
             </div>
@@ -81,7 +84,8 @@
             <p>TAG:
                 @foreach ($categories as $category)
                     @if ($recipe->categories->contains($category->id))
-                        <a class="category-link" href="{{ route('showByCategory', $category->id) }}">#{{ $category->name }}</a>
+                        <a class="category-link"
+                            href="{{ route('showByCategory', $category->id) }}">#{{ $category->name }}</a>
                     @endif
                 @endforeach
             </p>
@@ -137,7 +141,8 @@
         </div>
     @else
         <div class="login-prompt">
-            <p><a href="{{ route('login') }}" class="login-link">{{ __('messages.Login') }}</a> {{ __('messages.InOrderToComment') }}</p>
+            <p><a href="{{ route('login') }}" class="login-link">{{ __('messages.Login') }}</a>
+                {{ __('messages.InOrderToComment') }}</p>
         </div>
     @endauth
     </div>

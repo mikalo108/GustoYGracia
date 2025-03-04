@@ -23,7 +23,7 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
-            'contact_id' => Contact::all()->random()->id
+            'contact_id' => 1
         ]);
         
         DB::table('users')->insert([
@@ -35,11 +35,31 @@ class UserTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Andrea',
-            'email' => 't@test.com',
+            'name' => 'Anita22',
+            'email' => 'ana@test.com',
             'password' => Hash::make('test'),
             'email_verified_at' => now(),
-            'remember_token' => Str::random(10)
+            'remember_token' => Str::random(10),
+            'contact_id' => 2
         ]);
+
+        DB::table('users')->insert([
+            'name' => 'Carles',
+            'email' => 'carlos@test.com',
+            'password' => Hash::make('test'),
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'contact_id' => 3
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'LauraR',
+            'email' => 'laura@test.com',
+            'password' => Hash::make('test'),
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'contact_id' => 4
+        ]);
+
     }
 }

@@ -22,5 +22,33 @@ class ContactTableSeeder extends Seeder
             'country' => 'USA',
             'city' => 'New York',
         ]);
+
+        DB::table('contacts')->insert([
+            'name' => 'Ana',
+            'surname' => 'Pérez',
+            'bio' => 'Diseñadora gráfica con 10 años de experiencia.',
+            'phone' => '555-987-6543',
+            'country' => 'España',
+            'city' => 'Madrid',
+        ]);
+
+        DB::table('contacts')->insert([
+            'name' => 'Carlos',
+            'surname' => 'González',
+            'bio' => 'Abogado especializado en derecho corporativo.',
+            'phone' => '555-123-4567',
+            'country' => 'México',
+            'city' => 'Ciudad de México',
+        ]);
+        
+        DB::table('contacts')->insert([
+            'name' => 'Laura',
+            'surname' => 'Rodríguez',
+            'bio' => 'Profesora de matemáticas en secundaria.',
+            'phone' => '555-234-5678',
+            'country' => 'Argentina',
+            'city' => 'Buenos Aires',
+        ]);        
+        
     }
 }

@@ -14,10 +14,13 @@ use Illuminate\Support\Facades\Storage;
 class RecipeController extends Controller
 {
     private const PAGINATE_SIZE = 4;
-    public function index(){
+
+    public function index()
+    {
         $recipeList = Recipe::paginate(self::PAGINATE_SIZE);
         return view('recipe/all', ['recipeList' => $recipeList], compact('recipeList'));
     }
+
     public function create()
     {
         $ingredients = Ingredient::all();
@@ -25,9 +28,29 @@ class RecipeController extends Controller
         return view('recipe/form', ['ingredients' => $ingredients, 'categories' => $categories]);
     }
 
+    public function userCreate()
+    {
+        $ingredients = Ingredient::all();
+        $categories = Category::all();
+        return view('recipe.userForm', ['ingredients' => $ingredients, 'categories' => $categories]);
+    }
+
+    public function userSearch(Request $request)
+    {
+        $query = $request->input('query');
+
+        $recipes = Recipe::where('name', 'LIKE', "%$query%")
+            ->orWhereHas('ingredients', function ($q) use ($query) {
+                $q->where('name', 'LIKE', "%$query%");
+            })
+            ->get();
+
+        return view('recipe.searchResults', ['recipes' => $recipes, 'query' => $query]);
+    }
+
     public function show($id)
     {
-        $recipe = Recipe::find($id);
+        $recipe = Recipe::with('ingredients')->findOrFail($id);
         $ingredients = Ingredient::all();
         $categories = Category::all();
         $comments = Comment::all();
@@ -45,8 +68,8 @@ class RecipeController extends Controller
     public function showByCategory($categoryId)
     {
         $category = Category::find($categoryId);
-        $recipesByCategory = $category->recipes()->get(); 
-        return view('recipe.showByCategory', ['category' => $category, 'recipesByCategory' => $recipesByCategory]);
+        $recipesByCategory = $category->recipes()->get();
+        return view('recipe.searchResults', ['category' => $category, 'recipesByCategory' => $recipesByCategory]);
     }
 
     public function store(Request $request)
@@ -91,6 +114,60 @@ class RecipeController extends Controller
         $recipe->ingredients()->sync($ingredientsWithQuantities);
 
         return redirect()->route('recipe.index');
+    }
+
+    public function userStore(Request $request, $user_id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'instructions' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'prep_time' => 'required|integer|min:1',
+            'difficulty_level' => 'required|string|in:baja,media,alta',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'ingredients' => 'required|array',
+            'ingredients.*.name' => 'required|string|max:255',
+            'ingredients.*.quantity' => 'required|string|max:100',
+        ]);
+
+        $imagePath = 'recipes/default.png'; // Ruta por defecto
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName(); // Prefijo para evitar colisiones
+            $imagePath = $image->storeAs('recipes', $imageName, 'public'); // Guarda la imagen con su nombre original
+        }
+        
+        $recipe = Recipe::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'instructions' => $request->instructions,
+            'image' => $imagePath ?? 'default.png',
+            'user_id' => $user_id,
+        ]);
+
+        $recipe->categories()->sync($request->category_id);
+
+        $recipe->details()->create([
+            'prep_time' => $request->prep_time,
+            'difficulty_level' => $request->difficulty_level,
+        ]);
+        
+
+        foreach ($request->ingredients as $ingredientData) {
+            // Buscar si el ingrediente ya existe
+            $ingredient = Ingredient::firstOrCreate(
+                ['name' => $ingredientData['name']]
+            );
+    
+            // Asignar la relación en recipe_ingredients
+            $recipe->ingredients()->attach($ingredient->id, [
+                'quantity' => $ingredientData['quantity']
+            ]);
+        }
+
+        return redirect()->route('myRecipes', $user_id);
     }
 
     public function edit($id)
@@ -165,6 +242,6 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::find($recipeId);
         $recipe->delete();
-        return redirect()->route('myrecipes', $userId);
+        return redirect()->route('myRecipes', $userId);
     }
 }
