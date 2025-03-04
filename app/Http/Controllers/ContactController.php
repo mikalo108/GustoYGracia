@@ -51,6 +51,11 @@ class ContactController extends Controller
             ]);
     }
 
+    public function show($id){
+        $contact = Contact::findOrFail($id);
+        return redirect()->route('user.show', $contact->user->id);
+    }
+
     public function create() { 
         $users = User::all();
         return view('contact/form',['users'=>$users]);  

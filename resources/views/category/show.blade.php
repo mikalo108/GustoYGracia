@@ -8,35 +8,25 @@
     }
 @endphp
 
-@push('css')
-    <!-- estilos adicionales -->
-    <style>
-
-    </style>
-@endpush
-
-@section("title", $category->name)
+@section('title', __('messages.InfoFrom') . ' ' . $category->name . ' | Gusto&Gracia')
 
 @section('content')
-    @if (Auth::check() && Auth::user()->email === 'admin@gustoygracia.com')
-        <div class="row mb-5">
-            <div class="col">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <div class="card-header">
-                            <div class="row">
-                                <h1>{{ $category->name }}</h1>
-                            </div>
-                        </div>
-                        <div class="col-md mt-4">
-                            
-                        </div>
-                    </div>
-                </div>
+    <div class="user-profile">
+        <h1>{{__('messages.InfoFrom')}} {{ $category->name }}</h1>
+
+        <!-- Información del usuario -->
+        <div class="user-info">
+            <div class="info-card">
+            <p><strong>{{ __('columns.category_1') }}:</strong> {{ $category->name }}</p>
+            <p><strong>{{ __('columns.category_2') }}:</strong> {{ $category->description }}</p>
+            <p><strong>{{ __('columns.created_at') }}:</strong> {{ $category->created_at }}</p>
+            <p><strong>{{ __('columns.updated_at') }}:</strong> {{ $category->updated_at }}</p>
             </div>
         </div>
-    @else
 
-    @endif
-
-    @endsection
+        <!-- Botón para volver -->
+        <div>
+            <a href="{{ url()->previous() }}" class="btn-back">{{ __('messages.Back') }}</a>
+        </div>
+    </div>
+@endsection

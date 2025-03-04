@@ -36,6 +36,11 @@ class CommentController extends Controller
                 'commentRecipeId' => $request->commentRecipeId,
             ]);
     }
+
+    public function show($id){
+        $comment = Comment::findOrFail($id);
+        return view('comment/show', compact('comment'));
+    }
     
     public function create()
     {

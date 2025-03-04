@@ -36,6 +36,11 @@ class IngredientController extends Controller
             ]);
     }
 
+    public function show($id){
+        $ingredient = Ingredient::findOrFail($id);
+        return view('ingredient/show', compact('ingredient'));
+    }
+
     public function create() {
         return view('ingredient/form');  
     }
