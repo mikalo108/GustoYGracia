@@ -74,10 +74,10 @@
                                         </div>
                                     @endisset
 
-                                    <input type="file" class="form-control" id="recipeImage" name="image" accept="image/*">
+                                    <input required type="file" class="form-control" id="recipeImage" name="image" accept="image/*">
                                     
                                     <!-- Campo oculto para marcar eliminación (ya no se usará) -->
-                                    <input type="hidden" name="remove_image" id="removeImageInput" value="0">
+                                    <input required type="hidden" name="remove_image" id="removeImageInput" value="0">
                                 </div>
                             </div>
 
