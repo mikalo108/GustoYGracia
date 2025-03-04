@@ -97,6 +97,10 @@
                                 <input type="submit" value="{{__('admin.save_btn')}}" class="btn btn-primary"/>
                             </form>
                         </div>
+                        <!-- Botón para volver -->
+                        <div>
+                            <a href="{{ url()->previous() }}" class="btn-back">{{ __('messages.Back') }}</a>
+                        </div> 
                     </div>
                 </div>
             </div>
