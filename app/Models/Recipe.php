@@ -14,7 +14,7 @@ class Recipe extends Model
 
 
     /**
-     * Relación con ingredientes (muchos a muchos).
+     * Relación inversa con ingredientes (N:N).
      */
     public function ingredients()
     {
@@ -24,7 +24,7 @@ class Recipe extends Model
     }
 
     /**
-     * Relación con categorías (muchos a muchos).
+     * Relación inversa con categorías (N:N).
      */
     public function categories()
     {
@@ -33,7 +33,7 @@ class Recipe extends Model
     }
 
     /**
-     * Relación con comentarios (uno a muchos).
+     * Relación con comentarios (1:N).
      */
     public function comments()
     {
@@ -41,7 +41,7 @@ class Recipe extends Model
     }
 
     /**
-     * Relación con detalles (uno a uno).
+     * Relación con detalles (1:1).
      */
     public function details()
     {
@@ -49,7 +49,7 @@ class Recipe extends Model
     }
 
     /**
-     * Relación con el usuario (uno a muchos inverso).
+     * Relación inversa con el usuario (1:N).
      */
     public function user()
     {

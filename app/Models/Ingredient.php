@@ -12,6 +12,7 @@ class Ingredient extends Model
     protected $table = 'ingredients';
     protected $fillable = ['name', 'description', 'calories_per_100g'];
 
+    //  Relación inversa N:N con una receta
     public function recipes()
     {
         return $this->belongsToMany(Recipe::class, 'recipe_ingredients')

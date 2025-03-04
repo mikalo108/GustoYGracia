@@ -11,11 +11,13 @@ class RecipeIngredient extends Model
 
     protected $table = 'recipe_ingredients';
 
+    //  Relación inversa 1:1 con una receta, la relación original es N:N, pero esta es la tabla de relación intermedia. 
     public function recipe()
     {
         return $this->belongsTo(Recipe::class);
     }
 
+    //  Relación inversa 1:1 con un ingrediente, la relación original es N:N, pero esta es la tabla de relación intermedia. 
     public function ingredient() 
     {
         return $this->belongsTo(Ingredient::class);

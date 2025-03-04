@@ -13,16 +13,19 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
     protected $table = 'users';
 
+    //  Relación 1:N con recetas
     public function recipes()
     {
         return $this->hasMany(Recipe::class);
     }
 
+    //  Relación inversa 1:1 con contacto
     public function contact()
     {
         return $this->belongsTo(Contact::class);
     }
 
+    // Relación 1:N con comentarios
     public function comments()
     {
         return $this->hasMany(Comment::class);

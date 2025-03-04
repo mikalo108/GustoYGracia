@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
+    // Constante que define el número de elementos al mostrar en la página de inicio
     private const PAGINATE_SIZE = 4;
+
+    // Función que devuelve a la página de inicio con los elementos que debe mostrar filtrados. Si la query está vacía, devuelve todos los elementos.
     public function index(Request $request) {
         $query = Recipe::query();
     
@@ -54,6 +57,7 @@ class RecipeController extends Controller
             ]);
     }
     
+    //  Función para devolver a la página de creación del elemento
     public function create()
     {
         $ingredients = Ingredient::all();
@@ -61,6 +65,7 @@ class RecipeController extends Controller
         return view('recipe/form', ['ingredients' => $ingredients, 'categories' => $categories]);
     }
 
+    //  Función para devolver a la página de creación del elemento por el usuario
     public function userCreate()
     {
         $ingredients = Ingredient::all();
@@ -68,6 +73,7 @@ class RecipeController extends Controller
         return view('recipe.userForm', ['ingredients' => $ingredients, 'categories' => $categories]);
     }
 
+    // Función para buscar usuario
     public function userSearch(Request $request)
     {
         $query = $request->input('query');
@@ -81,6 +87,7 @@ class RecipeController extends Controller
         return view('recipe.searchResults', ['recipes' => $recipes, 'query' => $query]);
     }
 
+    //  Función para devolver a la página de detalles del elemento que se pide
     public function show($id)
     {
         $recipe = Recipe::with('ingredients')->findOrFail($id);
@@ -90,6 +97,7 @@ class RecipeController extends Controller
         return view('recipe.show', ['recipe' => $recipe, 'ingredients' => $ingredients, 'categories' => $categories, 'comments' => $comments]);
     }
 
+    //  Función para devolver a la página de recetas creadas por el usuario
     public function showMyRecipes($userId)
     {
         $user = User::find($userId);
@@ -98,6 +106,7 @@ class RecipeController extends Controller
         return view('myRecipes', compact('recipeList'));
     }
 
+    //  Función para filtrar recetas por categoría
     public function showByCategory($categoryId)
     {
         $category = Category::find($categoryId);
@@ -105,6 +114,7 @@ class RecipeController extends Controller
         return view('recipe.searchResults', ['category' => $category, 'recipesByCategory' => $recipesByCategory]);
     }
 
+    //  Función para guardar el elemento en la base de datos
     public function store(Request $request)
     {
         $request->validate([
@@ -160,6 +170,7 @@ class RecipeController extends Controller
         return redirect()->route('recipe.index');
     }
 
+    //  Función para guardar el elemento en la base de datos por el usuario
     public function userStore(Request $request, $user_id)
     {
         $request->validate([
@@ -214,6 +225,7 @@ class RecipeController extends Controller
         return redirect()->route('myRecipes', $user_id);
     }
 
+    //  Función para devolver a la página de edición del elemento
     public function edit($id)
     {
         $recipe = Recipe::find($id);
@@ -222,9 +234,9 @@ class RecipeController extends Controller
         return view('recipe/form', ['recipe' => $recipe, 'ingredients' => $ingredients, 'categories' => $categories]);
     }
 
+    //  Función para actualizar el elemento en la base de datos
     public function update(Request $request, $id)
     {
-        /*
         $request->validate([
             'name' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -239,7 +251,7 @@ class RecipeController extends Controller
             'categories.*' => 'exists:categories,id',
             'quantities' => 'required|array',
             'quantities.*' => 'integer|min:1',
-        ]);*/
+        ]);
 
         $recipe = Recipe::findOrFail($id);
         $recipe->update([
@@ -276,6 +288,7 @@ class RecipeController extends Controller
         return redirect()->route('recipe.index');
     }
 
+    //  Funcion para eliminar el elemento de la base de datos
     public function destroy($id)
     {
         $recipe = Recipe::find($id);
@@ -283,6 +296,7 @@ class RecipeController extends Controller
         return redirect()->route('recipe.index');
     }
 
+    //  Funcion para eliminar el elemento de la base de datos por el usuario
     public function removeRecipe($recipeId, $userId)
     {
         $recipe = Recipe::find($recipeId);

@@ -7,7 +7,10 @@ use App\Models\Ingredient;
 
 class IngredientController extends Controller
 {
+    // Constante que define el número de elementos al mostrar en la página de inicio
     private const PAGINATE_SIZE = 4;
+
+    // Función que devuelve a la página de inicio con los elementos que debe mostrar filtrados. Si la query está vacía, devuelve todos los elementos.
     public function index(Request $request) { 
         $query = Ingredient::query();
         // Filtrar por nombre del ingrediente
@@ -36,15 +39,18 @@ class IngredientController extends Controller
             ]);
     }
 
+    //  Función para devolver a la página de detalles del elemento que se pide
     public function show($id){
         $ingredient = Ingredient::findOrFail($id);
         return view('ingredient/show', compact('ingredient'));
     }
 
+    //  Función para devolver a la página de creación del elemento
     public function create() {
         return view('ingredient/form');  
     }
 
+    //  Función para guardar el elemento en la base de datos
     public function store(Request $r) { 
         $r->validate([
             'name' => 'required|string|max:255',  // El nombre del ingrediente debe ser obligatorio, una cadena y no superar los 255 caracteres
@@ -60,11 +66,13 @@ class IngredientController extends Controller
         return redirect()->route('ingredient.index');
     }
 
+    //  Función para devolver a la página de edición del elemento
     public function edit($id) { 
         $i = Ingredient::find($id);
         return view('ingredient/form', ['ingredient' => $i]);
     }
 
+    //  Función para actualizar el elemento en la base de datos
     public function update($id, Request $r) { 
         $r->validate([
             'name' => 'required|string|max:255',  // El nombre del ingrediente debe ser obligatorio, una cadena y no superar los 255 caracteres
@@ -79,6 +87,8 @@ class IngredientController extends Controller
         $i->save();
         return redirect()->route('ingredient.index');
     }
+
+    //  Funcion para eliminar el elemento de la base de datos
     public function destroy($id) { 
         $i = Ingredient::find($id);
         $i->delete();

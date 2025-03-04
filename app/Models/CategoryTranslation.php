@@ -9,6 +9,7 @@ class CategoryTranslation extends Model
 {
     use HasFactory;
 
+    //  Relación inversa 1:1 con categoría
     public function category()
     {
         return $this->belongsTo(Category::class);

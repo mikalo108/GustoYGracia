@@ -12,6 +12,7 @@ class RecipeDetail extends Model
     protected $table = 'recipe_details';
     protected $fillable = ['recipe_id', 'prep_time', 'difficulty_level'];
 
+    // Relación inversa 1:1 con receta
     public function recipe()
     {
         return $this->belongsTo(Recipe::class);

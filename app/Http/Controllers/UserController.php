@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    // Constante que define el número de elementos al mostrar en la página de inicio
     private const PAGINATE_SIZE = 5;
+
+    // Función que devuelve a la página de inicio con los elementos que debe mostrar filtrados. Si la query está vacía, devuelve todos los elementos.
     public function index(Request $request){
         
         $query = User::query();
@@ -47,12 +50,14 @@ class UserController extends Controller
             ]);
     }
 
+    //  Función para devolver a la página de detalles del elemento que se pide
     public function show($id)
     {
         $user = User::with('contact')->findOrFail($id);
         return view('user.show', ['user' => $user]);
     }
 
+    //  Función para devolver a la página del perfil del usario
     public function showMyProfile()
     {
         /** @var User $user */
@@ -63,11 +68,13 @@ class UserController extends Controller
         return view('myProfile', compact('user'));
     }
 
+    //  Función para devolver a la página de creación del elemento
     public function create()
     {
         return view('user/form');
     }
 
+    //  Función para guardar el elemento en la base de datos
     public function store(Request $request)
     {
         $request->validate([
@@ -96,12 +103,14 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
+    //  Función para devolver a la página de edición del elemento
     public function edit($id)
     {
         $user = User::find($id);
         return view('user/form', ['user' => $user]);
     }
 
+    //  Función para actualizar el elemento en la base de datos
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -129,6 +138,7 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
+    //  Función para actualizar el elemento en la base de datos por un usuario
     public function updateMyProfile(Request $request, $id)
     {
         $request->validate([
@@ -179,6 +189,8 @@ class UserController extends Controller
         return redirect()->route('myProfile');
     }
 
+
+    //  Funcion para eliminar el elemento de la base de datos
     public function destroy($id)
     {
         $user = User::find($id);

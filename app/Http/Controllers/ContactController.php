@@ -8,7 +8,10 @@ use App\Models\Contact;
 
 class ContactController extends Controller
 {
+    // Constante que define el número de elementos al mostrar en la página de inicio
     private const PAGINATE_SIZE = 4;
+
+    // Función que devuelve a la página de inicio con los elementos que debe mostrar filtrados. Si la query está vacía, devuelve todos los elementos.
     public function index(Request $request) { 
         $query = Contact::query();
         // Filtrar por id del usuario (relación belongsTo)
@@ -51,16 +54,19 @@ class ContactController extends Controller
             ]);
     }
 
+    //  Función para devolver a la página de detalles del elemento que se pide
     public function show($id){
         $contact = Contact::findOrFail($id);
         return redirect()->route('user.show', $contact->user->id);
     }
 
+    //  Función para devolver a la página de creación del elemento
     public function create() { 
         $users = User::all();
         return view('contact/form',['users'=>$users]);  
     }
 
+    //  Función para guardar el elemento en la base de datos
     public function store(Request $r) { 
         $r->validate([
             'name' => 'required|string|max:255',  // El nombre debe ser una cadena de texto y no superar los 255 caracteres
@@ -82,12 +88,14 @@ class ContactController extends Controller
         return redirect()->route('contact.index');
     }
 
+    //  Función para devolver a la página de edición del elemento
     public function edit($id) { 
         $users = User::all();
         $c = Contact::find($id);
         return view('contact/form', ['contact' => $c,'users'=>$users]);
     }
 
+    //  Función para actualizar el elemento en la base de datos
     public function update($id, Request $r) { 
         $r->validate([
             'name' => 'required|string|max:255',  // El nombre debe ser una cadena de texto y no superar los 255 caracteres
@@ -108,6 +116,8 @@ class ContactController extends Controller
         $c->save();
         return redirect()->route('contact.index');
     }
+    
+    //  Funcion para eliminar el elemento de la base de datos
     public function destroy($id) { 
         $c = Contact::find($id);
         $c->delete();

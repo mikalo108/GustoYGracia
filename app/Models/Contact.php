@@ -11,6 +11,7 @@ class Contact extends Model
 
     protected $table = 'contacts';
     
+    //  Relación 1:1 con un usuario
     public function user()
     {
         return $this->hasOne(User::class);

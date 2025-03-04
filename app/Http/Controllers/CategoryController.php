@@ -9,7 +9,10 @@ use App\Models\Recipe;
 
 class CategoryController extends Controller
 {
+    // Constante que define el número de elementos al mostrar en la página de inicio
     private const PAGINATE_SIZE = 5;
+
+    // Función que devuelve a la página de inicio con los elementos que debe mostrar filtrados. Si la query está vacía, devuelve todos los elementos.
     public function index(Request $request)
     {
         $query = Category::query();
@@ -33,17 +36,21 @@ class CategoryController extends Controller
             ]);
     }
 
+    //  Función para devolver a la página de detalles del elemento que se pide
     public function show($id)
     {
         $category = Category::find($id);
         return view('category/show', ['category' => $category]);
     }
 
+    //  Función para devolver a la página de creación del elemento
     public function create()
     {
         return view('category/form');
     }
 
+    //  Función para guardar el elemento en la base de datos
+    //  En este caso, hay que guardar los dos idiomas disponibles para esta tabla.
     public function store(Request $r)
     {
         $r->validate([
@@ -76,6 +83,7 @@ class CategoryController extends Controller
         return redirect()->route('category.index');
     }
 
+    //  Función para devolver a la página de edición del elemento
     public function edit($id)
     {
         $c = Category::find($id);
@@ -88,6 +96,8 @@ class CategoryController extends Controller
         return view('category/form', ['category' => $c, 'cES'=>$cES , 'cEN'=>$cEN]);
     }
 
+    //  Función para actualizar el elemento en la base de datos
+    //  En este caso, hay que actualizar los dos idiomas disponibles para esta tabla.
     public function update($id, Request $r)
     {
         $r->validate([
@@ -122,6 +132,8 @@ class CategoryController extends Controller
 
         return redirect()->route('category.index');
     }
+
+    //  Funcion para eliminar el elemento de la base de datos
     public function destroy($id)
     {
         $c = Category::find($id);

@@ -199,8 +199,7 @@
                             <div class="mb-3">
                                 <label for="instructions" class="form-label">{{ __('admin.recipeInstructions') }}</label>
                                 <textarea id="instructions" rows="10" name="instructions" class="form-control" 
-                                required>@isset($recipe->instructions){{$recipe->instructions}}@endisset
-                                </textarea>
+                                required>@isset($recipe->instructions){{$recipe->instructions}}@endisset</textarea>
                             </div>
 
 

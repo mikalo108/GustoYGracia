@@ -9,7 +9,10 @@ use App\Models\Recipe;
 
 class CommentController extends Controller
 {
+    // Constante que define el número de elementos al mostrar en la página de inicio
     private const PAGINATE_SIZE = 4;
+
+    // Función que devuelve a la página de inicio con los elementos que debe mostrar filtrados. Si la query está vacía, devuelve todos los elementos.
     public function index(Request $request) { 
 
         $query = Comment::query();
@@ -37,17 +40,20 @@ class CommentController extends Controller
             ]);
     }
 
+    //  Función para devolver a la página de detalles del elemento que se pide
     public function show($id){
         $comment = Comment::findOrFail($id);
         return view('comment/show', compact('comment'));
     }
     
+    //  Función para devolver a la página de creación del elemento
     public function create()
     {
         $users = User::all();
         return view('comment/form', ['users' => $users]);
     }
     
+    //  Función para guardar el elemento en la base de datos
     public function store(Request $r) { 
         $r->validate([
             'content' => 'required|string|max:1000',
@@ -61,6 +67,7 @@ class CommentController extends Controller
         return redirect()->route('comment.index');
     }
 
+    //  Función para guardar el elemento en la base de datos por el usuario
     public function createComment(Request $r, $recipe, $user)
     {
         // Validación (opcional, pero recomendable)
@@ -78,6 +85,7 @@ class CommentController extends Controller
         return redirect()->route('recipe.show', $recipe)->with('success', 'Comentario agregado correctamente');
     }
 
+    //  Función para devolver a la página de edición del elemento
     public function edit($id)
     {
         $comment = Comment::find($id);
@@ -85,6 +93,7 @@ class CommentController extends Controller
         return view('comment/form',['users'=>$users, 'comment'=>$comment]);  
     }
 
+    //  Función para actualizar el elemento en la base de datos
     public function update($id, Request $r) { 
         $r->validate([
             'content' => 'required|string|max:1000',
@@ -95,6 +104,7 @@ class CommentController extends Controller
         $c->save();
         return redirect()->route('comment.index');
     }
+    //  Funcion para eliminar el elemento de la base de datos
     public function destroy($id)
     {
         $c = Comment::find($id);
@@ -102,6 +112,7 @@ class CommentController extends Controller
         return redirect()->route('comment.index');
     }
 
+    //  Funcion para eliminar el elemento de la base de datos por el usuario
     public function removeComment($recipe, $comment)
     {
         $c = Comment::find($comment);
