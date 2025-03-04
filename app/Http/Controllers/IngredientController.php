@@ -8,10 +8,32 @@ use App\Models\Ingredient;
 class IngredientController extends Controller
 {
     private const PAGINATE_SIZE = 4;
-    public function index() { 
-        $ingredientList = Ingredient::all();
-        $ingredientList = Ingredient::orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
-        return view('ingredient/all', ['ingredientList'=>$ingredientList], compact('ingredientList'));
+    public function index(Request $request) { 
+        $query = Ingredient::query();
+        // Filtrar por nombre de la categoría
+        if ($request->filled('ingredientName')) {
+            $query->where('name', 'like', '%' . $request->ingredientName . '%');
+        }
+    
+        // Filtrar por descripción de la categoría
+        if ($request->filled('ingredientDescription')) {
+            $query->where('description', 'like', '%' . $request->ingredientDescription . '%');
+        }
+
+        // Filtrar por calorías de la categoría
+        if ($request->filled('ingredientCalories')) {
+            $query->where('calories_per_100g', 'like', '%' . $request->ingredientCalories . '%');
+        }
+
+         // Obtener las recetas paginadas y ordenadas por ID ascendente
+         $ingredientList = $query->orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
+
+        return view('ingredient/all', compact('ingredientList'))
+            ->with([
+                'ingredientName' => $request->ingredientName,
+                'ingredientDescription' => $request->ingredientDescription,
+                'ingredientCalories' => $request->ingredientCalories,
+            ]);
     }
 
     public function create() {

@@ -205,7 +205,7 @@
 
 
                             <!-- Botón para enviar -->
-                            <input type="submit" value="{{ __('admin.save_btn') }}" class="btn btn-primary" name="saveBtn"/>
+                            <input type="submit" value="{{ __('admin.save_btn') }}" class="btn btn-primary"/>
                         </form>
                     </div>
                 </div>

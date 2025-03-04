@@ -427,9 +427,17 @@
             if (todosVacios) {
                 window.location.href=formBusqueda.getAttribute("action");
             } else {
-                vaciarCampos.style.display = 'block';  // Mostrar el botón si hay al menos un campo con contenido
+                vaciarCampos.style.visibility = 'visible';  // Mostrar el botón si hay al menos un campo con contenido
             }
         });
+
+        // Si los campos de búsqueda del index son impares, aplicamos un estilo.
+        let campos = formBusqueda.querySelectorAll("input[type='text']");
+        console.log(campos.length%=2);
+        if((campos.length%=2)==1){
+            let botonBuscar= document.getElementById("botonBuscar");
+            botonBuscar.style.gridColumn="1/1";
+        }
 
     });
 </script>

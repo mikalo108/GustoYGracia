@@ -61,7 +61,7 @@
                                     <input id="calories_per_100g" name="calories_per_100g" type="text"
                                     class="form-control" required @isset($ingredient) value="{{$ingredient->calories_per_100g}}" @endisset />
                                 </div>
-                                <input type="submit" value="{{__('admin.save_btn')}}" class="btn btn-primary" name="saveBtn"/>
+                                <input type="submit" value="{{__('admin.save_btn')}}" class="btn btn-primary"/>
                             </form>
                         </div>
                     </div>

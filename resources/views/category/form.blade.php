@@ -66,7 +66,7 @@
                                     <input id="categoryDescriptionEN" name="categoryDescriptionEN" type="text"
                                     class="form-control" required @isset($cEN) value="{{$cEN->description}}" @endisset />
                                 </div>
-                                <input type="submit" value="{{__('admin.save_btn')}}" class="btn btn-primary" name="saveBtn"/>
+                                <input type="submit" value="{{__('admin.save_btn')}}" class="btn btn-primary"/>
                             </form>
                         </div>
                     </div>

@@ -34,17 +34,25 @@
                             </div>
                         </div>
                         <div class="col-md mt-4">
-                            <form action="" method="post" class="search-form">
+                            <form action="{{ route('category.index') }}" method="get" class="search-form" id="formBusqueda">
                                 @csrf
                                 <div>
                                     <label for="categoryName" class="form-label"> {{ __("admin.TitleCategoryTable") }} {{ __('columns.category_1') }}</label>
-                                    <input id="categoryName" name="categoryName" class="form-control" value="@isset($categoryName) {{ $categoryName }}@endisset"/>
+                                    <input type='text' id="categoryName" name="categoryName" class="form-control" value="@isset($categoryName){{$categoryName}}@endisset"/>
                                 </div>
                                 <div>
                                     <label for="categoryDescription" class="form-label"> {{ __("admin.TitleCategoryTable") }} {{ __('columns.category_2') }}</label>
-                                    <input id="categoryDescription" name="categoryDescription" class="form-control" value="@isset($categoryDescription) {{ $categoryDescription }} @endisset"/>
+                                    <input type='text' id="categoryDescription" name="categoryDescription" class="form-control" value="@isset($categoryDescription){{$categoryDescription}}@endisset"/>
                                 </div>
                                 <button type="submit" id="botonBuscar" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Search"></button>
+                                <input 
+                                    @if(isset($categoryName)||isset($categoryDescription))
+                                        style="visibility: visible;justify-self: right;"
+                                    @else 
+                                        style="visibility: hidden;justify-self: right;" 
+                                    @endif 
+                                    class="btn btn-danger" id="vaciarCampos" type="button" value="{{ __('admin.clearFields') }}"
+                                >
                             </form>
                         </div>
                         <hr>

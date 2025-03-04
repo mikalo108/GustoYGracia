@@ -34,21 +34,29 @@
                             </div>
                         </div>
                         <div class="col-md mt-4">
-                            <form action="" method="post" class="search-form">
+                            <form action="{{ route('ingredient.index') }}" method="get" class="search-form" id="formBusqueda">
                                 @csrf
                                 <div>
                                     <label for="ingredientName" class="form-label"> {{ __("admin.TitleIngredientTable") }} {{ __('columns.ingredient_1') }}</label>
-                                    <input id="ingredientName" name="ingredientName" class="form-control" value="@isset($ingredientName) {{ $ingredientName }}@endisset"/>
+                                    <input type="text" id="ingredientName" name="ingredientName" class="form-control" value="@isset($ingredientName){{$ingredientName}}@endisset"/>
                                 </div>
                                 <div>
                                     <label for="ingredientDescription" class="form-label"> {{ __("admin.TitleIngredientTable") }} {{ __('columns.ingredient_2') }}</label>
-                                    <input id="ingredientDescription" name="ingredientDescription" class="form-control" value="@isset($ingredientDescription) {{ $ingredientDescription }} @endisset"/>
+                                    <input type="text" id="ingredientDescription" name="ingredientDescription" class="form-control" value="@isset($ingredientDescription){{$ingredientDescription}}@endisset"/>
                                 </div>
                                 <div>
                                     <label for="ingredientCalories" class="form-label"> {{ __("admin.TitleIngredientTable") }} {{ __('columns.ingredient_2') }}</label>
-                                    <input id="ingredientCalories" name="ingredientCalories" class="form-control" value="@isset($ingredientCalories) {{ $ingredientCalories }} @endisset"/>
+                                    <input type="text" id="ingredientCalories" name="ingredientCalories" class="form-control" value="@isset($ingredientCalories){{$ingredientCalories}}@endisset"/>
                                 </div>
                                 <button type="submit" id="botonBuscar" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Search"></button>
+                                <input 
+                                    @if(isset($ingredientName)||isset($ingredientDescription)||isset($ingredientCalories))
+                                        style="visibility: visible;justify-self: right;"
+                                    @else 
+                                        style="visibility: hidden;justify-self: right;" 
+                                    @endif 
+                                    class="btn btn-danger" id="vaciarCampos" type="button" value="{{ __('admin.clearFields') }}"
+                                >
                             </form>
                         </div>
                         <hr>

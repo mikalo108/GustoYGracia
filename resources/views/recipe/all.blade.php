@@ -54,9 +54,14 @@
                                     <input type="text" id="recipeUser" name="recipeUser" class="form-control" value="@isset($recipeUser){{$recipeUser}}@endisset"/>
                                 </div>
                                 <button type="submit" id="botonBuscar" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Search"></button>
-                                @if(isset($recipeName)||isset($recipeDescription)||isset($recipeCategory)||isset($recipeUser))
-                                    <input id="vaciarCampos" class="btn btn-danger" style="justify-self: right;" type="button" value="{{ __('admin.clearFields') }}">
-                                @endif
+                                <input 
+                                    @if(isset($recipeName)||isset($recipeDescription)||isset($recipeCategory)||isset($recipeUser))
+                                        style="visibility: visible;justify-self: right;"
+                                    @else 
+                                        style="visibility: hidden;justify-self: right;" 
+                                    @endif 
+                                    class="btn btn-danger" id="vaciarCampos" type="button" value="{{ __('admin.clearFields') }}"
+                                >
                             </form>
                         </div>
                         <hr>
