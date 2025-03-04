@@ -34,18 +34,26 @@
                             </div>
                         </div>
                         <div class="col-md mt-4">
-                            <form action="" method="post" class="search-form">
+                            <form action="{{ route('comment.index') }}" method="get" class="search-form" id="formBusqueda">
                                 @csrf
                                 <div>
                                     <label for="commentUser" class="form-label"> {{ __("admin.TitleCommentTable") }} {{ __('columns.comment_1') }}</label>
-                                    <input id="commentUser" name="commentUser" class="form-control"
+                                    <input type="text" id="commentUser" name="commentUser" class="form-control"
                                     value="@isset($commentUser) {{ $commentUser }}@endisset"/>
                                 </div>
                                 <div>
                                     <label for="commentRecipe" class="form-label"> {{ __("admin.TitleCommentTable") }} {{ __('columns.comment_2') }}</label>
-                                    <input id="commentRecipe" name="commentRecipe" class="form-control" value="@isset($commentRecipe) {{ $commentRecipe }} @endisset"/>
+                                    <input type="text" id="commentRecipe" name="commentRecipe" class="form-control" value="@isset($commentRecipe) {{ $commentRecipe }} @endisset"/>
                                 </div>
                                 <button type="submit" id="botonBuscar" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Search"></button>
+                                <input 
+                                    @if(isset($commentUser)||isset($commentRecipe))
+                                        style="visibility: visible;justify-self: right;"
+                                    @else 
+                                        style="visibility: hidden;justify-self: right;" 
+                                    @endif 
+                                    class="btn btn-danger" id="vaciarCampos" type="button" value="{{ __('admin.clearFields') }}"
+                                >
                             </form>
                         </div>
                         <hr>
