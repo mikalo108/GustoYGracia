@@ -9,10 +9,46 @@ use App\Models\Contact;
 class ContactController extends Controller
 {
     private const PAGINATE_SIZE = 4;
-    public function index() { 
-        $contactList = Contact::all();
-        $contactList = Contact::orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
-        return view('contact/all', ['contactList'=>$contactList], compact('contactList'));
+    public function index(Request $request) { 
+        $query = Contact::query();
+        // Filtrar por id del usuario (relación belongsTo)
+        if ($request->filled('user_id')) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('id', 'like', '%' . $request->user_id . '%');
+            });
+        }
+
+        // Filtrar por nombre del nombre del Contacto
+        if ($request->filled('contactName')) {
+            $query->where('name', 'like', '%' . $request->contactName . '%');
+        }
+        
+        // Filtrar por nombre del apellido del Contacto
+        if ($request->filled('contactSurname')) {
+            $query->where('surname', 'like', '%' . $request->contactSurname . '%');
+        }
+
+        // Filtrar por nombre del teléfono del Contacto
+        if ($request->filled('contactPhone')) {
+            $query->where('phone', 'like', '%' . $request->contactPhone . '%');
+        }
+
+        // Filtrar por nombre del país del Contacto
+        if ($request->filled('contactCountry')) {
+            $query->where('country', 'like', '%' . $request->contactCountry . '%');
+        }
+
+         // Obtener las recetas paginadas y ordenadas por ID ascendente
+         $contactList = $query->orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
+
+        return view('contact/all', compact('contactList'))
+            ->with([
+                'user_id' => $request->user_id,
+                'contactName' => $request->contactName,
+                'contactSurname' => $request->contactSurname,
+                'contactPhone' => $request->contactPhone,
+                'contactCountry' => $request->contactCountry,
+            ]);
     }
 
     public function create() { 
