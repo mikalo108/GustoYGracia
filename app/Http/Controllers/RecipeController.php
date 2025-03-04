@@ -14,10 +14,46 @@ use Illuminate\Support\Facades\Storage;
 class RecipeController extends Controller
 {
     private const PAGINATE_SIZE = 4;
-    public function index(){
-        $recipeList = Recipe::orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
-        return view('recipe/all', ['recipeList' => $recipeList], compact('recipeList'));
+    public function index(Request $request) {
+        $query = Recipe::query();
+    
+        // Filtrar por nombre de la receta
+        if ($request->filled('recipeName')) {
+            $query->where('name', 'like', '%' . $request->recipeName . '%');
+        }
+    
+        // Filtrar por descripción de la receta
+        if ($request->filled('recipeDescription')) {
+            $query->where('description', 'like', '%' . $request->recipeDescription . '%');
+        }
+    
+        // Filtrar por categoría (relación belongsToMany)
+        if ($request->filled('recipeCategory')) {
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->recipeCategory . '%');
+            });
+        }
+    
+        // Filtrar por usuario (relación belongsTo)
+        if ($request->filled('recipeUser')) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->recipeUser . '%');
+            });
+        }
+    
+        // Obtener las recetas paginadas y ordenadas por ID descendente
+        $recipeList = $query->orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
+    
+        // Retornar la vista con los filtros aplicados
+        return view('recipe/all', compact('recipeList'))
+            ->with([
+                'recipeName' => $request->recipeName,
+                'recipeDescription' => $request->recipeDescription,
+                'recipeCategory' => $request->recipeCategory,
+                'recipeUser' => $request->recipeUser
+            ]);
     }
+    
     public function create()
     {
         $ingredients = Ingredient::all();

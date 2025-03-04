@@ -106,7 +106,6 @@
 
             .search-form>#botonBuscar {
                 width: 65px;
-                grid-column: 1/3;
                 margin: 0;
             }
 
@@ -405,5 +404,32 @@
                 dropdown.style.display = 'none';
             }
         });
+
+        // Vaciar campos busquedas y redireccionar al index
+        const formBusqueda = document.getElementById("formBusqueda");
+        const vaciarCampos = document.getElementById("vaciarCampos");
+
+        vaciarCampos.addEventListener("click", ()=>{
+            window.location.href=formBusqueda.getAttribute("action");
+        })
+
+        formBusqueda.addEventListener("input", () => {            
+            let campos = formBusqueda.querySelectorAll("input[type='text']");
+            // Comprobar si todos los campos están vacíos
+            let todosVacios = true;
+            campos.forEach((campo) => {
+                if (campo.value.trim() !== "") {
+                    todosVacios = false;  // Si al menos un campo tiene contenido, no todos están vacíos
+                }
+            });
+
+            // Mostrar u ocultar el botón de vaciar campos basado en el estado de los campos
+            if (todosVacios) {
+                window.location.href=formBusqueda.getAttribute("action");
+            } else {
+                vaciarCampos.style.display = 'block';  // Mostrar el botón si hay al menos un campo con contenido
+            }
+        });
+
     });
 </script>

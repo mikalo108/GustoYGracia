@@ -9,6 +9,7 @@ return [
     'save_btn' => 'Guardar',
     'Add' => 'Añadir',
     'placeHolderSearch' => 'Escriba un nombre...',
+    'clearFields' => 'Vaciar campos',
     'Table' => 'Tabla',
     'TitleRecipeTable'     => 'Receta',
     'TitleRecipesTable'     => 'Recetas',
