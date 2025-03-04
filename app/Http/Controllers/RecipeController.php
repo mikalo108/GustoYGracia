@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Storage;
 class RecipeController extends Controller
 {
     private const PAGINATE_SIZE = 4;
+
     public function index()
     {
         $recipeList = Recipe::paginate(self::PAGINATE_SIZE);
         return view('recipe/all', ['recipeList' => $recipeList], compact('recipeList'));
     }
+
     public function create()
     {
         $ingredients = Ingredient::all();
@@ -26,7 +28,14 @@ class RecipeController extends Controller
         return view('recipe/form', ['ingredients' => $ingredients, 'categories' => $categories]);
     }
 
-    public function search(Request $request)
+    public function userCreate()
+    {
+        $ingredients = Ingredient::all();
+        $categories = Category::all();
+        return view('recipe.userForm', ['ingredients' => $ingredients, 'categories' => $categories]);
+    }
+
+    public function userSearch(Request $request)
     {
         $query = $request->input('query');
 
@@ -107,6 +116,54 @@ class RecipeController extends Controller
         return redirect()->route('recipe.index');
     }
 
+    public function userStore(Request $request, $userId)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|string|max:1000',
+            'user_id' => 'required|exists:users,id',
+            'instructions' => 'required|string|max:1000',
+            'prep_time' => 'required|integer',
+            'difficulty_level' => 'required|string|max:50',
+            'ingredients' => 'required|array',
+            'ingredients.*' => 'exists:ingredients,id',
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id',
+            'quantities' => 'required|array',
+            'quantities.*' => 'integer|min:1',
+        ]);
+
+        $imagePath = $request->file('image')->store('recipes', 'public');
+
+        $recipe = Recipe::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => 'recipes/' . basename($imagePath),
+            'user_id' => $request->user_id,
+            'instructions' => $request->instructions,
+        ]);
+
+        RecipeDetail::create([
+            'recipe_id' => $recipe->id,
+            'prep_time' => $request->prep_time,
+            'difficulty_level' => $request->difficulty_level,
+        ]);
+
+        foreach ($request->ingredients as $ingredientData) {
+            // Si el ingrediente existe en la base de datos, lo asociamos directamente
+            $ingredient = Ingredient::findOrCreate(['name' => $ingredientData['ingredient_id']]);
+
+            // Asociamos el ingrediente con la receta
+            $recipe->ingredients()->attach($ingredient->id, ['quantity' => $ingredientData['quantity']]);
+        }
+
+        // Asociar categorías
+        $recipe->categories()->sync($request->categories);
+
+        return redirect()->route('myRecipes', $userId);
+    }
+
     public function edit($id)
     {
         $recipe = Recipe::find($id);
@@ -179,6 +236,6 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::find($recipeId);
         $recipe->delete();
-        return redirect()->route('myrecipes', $userId);
+        return redirect()->route('myRecipes', $userId);
     }
 }

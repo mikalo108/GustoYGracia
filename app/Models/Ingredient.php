@@ -17,4 +17,9 @@ class Ingredient extends Model
             ->withPivot('quantity')
             ->withTimestamps();
     }
+
+    public static function findOrCreate($attributes)
+    {
+        return static::firstOrCreate($attributes);
+    }
 }

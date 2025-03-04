@@ -297,7 +297,7 @@
                 
                 <!-- Buscador -->
                 <div class="search-bar">
-                    <form action="{{ route('recipe.search') }}" method="GET">
+                    <form action="{{ route('recipe.userSearch') }}" method="GET">
                         <input type="text" name="query" placeholder="{{ __('messages.SearchRecipes') }}"
                             value="{{ request('query') }}">
                         <button type="submit" class="search-btn">
@@ -312,7 +312,7 @@
                         <button id="app-profile-btn">
                             <a href="#" class="profile-link">
                                 <span><img src="{{ asset('images/user-icon.png') }}" alt="Perfil"></span>
-                                <span>{{ Auth::user()->name }}</span>
+                                <span id="user-name">{{ Auth::user()->name }}</span>
 
                             </a>
                         </button>
