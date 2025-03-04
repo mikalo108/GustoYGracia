@@ -10,10 +10,31 @@ use App\Models\Recipe;
 class CommentController extends Controller
 {
     private const PAGINATE_SIZE = 4;
-    public function index() { 
-        $commentList = Comment::all();
-        $commentList = Comment::paginate(self::PAGINATE_SIZE);
-        return view('comment/all', ['commentList' => $commentList], compact('commentList'));
+    public function index(Request $request) { 
+
+        $query = Comment::query();
+        // Filtrar por id del usuario (relación belongsTo)
+        if ($request->filled('commentUserId')) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('id', 'like', '%' . $request->commentUserId . '%');
+            });
+        }
+
+        // Filtrar por id de la receta (relación belongsTo)
+        if ($request->filled('commentRecipeId')) {
+            $query->whereHas('recipe', function ($q) use ($request) {
+                $q->where('id', 'like', '%' . $request->commentRecipeId . '%');
+            });
+        }
+
+        // Obtener las recetas paginadas y ordenadas por ID ascendente
+        $commentList = $query->orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
+
+        return view('comment/all', compact('commentList'))
+            ->with([
+                'commentUserId' => $request->commentUserId,
+                'commentRecipeId' => $request->commentRecipeId,
+            ]);
     }
     
     public function create()
@@ -24,14 +45,12 @@ class CommentController extends Controller
     
     public function store(Request $r) { 
         $r->validate([
-            'user' => 'required|exists:users,id',  // El usuario debe ser un ID válido en la tabla 'users'
-            'recipe' => 'required|exists:recipes,id',  // La receta debe ser un ID válido en la tabla 'recipes'
-            'content' => 'required|string|max:1000',  // El contenido del comentario debe ser una cadena y no superar los 1000 caracteres
+            'content' => 'required|string|max:1000',
         ]);
 
         $c = new Comment();
-        $c->user_id = $r->user->id;
-        $c->recipe_id = $r->recipe->id;
+        $c->user_id = $r->user_id;
+        $c->recipe_id = $r->recipe_id;
         $c->content = $r->content;
         $c->save();
         return redirect()->route('comment.index');
@@ -63,9 +82,7 @@ class CommentController extends Controller
 
     public function update($id, Request $r) { 
         $r->validate([
-            'user' => 'required|exists:users,id',  // El usuario debe ser un ID válido en la tabla 'users'
-            'recipe' => 'required|exists:recipes,id',  // La receta debe ser un ID válido en la tabla 'recipes'
-            'content' => 'required|string|max:1000',  // El contenido del comentario debe ser una cadena y no superar los 1000 caracteres
+            'content' => 'required|string|max:1000',
         ]);
         
         $c = Comment::find($id);

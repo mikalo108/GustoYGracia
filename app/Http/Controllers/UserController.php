@@ -10,10 +10,41 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     private const PAGINATE_SIZE = 5;
-    public function index(){
-        $userList = User::all();
-        $userList = User::paginate(self::PAGINATE_SIZE);
-        return view('user/all', ['userList' => $userList], compact('userList'));
+    public function index(Request $request){
+        
+        $query = User::query();
+
+        // Filtrar por id del usuario
+        if ($request->filled('user_id')) {
+            $query->where('id', 'like', '%' . $request->user_id . '%');
+        }
+        // Filtrar por nombre del usuario
+        if ($request->filled('userName')) {
+            $query->where('name', 'like', '%' . $request->userName . '%');
+        }
+    
+        // Filtrar por email del usuario
+        if ($request->filled('userEmail')) {
+            $query->where('email', 'like', '%' . $request->userEmail . '%');
+        }
+
+        // Filtrar por nombre de contacto (relación belongsTo)
+        if ($request->filled('userContactName')) {
+            $query->whereHas('contact', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->userContactName . '%');
+            });
+        }
+
+         // Obtener las recetas paginadas y ordenadas por ID ascendente
+         $userList = $query->orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
+
+        return view('user/all', compact('userList'))
+            ->with([
+                'user_id' => $request->user_id,
+                'userName' => $request->userName,
+                'userEmail' => $request->userEmail,
+                'userContactName' => $request->userContactName,
+            ]);
     }
 
     public function show($id)
@@ -41,14 +72,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',  // El nombre debe ser obligatorio, una cadena y no más de 255 caracteres
-            'email' => 'required|email|unique:users,email',  // El correo debe ser obligatorio, válido y único en la base de datos
-            'password' => 'required|string|min:8',  // La contraseña es obligatoria y debe tener al menos 8 caracteres
-            'contactName' => 'nullable|string|max:255',  // El nombre del contacto es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactSurname' => 'nullable|string|max:255',  // El apellido del contacto es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactBio' => 'nullable|string|max:1000',  // La biografía es opcional, debe ser una cadena y no superar los 1000 caracteres
-            'contactPhone' => 'nullable|string|max:20',  // El teléfono es opcional, debe ser una cadena y no superar los 20 caracteres
-            'contactCountry' => 'nullable|string|max:255',  // El país es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactCity' => 'nullable|string|max:255',  // La ciudad es opcional, debe ser una cadena y no superar los 255 caracteres
+            'email' => 'required|email',
         ]);    
 
         // Crear el contacto primero (con los valores por defecto o nulos)
@@ -82,14 +106,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',  // El nombre debe ser obligatorio, una cadena y no más de 255 caracteres
-            'email' => 'required|email|unique:users,email',  // El correo debe ser obligatorio, válido y único en la base de datos
-            'password' => 'required|string|min:8',  // La contraseña es obligatoria y debe tener al menos 8 caracteres
-            'contactName' => 'nullable|string|max:255',  // El nombre del contacto es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactSurname' => 'nullable|string|max:255',  // El apellido del contacto es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactBio' => 'nullable|string|max:1000',  // La biografía es opcional, debe ser una cadena y no superar los 1000 caracteres
-            'contactPhone' => 'nullable|string|max:20',  // El teléfono es opcional, debe ser una cadena y no superar los 20 caracteres
-            'contactCountry' => 'nullable|string|max:255',  // El país es opcional, debe ser una cadena y no superar los 255 caracteres
-            'contactCity' => 'nullable|string|max:255',  // La ciudad es opcional, debe ser una cadena y no superar los 255 caracteres
+            'email' => 'required|email|unique:users,email',
         ]);
 
         $user = User::find($id);

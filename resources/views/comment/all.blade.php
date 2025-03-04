@@ -34,18 +34,26 @@
                             </div>
                         </div>
                         <div class="col-md mt-4">
-                            <form action="" method="post" class="search-form">
+                            <form action="{{ route('comment.index') }}" method="get" class="search-form" id="formBusqueda">
                                 @csrf
                                 <div>
-                                    <label for="commentUser" class="form-label"> {{ __("admin.TitleCommentTable") }} {{ __('columns.comment_1') }}</label>
-                                    <input id="commentUser" name="commentUser" class="form-control"
-                                    value="@isset($commentUser) {{ $commentUser }}@endisset"/>
+                                    <label for="commentUserId" class="form-label">{{ __('columns.comment_1') }} Id</label>
+                                    <input type="text" id="commentUserId" name="commentUserId" class="form-control"
+                                    value="@isset($commentUserId){{$commentUserId}}@endisset"/>
                                 </div>
                                 <div>
-                                    <label for="commentRecipe" class="form-label"> {{ __("admin.TitleCommentTable") }} {{ __('columns.comment_2') }}</label>
-                                    <input id="commentRecipe" name="commentRecipe" class="form-control" value="@isset($commentRecipe) {{ $commentRecipe }} @endisset"/>
+                                    <label for="commentRecipeId" class="form-label">{{ __('columns.comment_2') }} Id</label>
+                                    <input type="text" id="commentRecipeId" name="commentRecipeId" class="form-control" value="@isset($commentRecipeId){{$commentRecipeId}}@endisset"/>
                                 </div>
                                 <button type="submit" id="botonBuscar" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Search"></button>
+                                <input 
+                                    @if(isset($commentUserId)||isset($commentRecipeId))
+                                        style="visibility: visible;justify-self: right;"
+                                    @else 
+                                        style="visibility: hidden;justify-self: right;" 
+                                    @endif 
+                                    class="btn btn-danger" id="vaciarCampos" type="button" value="{{ __('admin.clearFields') }}"
+                                >
                             </form>
                         </div>
                         <hr>
@@ -58,8 +66,8 @@
                                 <table class="table table-striped align-items-center">
                                     <thead class="thead-light">
                                         <th>#</th>
-                                        <th>{{ __('columns.comment_1') }}</th>
-                                        <th>{{ __('columns.comment_2') }}</th>
+                                        <th>{{ __('columns.comment_1') }} Id</th>
+                                        <th>{{ __('columns.comment_2') }} Id</th>
                                         <th>{{ __('columns.comment_3') }}</th>
                                         <th>{{ __('columns.created_at') }}</th>
                                         <th>{{ __('columns.updated_at') }}</th>
@@ -69,8 +77,8 @@
                                         @foreach ($commentList as $comment)
                                             <tr class="filaTablaIndex" link="{{ route('comment.show', $comment->id) }}">
                                                 <td>{{ $comment->id }}</td>
-                                                <td> @isset($comment->user->name) {{ $comment->user->name }} @endisset</td>
-                                                <td> @isset($comment->recipe->name) {{ $comment->recipe->name }} @endisset</td>
+                                                <td> @isset($comment->user->id) {{ $comment->user->id }} @endisset</td>
+                                                <td> @isset($comment->recipe->id) {{ $comment->recipe->id }} @endisset</td>
                                                 <td class="descripcion">{{ $comment->content }}</td>
                                                 <td>{{ $comment->created_at }}</td>
                                                 <td>{{ $comment->updated_at }}</td>

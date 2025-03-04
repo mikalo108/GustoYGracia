@@ -10,15 +10,27 @@ use App\Models\Recipe;
 class CategoryController extends Controller
 {
     private const PAGINATE_SIZE = 5;
-    public function index()
+    public function index(Request $request)
     {
-        $categoryList = Category::all();  // Obtener todas las categorías
-        $categoryList = Category::paginate(self::PAGINATE_SIZE);
-        $recipeList = Recipe::all();  // Puedes aplicar filtros si necesitas alguna condición específica
-        return view('category/all', [
-            'categoryList' => $categoryList,
-            'recipesList' => $recipeList,
-        ], compact('categoryList'));
+        $query = Category::query();
+        // Filtrar por nombre de la categoría
+        if ($request->filled('categoryName')) {
+            $query->where('name', 'like', '%' . $request->categoryName . '%');
+        }
+    
+        // Filtrar por descripción de la categoría
+        if ($request->filled('categoryDescription')) {
+            $query->where('description', 'like', '%' . $request->categoryDescription . '%');
+        }
+
+         // Obtener las recetas paginadas y ordenadas por ID ascendente
+         $categoryList = $query->orderBy('id', 'asc')->paginate(self::PAGINATE_SIZE);
+
+        return view('category/all', compact('categoryList'))
+            ->with([
+                'categoryName' => $request->categoryName,
+                'categoryDescription' => $request->categoryDescription,
+            ]);
     }
 
     public function show($id)

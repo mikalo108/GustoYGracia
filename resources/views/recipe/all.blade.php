@@ -34,26 +34,34 @@
                             </div>
                         </div>
                         <div class="col-md mt-4">
-                            <form action="" method="post" class="search-form">
+                            <form action="{{ route('recipe.index') }}" method="get" class="search-form" id="formBusqueda">
                                 @csrf
                                 <div>
                                     <label for="recipeName" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_1') }}</label>
-                                    <input id="recipeName" name="recipeName" class="form-control"
+                                    <input type="text" id="recipeName" name="recipeName" class="form-control"
                                     value="@isset($recipeName) {{ $recipeName }}@endisset"/>
                                 </div>
                                 <div>
                                     <label for="recipeDescription" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_2') }}</label>
-                                    <input id="recipeDescription" name="recipeDescription" class="form-control" value="@isset($recipeDescription) {{ $recipeDescription }} @endisset"/>
+                                    <input type="text" id="recipeDescription" name="recipeDescription" class="form-control" value="@isset($recipeDescription){{$recipeDescription}}@endisset"/>
                                 </div>
                                 <div>
                                     <label for="recipeCategory" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_3') }}</label>
-                                    <input id="recipeCategory" name="recipeCategory" class="form-control" value="@isset($recipeCategory) {{ $recipeCategory }} @endisset"/>
+                                    <input type="text" id="recipeCategory" name="recipeCategory" class="form-control" value="@isset($recipeCategory){{$recipeCategory}}@endisset"/>
                                 </div>
                                 <div>
                                     <label for="recipeUser" class="form-label"> {{ __("admin.TitleRecipeTable") }} {{ __('columns.recipe_4') }}</label>
-                                    <input id="recipeUser" name="recipeUser" class="form-control" value="@isset($recipeUser) {{ $recipeUser }} @endisset"/>
+                                    <input type="text" id="recipeUser" name="recipeUser" class="form-control" value="@isset($recipeUser){{$recipeUser}}@endisset"/>
                                 </div>
                                 <button type="submit" id="botonBuscar" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Search"></button>
+                                <input 
+                                    @if(isset($recipeName)||isset($recipeDescription)||isset($recipeCategory)||isset($recipeUser))
+                                        style="visibility: visible;justify-self: right;"
+                                    @else 
+                                        style="visibility: hidden;justify-self: right;" 
+                                    @endif 
+                                    class="btn btn-danger" id="vaciarCampos" type="button" value="{{ __('admin.clearFields') }}"
+                                >
                             </form>
                         </div>
                         <hr>

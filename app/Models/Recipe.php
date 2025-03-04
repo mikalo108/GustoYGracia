@@ -13,6 +13,9 @@ class Recipe extends Model
     protected $fillable = ['name', 'description', 'user_id', 'instructions', 'image'];
 
 
+    /**
+     * Relación con ingredientes (muchos a muchos).
+     */
     public function ingredients()
     {
         return $this->belongsToMany(Ingredient::class, 'recipe_ingredients')
@@ -20,23 +23,36 @@ class Recipe extends Model
             ->withTimestamps();
     }
 
-    public function categories() 
+    /**
+     * Relación con categorías (muchos a muchos).
+     */
+    public function categories()
     {
         return $this->belongsToMany(Category::class, 'recipe_categories')
             ->withTimestamps();
     }
 
+    /**
+     * Relación con comentarios (uno a muchos).
+     */
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
+    /**
+     * Relación con detalles (uno a uno).
+     */
     public function details()
     {
-        return $this->hasOne(RecipeDetail::class); 
+        return $this->hasOne(RecipeDetail::class);
     }
 
-    public function user() {
+    /**
+     * Relación con el usuario (uno a muchos inverso).
+     */
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

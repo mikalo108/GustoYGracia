@@ -40,37 +40,37 @@
         <h1>Admin Home</h1>
         <hr>
         <div class="container">
-            <div class="card text-bg-ligth" link="/recipe">
+            <div class="card text-bg-ligth" link="{{ route('recipe.index') }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ __('admin.TitleRecipesTable') }}</h5>
                     <p class="card-text">{{ __('admin.DescriptionRecipeTable') }}</p>
                 </div>
             </div>
-            <div class="card text-bg-ligth" link="/category">
+            <div class="card text-bg-ligth" link="{{ route('category.index') }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ __('admin.TitleCategoriesTable') }}</h5>
                     <p class="card-text">{{ __('admin.DescriptionCategoryTable') }}</p>
                 </div>
             </div>
-            <div class="card text-bg-ligth" link="/ingredient">
+            <div class="card text-bg-ligth" link="{{ route('ingredient.index') }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ __('admin.TitleIngredientsTable') }}</h5>
                     <p class="card-text">{{ __('admin.DescriptionIngredientTable') }}</p>
                 </div>
             </div>
-            <div class="card text-bg-ligth" link="/user">
+            <div class="card text-bg-ligth" link="{{ route('user.index') }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ __('admin.TitleUsersTable') }}</h5>
                     <p class="card-text">{{ __('admin.DescriptionUserTable') }}</p>
                 </div>
             </div>
-            <div class="card text-bg-ligth" link="/contact">
+            <div class="card text-bg-ligth" link="{{ route('contact.index') }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ __('admin.TitleContactsTable') }}</h5>
                     <p class="card-text">{{ __('admin.DescriptionContactTable') }}</p>
                 </div>
             </div>
-            <div class="card text-bg-ligth" link="/comment">
+            <div class="card text-bg-ligth" link="{{ route('comment.index') }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ __('admin.TitleCommentsTable') }}</h5>
                     <p class="card-text">{{ __('admin.DescriptionCommentTable') }}</p>

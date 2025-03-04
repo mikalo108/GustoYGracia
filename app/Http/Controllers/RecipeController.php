@@ -14,13 +14,46 @@ use Illuminate\Support\Facades\Storage;
 class RecipeController extends Controller
 {
     private const PAGINATE_SIZE = 4;
-
-    public function index()
-    {
-        $recipeList = Recipe::paginate(self::PAGINATE_SIZE);
-        return view('recipe/all', ['recipeList' => $recipeList], compact('recipeList'));
+    public function index(Request $request) {
+        $query = Recipe::query();
+    
+        // Filtrar por nombre de la receta
+        if ($request->filled('recipeName')) {
+            $query->where('name', 'like', '%' . $request->recipeName . '%');
+        }
+    
+        // Filtrar por descripción de la receta
+        if ($request->filled('recipeDescription')) {
+            $query->where('description', 'like', '%' . $request->recipeDescription . '%');
+        }
+    
+        // Filtrar por categoría (relación belongsToMany)
+        if ($request->filled('recipeCategory')) {
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->recipeCategory . '%');
+            });
+        }
+    
+        // Filtrar por usuario (relación belongsTo)
+        if ($request->filled('recipeUser')) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->recipeUser . '%');
+            });
+        }
+    
+        // Obtener las recetas paginadas y ordenadas por ID descendente
+        $recipeList = $query->orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
+    
+        // Retornar la vista con los filtros aplicados
+        return view('recipe/all', compact('recipeList'))
+            ->with([
+                'recipeName' => $request->recipeName,
+                'recipeDescription' => $request->recipeDescription,
+                'recipeCategory' => $request->recipeCategory,
+                'recipeUser' => $request->recipeUser
+            ]);
     }
-
+    
     public function create()
     {
         $ingredients = Ingredient::all();
@@ -74,6 +107,7 @@ class RecipeController extends Controller
 
     public function store(Request $request)
     {
+        /*
         $request->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -88,23 +122,34 @@ class RecipeController extends Controller
             'categories.*' => 'exists:categories,id',
             'quantities' => 'required|array',
             'quantities.*' => 'integer|min:1',
-        ]);
+        ]);*/
 
-        $imagePath = $request->file('image')->store('recipes', 'public');
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imagePath = $request->file('image')->store('recipes', 'public');
+        } else {
+            // Manejar el caso en que la imagen no es válida o no se sube
+            return back()->withErrors(['image' => 'La imagen no es válida.']);
+        }
+        
+        
 
-        $recipe = Recipe::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'image' => 'recipes/' . basename($imagePath),
-            'user_id' => $request->user_id,
-            'instructions' => $request->instructions,
-        ]);
+        $image='recipes/' . basename($imagePath);
 
-        RecipeDetail::create([
-            'recipe_id' => $recipe->id,
-            'prep_time' => $request->prep_time,
-            'difficulty_level' => $request->difficulty_level,
-        ]);
+        $recipe = new Recipe();
+        $recipe->name = $request->input('name');
+        $recipe->image = $image;
+        $recipe->description = $request->input('description');
+        $recipe->user_id = $request->input('user_id');
+        $recipe->instructions = $request->input('instructions');
+        $recipe->save();
+
+        $recipeDetail = new RecipeDetail();
+        $recipeDetail->prep_time = $request->input('prep_time');
+        $recipeDetail->difficulty_level = $request->input('difficulty_level');
+        $recipeDetail->recipe_id = $recipe->id;
+        $recipeDetail->save();
+        
+
 
         $recipe->categories()->sync($request->categories);
         $ingredientsWithQuantities = [];
@@ -180,6 +225,7 @@ class RecipeController extends Controller
 
     public function update(Request $request, $id)
     {
+        /*
         $request->validate([
             'name' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -194,7 +240,7 @@ class RecipeController extends Controller
             'categories.*' => 'exists:categories,id',
             'quantities' => 'required|array',
             'quantities.*' => 'integer|min:1',
-        ]);
+        ]);*/
 
         $recipe = Recipe::findOrFail($id);
         $recipe->update([
