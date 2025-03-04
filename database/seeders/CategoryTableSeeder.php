@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class CategoryTableSeeder extends Seeder
 {
@@ -14,9 +15,24 @@ class CategoryTableSeeder extends Seeder
     {
         // Insertar categorías en la tabla 'categories'
         DB::table('categories')->insert([
-            ['name' => 'Appetizers', 'description' => 'Small dishes served before the main course.'],
-            ['name' => 'Main Courses', 'description' => 'The primary dishes of a meal.'],
-            ['name' => 'Desserts', 'description' => 'Sweet dishes served at the end of a meal.'],
+            [
+                'name' => 'Appetizers',
+                'description' => 'Small dishes served before the main course.',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'name' => 'Main Courses',
+                'description' => 'The primary dishes of a meal.',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'name' => 'Desserts',
+                'description' => 'Sweet dishes served at the end of a meal.',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
         ]);
 
         // Obtener los IDs de las categorías insertadas
