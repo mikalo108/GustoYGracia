@@ -45,7 +45,7 @@
                                     <input type="text" id="ingredientDescription" name="ingredientDescription" class="form-control" value="@isset($ingredientDescription){{$ingredientDescription}}@endisset"/>
                                 </div>
                                 <div>
-                                    <label for="ingredientCalories" class="form-label"> {{ __("admin.TitleIngredientTable") }} {{ __('columns.ingredient_2') }}</label>
+                                    <label for="ingredientCalories" class="form-label"> {{ __("admin.TitleIngredientTable") }} {{ __('columns.ingredient_3') }}</label>
                                     <input type="text" id="ingredientCalories" name="ingredientCalories" class="form-control" value="@isset($ingredientCalories){{$ingredientCalories}}@endisset"/>
                                 </div>
                                 <button type="submit" id="botonBuscar" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Search"></button>
