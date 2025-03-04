@@ -10,17 +10,17 @@ class IngredientController extends Controller
     private const PAGINATE_SIZE = 4;
     public function index(Request $request) { 
         $query = Ingredient::query();
-        // Filtrar por nombre de la categoría
+        // Filtrar por nombre del ingrediente
         if ($request->filled('ingredientName')) {
             $query->where('name', 'like', '%' . $request->ingredientName . '%');
         }
     
-        // Filtrar por descripción de la categoría
+        // Filtrar por descripción del ingrediente
         if ($request->filled('ingredientDescription')) {
             $query->where('description', 'like', '%' . $request->ingredientDescription . '%');
         }
 
-        // Filtrar por calorías de la categoría
+        // Filtrar por calorías del ingrediente
         if ($request->filled('ingredientCalories')) {
             $query->where('calories_per_100g', 'like', '%' . $request->ingredientCalories . '%');
         }

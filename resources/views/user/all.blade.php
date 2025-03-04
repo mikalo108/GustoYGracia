@@ -37,6 +37,10 @@
                             <form action="{{ route('user.index') }}" method="get" class="search-form" id="formBusqueda">
                                 @csrf
                                 <div>
+                                    <label for="user_id" class="form-label"> {{ __("admin.TitleUserTable") }} Id</label>
+                                    <input type="text" id="user_id" name="user_id" class="form-control" value="@isset($user_id){{$user_id}}@endisset"/>
+                                </div>
+                                <div>
                                     <label for="userName" class="form-label"> {{ __("admin.TitleUserTable") }} {{ __('columns.user_1') }}</label>
                                     <input type="text" id="userName" name="userName" class="form-control"
                                     value="@isset($userName){{$userName}}@endisset"/>
@@ -49,9 +53,10 @@
                                     <label for="userContactName" class="form-label"> {{ __("admin.TitleUserTable") }} {{ __('columns.user_5') }} {{ __('columns.user_1') }}</label>
                                     <input type="text" id="userContactName" name="userContactName" class="form-control" value="@isset($userContactName){{$userContactName}}@endisset"/>
                                 </div>
+                                
                                 <button type="submit" id="botonBuscar" class="btn btn-primary"><img width="20" src="{{ asset('images/lupa-icon-solid-white.svg') }}" alt="Search"></button>
                                 <input 
-                                    @if(isset($userName)||isset($userEmail)||isset($userContactName))
+                                    @if(isset($user_id)||isset($userName)||isset($userEmail)||isset($userContactName))
                                         style="visibility: visible;justify-self: right;"
                                     @else 
                                         style="visibility: hidden;justify-self: right;" 

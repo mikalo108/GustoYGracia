@@ -10,10 +10,41 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     private const PAGINATE_SIZE = 5;
-    public function index(){
-        $userList = User::all();
-        $userList = User::orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
-        return view('user/all', ['userList' => $userList], compact('userList'));
+    public function index(Request $request){
+        
+        $query = User::query();
+
+        // Filtrar por id del usuario
+        if ($request->filled('user_id')) {
+            $query->where('id', 'like', '%' . $request->user_id . '%');
+        }
+        // Filtrar por nombre del usuario
+        if ($request->filled('userName')) {
+            $query->where('name', 'like', '%' . $request->userName . '%');
+        }
+    
+        // Filtrar por email del usuario
+        if ($request->filled('userEmail')) {
+            $query->where('email', 'like', '%' . $request->userEmail . '%');
+        }
+
+        // Filtrar por nombre de contacto (relación belongsTo)
+        if ($request->filled('userContactName')) {
+            $query->whereHas('contact', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->userContactName . '%');
+            });
+        }
+
+         // Obtener las recetas paginadas y ordenadas por ID ascendente
+         $userList = $query->orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
+
+        return view('user/all', compact('userList'))
+            ->with([
+                'user_id' => $request->user_id,
+                'userName' => $request->userName,
+                'userEmail' => $request->userEmail,
+                'userContactName' => $request->userContactName,
+            ]);
     }
 
     public function show($id)
