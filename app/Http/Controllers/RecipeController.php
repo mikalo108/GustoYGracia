@@ -107,7 +107,6 @@ class RecipeController extends Controller
 
     public function store(Request $request)
     {
-        /*
         $request->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -122,7 +121,7 @@ class RecipeController extends Controller
             'categories.*' => 'exists:categories,id',
             'quantities' => 'required|array',
             'quantities.*' => 'integer|min:1',
-        ]);*/
+        ]);
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $imagePath = $request->file('image')->store('recipes', 'public');
