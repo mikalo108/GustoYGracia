@@ -412,35 +412,39 @@
         // Vaciar campos busquedas y redireccionar al index
         const formBusqueda = document.getElementById("formBusqueda");
         const vaciarCampos = document.getElementById("vaciarCampos");
+        if(vaciarCampos){
+            vaciarCampos.addEventListener("click", ()=>{
+                window.location.href=formBusqueda.getAttribute("action");
+            })
+        }
 
-        vaciarCampos.addEventListener("click", ()=>{
-            window.location.href=formBusqueda.getAttribute("action");
-        })
+        if(formBusqueda){
+            formBusqueda.addEventListener("input", () => {            
+                let campos = formBusqueda.querySelectorAll("input[type='text']");
+                // Comprobar si todos los campos están vacíos
+                let todosVacios = true;
+                campos.forEach((campo) => {
+                    if (campo.value.trim() !== "") {
+                        todosVacios = false;  // Si al menos un campo tiene contenido, no todos están vacíos
+                    }
+                });
 
-        formBusqueda.addEventListener("input", () => {            
-            let campos = formBusqueda.querySelectorAll("input[type='text']");
-            // Comprobar si todos los campos están vacíos
-            let todosVacios = true;
-            campos.forEach((campo) => {
-                if (campo.value.trim() !== "") {
-                    todosVacios = false;  // Si al menos un campo tiene contenido, no todos están vacíos
+                // Mostrar u ocultar el botón de vaciar campos basado en el estado de los campos
+                if (todosVacios) {
+                    window.location.href=formBusqueda.getAttribute("action");
+                } else {
+                    vaciarCampos.style.visibility = 'visible';  // Mostrar el botón si hay al menos un campo con contenido
                 }
             });
-
-            // Mostrar u ocultar el botón de vaciar campos basado en el estado de los campos
-            if (todosVacios) {
-                window.location.href=formBusqueda.getAttribute("action");
-            } else {
-                vaciarCampos.style.visibility = 'visible';  // Mostrar el botón si hay al menos un campo con contenido
-            }
-        });
+        }
 
         // Si los campos de búsqueda del index son impares, aplicamos un estilo.
-        let campos = formBusqueda.querySelectorAll("input[type='text']");
-        console.log(campos.length%=2);
-        if((campos.length%=2)==1){
-            let botonBuscar= document.getElementById("botonBuscar");
-            botonBuscar.style.gridColumn="1/1";
+        if(formBusqueda){
+            let campos = formBusqueda.querySelectorAll("input[type='text']");
+            if((campos.length%=2)==1){
+                let botonBuscar= document.getElementById("botonBuscar");
+                botonBuscar.style.gridColumn="1/1";
+            }
         }
 
     });

@@ -51,10 +51,7 @@
             <div class="create-recipe-form-group">
                 <label for="image">{{ __('messages.Image') }}</label>
                 <div class="custom-file-upload">
-                    <input type="file" id="image" name="image" class="form-control-file" accept="image/*"
-                        style="display: none;">
-                    <button type="button" id="custom-button">{{ __('messages.ChooseFile') }}</button>
-                    <span id="custom-text">{{ __('messages.NoFileChosen') }}</span>
+                    <input type="file" id="image" name="image" class="form-control-file" accept="image/*">
                 </div>
             </div>
 
