@@ -18,22 +18,22 @@ class ContactController extends Controller
             });
         }
 
-        // Filtrar por nombre del nombre del Contacto
+        // Filtrar por del nombre del Contacto
         if ($request->filled('contactName')) {
             $query->where('name', 'like', '%' . $request->contactName . '%');
         }
         
-        // Filtrar por nombre del apellido del Contacto
+        // Filtrar por del apellido del Contacto
         if ($request->filled('contactSurname')) {
             $query->where('surname', 'like', '%' . $request->contactSurname . '%');
         }
 
-        // Filtrar por nombre del teléfono del Contacto
+        // Filtrar por del teléfono del Contacto
         if ($request->filled('contactPhone')) {
             $query->where('phone', 'like', '%' . $request->contactPhone . '%');
         }
 
-        // Filtrar por nombre del país del Contacto
+        // Filtrar por del país del Contacto
         if ($request->filled('contactCountry')) {
             $query->where('country', 'like', '%' . $request->contactCountry . '%');
         }

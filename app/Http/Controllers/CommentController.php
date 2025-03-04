@@ -10,10 +10,31 @@ use App\Models\Recipe;
 class CommentController extends Controller
 {
     private const PAGINATE_SIZE = 4;
-    public function index() { 
-        $commentList = Comment::all();
-        $commentList = Comment::orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
-        return view('comment/all', ['commentList' => $commentList], compact('commentList'));
+    public function index(Request $request) { 
+
+        $query = Comment::query();
+        // Filtrar por id del usuario (relación belongsTo)
+        if ($request->filled('commentUserId')) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('id', 'like', '%' . $request->commentUserId . '%');
+            });
+        }
+
+        // Filtrar por id de la receta (relación belongsTo)
+        if ($request->filled('commentRecipeId')) {
+            $query->whereHas('recipe', function ($q) use ($request) {
+                $q->where('id', 'like', '%' . $request->commentRecipeId . '%');
+            });
+        }
+
+        // Obtener las recetas paginadas y ordenadas por ID ascendente
+        $commentList = $query->orderBy('id', 'desc')->paginate(self::PAGINATE_SIZE);
+
+        return view('comment/all', compact('commentList'))
+            ->with([
+                'commentUserId' => $request->commentUserId,
+                'commentRecipeId' => $request->commentRecipeId,
+            ]);
     }
     
     public function create()

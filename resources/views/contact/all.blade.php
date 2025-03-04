@@ -37,7 +37,7 @@
                             <form action="{{ route('contact.index') }}" method="get" class="search-form" id="formBusqueda">
                                 @csrf
                                 <div>
-                                    <label for="user_id" class="form-label"> {{ __("admin.TitleContactTable") }} Id</label>
+                                    <label for="user_id" class="form-label"> {{ __("admin.TitleUserTable") }} Id</label>
                                     <input type="text" id="user_id" name="user_id" class="form-control" value="@isset($user_id){{$user_id}}@endisset"/>
                                 </div>
                                 <div>
