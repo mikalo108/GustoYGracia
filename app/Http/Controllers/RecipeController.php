@@ -50,7 +50,7 @@ class RecipeController extends Controller
 
     public function show($id)
     {
-        $recipe = Recipe::find($id);
+        $recipe = Recipe::with('ingredients')->findOrFail($id);
         $ingredients = Ingredient::all();
         $categories = Category::all();
         $comments = Comment::all();

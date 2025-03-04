@@ -104,7 +104,7 @@
                     </div>
                 @endforeach
             </div>
-            <h2>{{ __('messages.ExploreRecipes') }}</h2>
+            <h2>{{ __('messages.DiscoverRecipes') }}</h2>
             <div class="recipe-list">
                 @foreach ($recipeListRandom as $recipe)
                     <div class="card recipe-item" link="{{ route('recipe.show', $recipe->id) }}">

@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@php
+    if (Session::has('locale')) {
+        App::setLocale(Session::get('locale'));
+    } else {
+        App::setLocale(config('app.locale'));
+    }
+@endphp
+
+@section('title', __('messages.CreateRecipe') . ' | Gusto&Gracia')
+
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -13,21 +23,20 @@
 
     <div class="create-recipe-container">
         <br>
-        <h1>{{ __('Crear nueva receta') }}</h1>
+        <h1>{{ __('messages.CreateNewRecipe') }}</h1>
         <br><br>
         <form id="create-recipe-form" action="{{ route('recipe.userStore', Auth::user()->id) }}" method="POST"
             enctype="multipart/form-data">
             @csrf
             <div class="create-recipe-form-group">
-                <label for="name">Nombre de la receta</label>
-                <input type="text" id="name" name="name" class="create-recipe-form-control"
-                    placeholder="Ingresa el nombre de la receta" required>
+                <label for="name">{{ __('messages.Name') }}</label>
+                <input type="text" id="name" name="name" class="create-recipe-form-control" required>
             </div>
 
             <div class="create-recipe-form-group">
-                <label for="category_id">Categoría</label>
+                <label for="category_id">{{ __('messages.Category') }}</label>
                 <select id="category_id" name="category_id" class="create-recipe-form-control" required>
-                    <option value="" disabled selected>Selecciona una categoría</option>
+                    <option value="" disabled selected></option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
@@ -35,51 +44,48 @@
             </div>
 
             <div class="create-recipe-form-group">
-                <label for="description">Descripción</label>
-                <textarea id="description" name="description" class="create-recipe-form-control" rows="5"
-                    placeholder="Describe los pasos para hacer esta receta" required></textarea>
+                <label for="description">{{ __('messages.Description') }}</label>
+                <textarea id="description" name="description" class="create-recipe-form-control" rows="5" required></textarea>
             </div>
 
             <div class="create-recipe-form-group">
-                <label for="image">Imagen</label>
+                <label for="image">{{ __('messages.Image') }}</label>
                 <input type="file" id="image" name="image" class="form-control-file" accept="image/*">
             </div>
 
             <div class="create-recipe-form-group">
-                <label for="instructions">Instrucciones</label>
-                <textarea id="instructions" name="instructions" class="create-recipe-form-control" rows="5"
-                    placeholder="Explica cómo preparar la receta paso a paso" required></textarea>
+                <label for="instructions">{{ __('messages.Instructions') }}</label>
+                <textarea id="instructions" name="instructions" class="create-recipe-form-control" rows="5" required></textarea>
             </div>
 
             <div class="create-recipe-form-group">
-                <label for="difficulty_level">Dificultad</label>
+                <label for="difficulty_level">{{ __('messages.Difficulty') }}</label>
                 <select id="difficulty_level" name="difficulty_level" class="create-recipe-form-control" required>
-                    <option value="baja">Baja</option>
-                    <option value="media">Media</option>
-                    <option value="alta">Alta</option>
+                    <option value="baja">{{ __('messages.Low') }}</option>
+                    <option value="media">{{ __('messages.Medium') }}</option>
+                    <option value="alta">{{ __('messages.High') }}</option>
                 </select>
             </div>
 
             <div class="create-recipe-form-group">
-                <label for="prep_time">Tiempo de preparación (en minutos)</label>
-                <input type="number" id="prep_time" name="prep_time" class="create-recipe-form-control"
-                    placeholder="Tiempo de preparación" required>
+                <label for="prep_time">{{ __('messages.PrepTime') }}</label>
+                <input type="number" id="prep_time" name="prep_time" class="create-recipe-form-control" required>
             </div>
 
             <!-- Ingredientes -->
             <div class="create-recipe-form-group" id="ingredients-container">
-                <label>Ingredientes</label>
-                <button type="button" id="add-ingredient">➕ Añadir</button>
+                <label>{{ __('messages.Ingredients') }}</label>
+                <button type="button" id="add-ingredient">➕ {{ __('messages.Add') }}</button>
                 <div class="ingredient-row">
                     <input type="text" name="ingredients[0][name]" class="ingredients-form-control"
-                        placeholder="Nombre del ingrediente" required>
+                        placeholder={{ __('messages.Name') }} required>
                     <input type="text" name="ingredients[0][quantity]" class="ingredients-form-control"
-                        placeholder="Cantidad" required>
+                        placeholder={{ __('messages.Quantity') }} required>
                 </div>
             </div>
 
             <div class="create-recipe-form-group">
-                <button type="submit" id="edit-btn">Crear Receta</button>
+                <button type="submit" id="edit-btn">{{ __('messages.CreateRecipe') }}</button>
             </div>
         </form>
     </div>
