@@ -47,6 +47,8 @@ return [
     'High' => 'High',
     'Add' => 'Add',
     'Quantity' => 'Quantity',
+    'ChooseFile' => 'Choose file',
+    'NoFileChosen' => 'No file chosen',
     
     'User' => 'User',
     'NewPassword' => 'New password',

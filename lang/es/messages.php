@@ -47,6 +47,8 @@ return [
     'High' => 'Alta',
     'Add' => 'Añadir',
     'Quantity' => 'Cantidad',
+    'ChooseFile' => 'Seleccionar archivo',
+    'NoFileChosen' => 'Sin archivo seleccionado',
 
     'User' => 'Usuario',
     'NewPassword' => 'Nueva contraseña',
