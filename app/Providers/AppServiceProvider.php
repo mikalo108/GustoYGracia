@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Category;
@@ -22,11 +23,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $categoryList = Category::all();
-        $recipeListLatest = Recipe::orderBy('id', 'desc')->take(3)->get();
-        $recipeListRandom = Recipe::inRandomOrder()->take(3)->get();
-        View::share('categoryList', $categoryList);
-        View::share('recipeListLatest', $recipeListLatest);
-        View::share('recipeListRandom', $recipeListRandom);
+        // Verifica si la tabla 'categories' existe antes de consultarla
+        if (Schema::hasTable('categories')) {
+            $categoryList = Category::all();
+            View::share('categoryList', $categoryList);
+        }
+
+        // Verifica si la tabla 'recipes' existe antes de consultarla
+        if (Schema::hasTable('recipes')) {
+            $recipeListLatest = Recipe::orderBy('id', 'desc')->take(3)->get();
+            $recipeListRandom = Recipe::inRandomOrder()->take(3)->get();
+
+            View::share('recipeListLatest', $recipeListLatest);
+            View::share('recipeListRandom', $recipeListRandom);
+        }
     }
 }
